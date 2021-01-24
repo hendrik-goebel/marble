@@ -1,0 +1,47 @@
+/* Empty. Add your own CSS if you like */
+body {
+  background-color: #303030;
+  color: #dad7cd;
+  height: 100%;
+}
+
+.fill{
+  width:100%;
+  height:100%;
+  min-height:100%;
+  background-color:#344e41;
+  padding:10px;
+}
+
+#ui {
+  max-width: 230px;
+}
+
+.ui-row {
+  margin-bottom: 5px;
+}
+
+.container {
+  height:100%;
+  margin-top: 25px;
+}
+#main-canvas {
+  background-color: #3a5a40;
+  width: 100%;
+}
+
+.form-check-input:checked {
+  background-color: #a3b18a;
+  border-color: #a3b18a;
+}
+
+.form-check-input:focus {
+  border-color: inherit;
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-select {
+  background-color: #a3b18a;
+  color: #303030;
+}

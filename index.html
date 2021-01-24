@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title>The Marbleous Rhythm Machine</title>
+
+  <script src="js/vendor/vue.min.js"></script>
+  <script src="js/vendor/easeljs.min.js"></script>
+  <script src="js/vendor/soundjs-0.6.2.min.js"></script>
+  <script src="js/vendor/wad.min.js"></script>
+
+  <script src="js/marble/ui.js"></script>
+  <script src="js/marble/helper.js"></script>
+  <script src="js/marble/app.js"></script>
+  <script src="js/marble/colision.js"></script>
+  <script src="js/marble/factories.js"></script>
+  <script src="js/marble/tick.js"></script>
+  <script src="js/marble/interaction.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="marble();">
+<div class="container">
+  <div class="fill">
+    <div class="row">
+      <div class="col-3">
+        <div class="p-3">
+          <div id="ui">
+            <h4>The <br>Marbleous <br>Rhythm <br>Machine</h4>
+            <div class="ui-row">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="click" value="1" v-model="click">
+                <label class="form-check-label" for="click">Metronome</label>
+              </div>
+            </div>
+            <div class="ui-row">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="quantisation" value="1" v-model="quantisation">
+                <label class="form-check-label" for="quantisation">Quantisation</label>
+              </div>
+            </div>
+            <div class="ui-row">
+              <select class="form-select" v-model="soundBar">
+                <option v-for="sound in sounds" v-bind:value="sound.key">
+                  {{ sound.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 ">
+        <canvas id="main-canvas" ></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

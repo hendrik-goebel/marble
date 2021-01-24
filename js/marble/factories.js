@@ -51,8 +51,7 @@ function Ball(dropper) {
   this.radius = dropper.ballRadius;
   this.active = false;
   this.dropper = dropper;
-}
-;
+};
 Ball.prototype = {
   move: function () {
     if (this.active) {

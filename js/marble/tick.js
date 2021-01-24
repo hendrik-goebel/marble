@@ -8,7 +8,6 @@ function tick() {
   var is8 = true;
   var is16 = true;
 
-
   var tickAudio = function () {
 
     ticker++;
@@ -28,7 +27,6 @@ function tick() {
       m$.dropBalls();
     }
 
-
     if (m$.config.global.quantizationTime == 4 && is4) {
       playSoundInTime();
     }
@@ -41,12 +39,10 @@ function tick() {
       m$.playSoundInTime();
     }
 
-
     if (m$.settings.global.click && is4) {
       m$.playSound("click")
     }
   };
-
 
   var tickVideo = function () {
 
@@ -86,7 +82,6 @@ function tick() {
       tickFunction();
       window.setTimeout(instance, (timeGrid - diff));
     }
-
     window.setTimeout(instance, timeGrid);
   };
   var videoClock = new Clock(1000 / m$.config.global.fps, tickVideo);

@@ -1,10 +1,8 @@
 function showUi(m$) {
 
-
   var ui = new Vue({
     el: '#ui',
     data: {
-
       click: m$.settings.global.click,
       quantisation: m$.settings.global.quantisation,
       bpm: m$.config.global.bpm,
@@ -27,7 +25,6 @@ function showUi(m$) {
         {key: 'perc-laser', name: 'Laser'},
         {key: 'kick-808', name: 'Kick 808'},
         {key: 'kick-classic', name: 'Kick Classic'},
-
       ]
     },
     watch: {

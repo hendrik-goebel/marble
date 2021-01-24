@@ -1,5 +1,5 @@
 /**
- * Will be called from the bar Object klick handler
+ * Will be called from the bar Object click handler
  * Its maybe a good idea to refactor the interaction method
  * and move the interaction handling to the objects
  *
@@ -11,12 +11,10 @@ function DeleteBar(key) {
 }
 
 function selectBar(key) {
-
   m$.selectedBar  = key;
 }
 
 function interaction() {
-
   var initialOffset = 12;
 
   /**
@@ -33,9 +31,7 @@ function interaction() {
     if (isItem) {
       m$.settings.editMode2 = 'move'
       initmove(evt.stageX, evt.stageY);
-
     } else {
-
       switch (editMode) {
         case 'draw':
           addItem(evt.stageX, evt.stageY);
@@ -62,7 +58,6 @@ function interaction() {
   });
 
   stage.on("stagemousemove", function (evt) {
-
     if (m$.actItemType == 'bar' && m$.settings.editMode2 == 'draw') {
       var width = evt.stageX - m$.actItem.x;
       var height = evt.stageY - m$.actItem.y;
@@ -74,11 +69,8 @@ function interaction() {
         height = 10
       }
 
-
       m$.actItem.width = width;
       m$.actItem.height = height;
-
-
     }
     if (m$.settings.editMode2 == 'move') {
       moveItem(evt.stageX, evt.stageY);
@@ -90,7 +82,6 @@ function interaction() {
    * Actions
    *
    */
-
   function initmove(x, y) {
     if (m$.actItemType == 'bar') {
       m$.actItemOffset = x - m$.actItem.x
@@ -171,5 +162,3 @@ function interaction() {
     }
   }
 }
-
-

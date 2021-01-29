@@ -10,30 +10,30 @@ function marble(scope, element, attribute) {
     stage.canvas.width = window.innerWidth;
     stage.canvas.height = 800;
   }
+
   resize();
+
   /**
    * Audio Setup
    *
    */
-  createjs.Sound.registerSound("samples/hihat-plain.wav", "hihat-plain");
-  createjs.Sound.registerSound("samples/kick-classic.wav", "kick-classic");
-  createjs.Sound.registerSound("samples/kick-808.wav", "kick-808");
-  createjs.Sound.registerSound("samples/perc-laser.wav", "perc-laser");
-  createjs.Sound.registerSound("samples/clap-analog.wav", "clap-analog");
-  createjs.Sound.registerSound("samples/cowbell-808.wav", "cowbell-808");
-  createjs.Sound.registerSound("samples/perc-short.wav", "perc-short");
-  createjs.Sound.registerSound("samples/shaker-analog.wav", "shaker-analog");
-  createjs.Sound.registerSound("samples/perc-tribal.wav", "perc-tribal");
-  createjs.Sound.registerSound("samples/perc-weirdo.wav", "perc-weirdo");
-  createjs.Sound.registerSound("samples/shaker-suckup.wav", "shaker-suckup");
-  createjs.Sound.registerSound("samples/snare-electro.wav", "snare-electro");
-  createjs.Sound.registerSound("samples/tom-808.wav", "tom-808");
-  createjs.Sound.registerSound("samples/tom-short.wav", "tom-short");
+
+
+  var soundTable = {
+    'click': {'name': 'Closedhat19', 'active': true, 'source': '', panning: 0},
+    'wall': {'name': 'wall', 'active': false, 'source': '', panning: 0},
+    'bar': {'name':  sounds[0][1], 'active': false, 'source': '', panning: 0}
+  }
+  sounds.forEach(function (sound) {
+    createjs.Sound.registerSound(sound[0], sound[1]);
+    soundTable[sound[1]] = {'name': sound[1], 'active': false, 'source': '', panning: 0}
+  })
 
   /**
    * Application Setup
    */
   m$ = {
+    sounds: sounds,
     'selectedBar': 0,
     settings: {
       'global': {
@@ -104,11 +104,7 @@ function marble(scope, element, attribute) {
     },
     // Audio
     audioEventBuffer: [],
-    soundTable: {
-      'click': {'name': 'hihat-plain', 'active': true, 'source': '', panning: 0},
-      'wall': {'name': 'wall', 'active': false, 'source': '', panning: 0},
-      'bar': {'name': 'shaker-analog', 'active': false, 'source': '', panning: 0}
-    },
+    soundTable: soundTable,
 
     playSound: function (sound) {
       if (m$.settings.global.audio) {

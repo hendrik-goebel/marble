@@ -45,3 +45,20 @@ body {
   background-color: #a3b18a;
   color: #303030;
 }
+
+.info {
+  font-size: 18px;
+  border-radius: 25px;
+  margin-top: 10px;
+  background: #3a5a40;
+  width: 34px;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+.info a {
+  text-decoration: none;
+}
+
+
+

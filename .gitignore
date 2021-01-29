@@ -1,2 +1,4 @@
 *.wav
 .idea
+samples
+js/marble/soundtable.js

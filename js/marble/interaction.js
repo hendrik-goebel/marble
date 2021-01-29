@@ -144,7 +144,8 @@ function interaction() {
     if (m$.actItem === false) {
       switch (m$.settings.edit.tool) {
         case 'bar':
-          m$.bars.push(new Bar(x, y, 5));
+          var sound = JSON.parse(JSON.stringify(m$.soundTable.bar));
+          m$.bars.push(new Bar(x, y, 5,m$.config.bar.height, m$.config.bar.color, sound));
           m$.actItem = m$.bars[m$.bars.length - 1];
           m$.actItemType = 'bar';
           break;

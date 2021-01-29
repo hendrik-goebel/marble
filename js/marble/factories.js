@@ -132,7 +132,7 @@ Ball.prototype = {
         if (colision !== false) {
           if (!m$.colided.bar) {
             m$.colided.bar = true;
-            m$.playSound('bar');
+            m$.playSound(bar.sound.name);
           }
         } else {
           m$.colided.bar = false;
@@ -142,12 +142,13 @@ Ball.prototype = {
   }
 };
 
-function Bar(x, y, width, height, color) {
+function Bar(x, y, width, height, color, sound) {
   this.x = assign(x, m$.config.bar.x);
   this.y = assign(y, m$.config.bar.y);
   this.width = assign(width, m$.config.bar.width);
   this.height = assign(height, m$.config.bar.height);
   this.color = assign(color, m$.config.bar.color);
+  this.sound = sound
   this.colorSelected = assign(color, m$.config.bar.colorSelected);
   this.isSelected = false;
 }

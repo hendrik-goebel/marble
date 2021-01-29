@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-  <title>The Marbleous Rhythm Machine</title>
+  <title>The Marbleous Beat Machine</title>
 
   <script src="js/vendor/vue.min.js"></script>
   <script src="js/vendor/easeljs.min.js"></script>
   <script src="js/vendor/soundjs-0.6.2.min.js"></script>
   <script src="js/vendor/wad.min.js"></script>
 
+  <script src="js/marble/soundtable.js"></script>
   <script src="js/marble/ui.js"></script>
   <script src="js/marble/helper.js"></script>
   <script src="js/marble/app.js"></script>
@@ -25,7 +26,7 @@
 <div class="container">
   <div class="fill">
     <div class="row">
-      <div class="col-3">
+      <div class="col-12 col-md-4">
         <div class="p-3">
           <div id="ui">
             <h4>The <br>Marbleous <br>Rhythm <br>Machine</h4>
@@ -43,15 +44,18 @@
             </div>
             <div class="ui-row">
               <select class="form-select" v-model="soundBar">
-                <option v-for="sound in sounds" v-bind:value="sound.key">
-                  {{ sound.name }}
+                <option v-for="sound in sounds" v-bind:value="sound[1]">
+                  {{ sound[1] }}
                 </option>
               </select>
+            </div>
+            <div class="info" @click="toggleHelp()">
+              <a target="_blank" href="https://github.com/hg2000/marble"><span>&#10068;</span></a>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-8 ">
+      <div class="col-12 col-md-8">
         <canvas id="main-canvas" ></canvas>
       </div>
     </div>

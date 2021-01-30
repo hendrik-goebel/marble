@@ -13,12 +13,15 @@ body {
   padding:10px;
 }
 
+h4 {
+  margin-bottom: 15px;
+}
 #ui {
   max-width: 230px;
 }
 
 .ui-row {
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .container {
@@ -47,13 +50,15 @@ body {
 }
 
 .info {
-  font-size: 15px;
+  font-size: 13px;
   border-radius: 25px;
   margin-top: 30px;
   background: #3a5a40;
-  width: 31px;
-  padding: 3px 5px;
+  width: 29px;
+  padding: 5px 6px;
   cursor: pointer;
+  position: absolute;
+  margin-bottom: 15px;
 }
 
 .info a {

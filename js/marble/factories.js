@@ -149,8 +149,8 @@ function Bar(x, y, width, height, color, sound) {
   this.height = assign(height, m$.config.bar.height);
   this.color = assign(color, m$.config.bar.color);
   this.sound = sound
-  this.colorSelected = assign(color, m$.config.bar.colorSelected);
-  this.isSelected = false;
+  this.colorSelected =  m$.config.bar.colorSelected;
+  this.isSelected = true;
 }
 
 Bar.prototype = {

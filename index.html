@@ -12,8 +12,8 @@
 
   <script src="js/marble/soundtable.js"></script>
   <script src="js/marble/ui.js"></script>
-  <script src="js/marble/helper.js"></script>
   <script src="js/marble/app.js"></script>
+  <script src="js/marble/helper.js"></script>
   <script src="js/marble/colision.js"></script>
   <script src="js/marble/factories.js"></script>
   <script src="js/marble/tick.js"></script>
@@ -24,7 +24,9 @@
 </head>
 <body onload="marble();">
 <div class="container">
+  <div id="app">
   <div class="fill">
+
     <div class="row">
       <div class="col-12 col-md-4">
         <div class="p-3">
@@ -49,9 +51,7 @@
                 </option>
               </select>
             </div>
-            <div class="info" @click="toggleHelp()">
-              <a target="_blank" href="https://github.com/hg2000/marble"><span>&#10068;</span></a>
-            </div>
+
           </div>
         </div>
       </div>
@@ -59,6 +59,10 @@
         <canvas id="main-canvas" ></canvas>
       </div>
     </div>
+    <div class="info" @click="toggleHelp()">
+      <a target="_blank" href="https://github.com/hg2000/marble"><span>&#10068;</span></a>
+    </div>
+  </div>
   </div>
 </div>
 

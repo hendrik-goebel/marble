@@ -23,18 +23,14 @@ function showUi(m$) {
       bpm: function (v) {
         m$.config['global']['bpm'] = v;
       },
-      soundBar: function (v) {
-        m$.soundTable['bar'].name = v
+      soundBar: function (sound) {
+        m$.soundTable['bar'].name = sound
+        m$.bars[this.selectedBar].sound.name = sound
       },
-
-    },
-
-    methods: {
-      toggleHelp() {
-       this.showHelp = !this.showHelp;
-      }
     },
   })
+
+  return ui;
 }
 
 

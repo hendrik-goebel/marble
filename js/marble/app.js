@@ -17,8 +17,6 @@ function marble(scope, element, attribute) {
    * Audio Setup
    *
    */
-
-
   var soundTable = {
     'click': {'name': 'Closedhat19', 'active': true, 'source': '', panning: 0},
     'wall': {'name': 'wall', 'active': false, 'source': '', panning: 0},
@@ -28,6 +26,8 @@ function marble(scope, element, attribute) {
     createjs.Sound.registerSound(sound[0], sound[1]);
     soundTable[sound[1]] = {'name': sound[1], 'active': false, 'source': '', panning: 0}
   })
+
+  sounds.push(["Silent", "Silent"])
 
   /**
    * Application Setup
@@ -79,7 +79,7 @@ function marble(scope, element, attribute) {
         'width': 540,
         'height': 50,
         'color': '#a3b18a',
-        'colorSelected': '#a3b18a'
+        'colorSelected': '#dad7cd'
       }
     },
     // Visuals
@@ -107,6 +107,9 @@ function marble(scope, element, attribute) {
     soundTable: soundTable,
 
     playSound: function (sound) {
+      if (m$.soundTable[sound] == undefined) {
+        return 0;
+      }
       if (m$.settings.global.audio) {
         if (m$.settings.global.quantisation) {
           m$.soundTable[sound].active = true;
@@ -116,7 +119,9 @@ function marble(scope, element, attribute) {
       }
     },
     playSoundInTime: function () {
+
       if (m$.settings.global.audio) {
+
         var key;
         for (key in m$.soundTable) {
           if (m$.soundTable[key].active) {
@@ -138,6 +143,6 @@ function marble(scope, element, attribute) {
   m$.droppers.push(new Dropper());
   interaction();
   tick();
-  showUi(m$);
+  m$.ui = showUi(m$);
 }
 

@@ -12,6 +12,11 @@ function DeleteBar(key) {
 
 function selectBar(key) {
   m$.selectedBar  = key;
+
+  let bar = m$.bars[key]
+  m$.ui.selectedBar =  m$.selectedBar;
+  m$.ui.soundBar =  bar.sound.name;
+  m$.ui.$forceUpdate();
 }
 
 function interaction() {
@@ -35,6 +40,8 @@ function interaction() {
       switch (editMode) {
         case 'draw':
           addItem(evt.stageX, evt.stageY);
+          let lastBar = m$.bars [ m$.bars.length - 1]
+          selectBar(m$.bars.indexOf(lastBar))
           break;
         case 'delete':
           deleteItem(evt.StageX, evt.stageY);

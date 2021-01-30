@@ -141,6 +141,7 @@ function marble(scope, element, attribute) {
    * run!
    */
   m$.droppers.push(new Dropper());
+  m$.settings.editMode2 = 'draw';
   interaction();
   tick();
   m$.ui = showUi(m$);

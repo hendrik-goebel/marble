@@ -28,6 +28,11 @@ function showUi(m$) {
         m$.bars[this.selectedBar].sound.name = sound
       },
     },
+    methods: {
+      deleteBar: function(){
+        deleteBar(this.selectedBar)
+      }
+    }
   })
 
   return ui;

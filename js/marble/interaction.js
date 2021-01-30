@@ -6,16 +6,26 @@
  * @param key
  * @constructor
  */
-function DeleteBar(key) {
+function deleteBar(key) {
   m$.bars.splice(key, 1);
+  selectLastBar()
+}
+
+function selectLastBar() {
+
+  if (m$.bars.length == 0) {
+    return 0;
+  }
+
+  let lastBar = m$.bars [m$.bars.length - 1]
+  selectBar(m$.bars.indexOf(lastBar))
 }
 
 function selectBar(key) {
-  m$.selectedBar  = key;
-
+  m$.selectedBar = key;
   let bar = m$.bars[key]
-  m$.ui.selectedBar =  m$.selectedBar;
-  m$.ui.soundBar =  bar.sound.name;
+  m$.ui.selectedBar = m$.selectedBar;
+  m$.ui.soundBar = bar.sound.name;
   m$.ui.$forceUpdate();
 }
 
@@ -40,11 +50,13 @@ function interaction() {
       switch (editMode) {
         case 'draw':
           addItem(evt.stageX, evt.stageY);
-          let lastBar = m$.bars [ m$.bars.length - 1]
+          let lastBar = m$.bars [m$.bars.length - 1]
           selectBar(m$.bars.indexOf(lastBar))
           break;
         case 'delete':
-          deleteItem(evt.StageX, evt.stageY);
+          deleteItem();
+          m$.settings.editMode2 = 'draw';
+
           break;
         case 'move':
           initmove(evt.stageX, evt.stageY);
@@ -98,6 +110,7 @@ function interaction() {
   function moveItem(x, y) {
     m$.actItem.x = x - m$.actItemOffset;
     m$.actItem.y = y;
+
   }
 
   /**
@@ -152,7 +165,7 @@ function interaction() {
       switch (m$.settings.edit.tool) {
         case 'bar':
           var sound = JSON.parse(JSON.stringify(m$.soundTable.bar));
-          m$.bars.push(new Bar(x, y, 5,m$.config.bar.height, m$.config.bar.color, sound));
+          m$.bars.push(new Bar(x, y, 5, m$.config.bar.height, m$.config.bar.color, sound));
           m$.actItem = m$.bars[m$.bars.length - 1];
           m$.actItemType = 'bar';
           break;
@@ -160,7 +173,7 @@ function interaction() {
     }
   }
 
-  function deleteItem(x, y) {
+  function deleteItem() {
     if (m$.actItem !== false) {
       switch (m$.actItemType) {
         case 'bar':

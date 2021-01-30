@@ -172,7 +172,7 @@ Bar.prototype = {
     } );
 
     rect.addEventListener( 'dblclick', function( event ){
-      DeleteBar(key)
+      deleteBar(key)
     } );
   }
 };

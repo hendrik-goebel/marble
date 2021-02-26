@@ -18,4 +18,4 @@ deploy:
   script:
     - tar -cvzf artifatcs.tar.gz css js
     - rsync -r artifatcs.tar.gz $SSH_LOGIN:$REMOTE_PATH/test/
-    - ssh $SSH_LOGIN "tar -xvzf $REMOTE_PATH/test/artifacts.tar.gz"
+    - ssh $SSH_LOGIN tar -xvzf $REMOTE_PATH/test/artifacts.tar.gz

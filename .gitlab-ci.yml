@@ -16,8 +16,5 @@ stages:
 
 deploy:
   stage: deploy
-  artifacts:
-    paths:
-      - builds/
   script:
-    - rsync -r builds $SSH_LOGIN:$REMOTE_PATH/test/
+    - rsync -r js $SSH_LOGIN:$REMOTE_PATH/test/

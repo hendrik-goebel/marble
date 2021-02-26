@@ -1,9 +1,9 @@
 #!/bin/bash
-mkdir release;
-mv artifacts.tar.gz release;
-tar -xvzf release/artifacts.tar.gz;
-rm backup -Rf;
-mv master backup;
-mv release master;
+mkdir ./release;
+tar -xvzf ./artifacts.tar.gz --directory ./release
+rm ./backup -Rf;
+mv ./master ./backup;
+mv ./release ./master;
+rm ./artifacts.tar.gz
 
 echo $PROJECT_KEY

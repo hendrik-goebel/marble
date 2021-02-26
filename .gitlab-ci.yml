@@ -20,4 +20,4 @@ deploy:
     paths:
       - builds/
   script:
-    - rsync -r builds/js -r $SSH_LOGIN:$REMOTE_PATH/test/
+    - rsync -r builds $SSH_LOGIN:$REMOTE_PATH/test/

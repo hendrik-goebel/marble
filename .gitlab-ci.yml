@@ -21,3 +21,4 @@ deploy:
     - rsync -r artifacts.tar.gz $SSH_LOGIN:$REMOTE_PATH/test/
     - ssh $SSH_LOGIN tar -xvzf $REMOTE_PATH/test/artifacts.tar.gz
     - ssh $SSH_LOGIN cd $REMOTE_PATH/test/; tar -xvzf artifacts.tar.gz
+    - ssh $SSH_LOGIN tar -xf $REMOTE_PATH/test/artifacts.tar.gz --directory $REMOTE_PATH/test/

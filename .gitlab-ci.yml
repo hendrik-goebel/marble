@@ -1,0 +1,30 @@
+image: ubuntu
+
+before_script:
+  # install ssh agent
+  - eval $(ssh-agent -s)
+
+  # add private key
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+
+  # Create the SSH directory and give it the right permissions
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+
+  ## Use ssh-keyscan to scan the keys of your private server.
+  - ssh-keyscan faye.uberspace.de >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
+  # install rsync
+  - apt-get update -qq && apt-get install -y -qq rsync
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  artifacts:
+    paths:
+      - builds/
+  script:
+    - rsync -r builds/js -r $SSH_LOGIN:$REMOTE_PATH/test/

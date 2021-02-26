@@ -17,6 +17,6 @@ deploy:
   stage: deploy
   script:
   # deploy artifacts
-    - tar -cvzf artifatcs.tar.gz css js
+    - tar -cvzf artifacts.tar.gz css js
     - rsync -r artifatcs.tar.gz $SSH_LOGIN:$REMOTE_PATH/test/
     - ssh $SSH_LOGIN tar -xvzf $REMOTE_PATH/test/artifacts.tar.gz

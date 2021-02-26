@@ -18,10 +18,10 @@ deploy:
   script:
   # deploy artifacts
     - tar -cvzf artifacts.tar.gz css js
-    - rsync -r artifacts.tar.gz $SSH_LOGIN:$REMOTE_PATH/PROJECT_KEY/
-    - mkdir $REMOTE_PATH/PROJECT_KEY/release;
-    - tar -xvzf $REMOTE_PATH/PROJECT_KEY/artifacts.tar.gz --directory $REMOTE_PATH/PROJECT_KEY/release
-    - rm $REMOTE_PATH/PROJECT_KEY/backup -Rf;
-    - mv $REMOTE_PATH/PROJECT_KEY/master ./backup;
-    - mv $REMOTE_PATH/PROJECT_KEY/release ./master;
-    - rm $REMOTE_PATH/PROJECT_KEY/artifacts.tar.gz
+    - rsync -r artifacts.tar.gz $SSH_LOGIN:$REMOTE_PATH/$PROJECT_KEY/
+    - mkdir $REMOTE_PATH/$PROJECT_KEY/release;
+    - tar -xvzf $REMOTE_PATH/$PROJECT_KEY/artifacts.tar.gz --directory $REMOTE_PATH/$PROJECT_KEY/release
+    - rm $REMOTE_PATH/$PROJECT_KEY/backup -Rf;
+    - mv $REMOTE_PATH/$PROJECT_KEY/master ./backup;
+    - mv $REMOTE_PATH/$PROJECT_KEY/release ./master;
+    - rm $REMOTE_PATH/$PROJECT_KEY/artifacts.tar.gz

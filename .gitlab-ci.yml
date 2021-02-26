@@ -18,7 +18,6 @@ deploy:
   script:
   # deploy artifacts
     - tar -cvzf artifacts.tar.gz css js
-    - rsync -r artifacts.tar.gz $SSH_LOGIN:$REMOTE_PATH/test/
-    - ssh $SSH_LOGIN tar -xvzf $REMOTE_PATH/test/artifacts.tar.gz
-    - ssh $SSH_LOGIN cd $REMOTE_PATH/test/; tar -xvzf artifacts.tar.gz
-    - ssh $SSH_LOGIN tar -xf $REMOTE_PATH/test/artifacts.tar.gz --directory $REMOTE_PATH/test/
+    - rsync -r artifacts.tar.gz deploy.sh $SSH_LOGIN:$REMOTE_PATH/test/
+    - ssh $SSH_LOGIN chmod +x $REMOTE_PATH/test/deploy.sh;
+    - ssh $SSH_LOGIN $REMOTE_PATH/test/deploy.sh;

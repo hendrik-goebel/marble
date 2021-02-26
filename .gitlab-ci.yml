@@ -1,19 +1,12 @@
 image: ubuntu
 
 before_script:
-  # install ssh agent
-  - eval $(ssh-agent -s)
-
-  # add private key
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-
-  # Create the SSH directory and give it the right permissions
+  # setup ssh
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-
-  ## Use ssh-keyscan to scan the keys of your private server.
-  - ssh-keyscan faye.uberspace.de >> ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
+  - eval $(ssh-agent -s)
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
 
   # install rsync
   - apt-get update -qq && apt-get install -y -qq rsync

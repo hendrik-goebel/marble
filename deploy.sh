@@ -1,9 +1,7 @@
 #!/bin/bash
-mkdir ./release;
-tar -xvzf ./artifacts.tar.gz --directory ./release
-rm ./backup -Rf;
-mv ./master ./backup;
-mv ./release ./master;
-rm ./artifacts.tar.gz
-
-echo $PROJECT_KEY
+mkdir $REMOTE_PATH/test/release;
+tar -xvzf $REMOTE_PATH/test/artifacts.tar.gz --directory $REMOTE_PATH/test/release
+rm $REMOTE_PATH/test/backup -Rf;
+mv $REMOTE_PATH/test/master ./backup;
+mv $REMOTE_PATH/test/release ./master;
+rm $REMOTE_PATH/test/artifacts.tar.gz

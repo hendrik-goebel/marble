@@ -16,12 +16,18 @@ stages:
 deploy:
   stage: deploy
   script:
-  # deploy artifacts
-    - tar -cvzf artifacts.tar.gz css js
+    # deploy artifacts
+
+    - tar -cvzf artifacts.tar.gz css js index.html .htaccess createsoundtable.php
     - rsync -r artifacts.tar.gz $SSH_LOGIN:$REMOTE_PATH/$PROJECT_KEY/
-    - mkdir $REMOTE_PATH/$PROJECT_KEY/release;
-    - tar -xvzf $REMOTE_PATH/$PROJECT_KEY/artifacts.tar.gz --directory $REMOTE_PATH/$PROJECT_KEY/release
-    - rm $REMOTE_PATH/$PROJECT_KEY/backup -Rf;
-    - mv $REMOTE_PATH/$PROJECT_KEY/master ./backup;
-    - mv $REMOTE_PATH/$PROJECT_KEY/release ./master;
-    - rm $REMOTE_PATH/$PROJECT_KEY/artifacts.tar.gz
+    - ssh $SSH_LOGIN mkdir -p $REMOTE_PATH/$PROJECT_KEY;
+    - ssh $SSH_LOGIN mkdir -p $REMOTE_PATH/$PROJECT_KEY/master;
+    - ssh $SSH_LOGIN mkdir -p $REMOTE_PATH/$PROJECT_KEY/release;
+    - ssh $SSH_LOGIN tar -xvzf $REMOTE_PATH/$PROJECT_KEY/artifacts.tar.gz --directory $REMOTE_PATH/$PROJECT_KEY/release
+    - ssh $SSH_LOGIN ln -s $REMOTE_PATH/$PROJECT_KEY/samples $REMOTE_PATH/$PROJECT_KEY/release/samples
+    - ssh $SSH_LOGIN php $REMOTE_PATH/$PROJECT_KEY/release/createsoundtable.php
+    - ssh $SSH_LOGIN rm $REMOTE_PATH/$PROJECT_KEY/backup -Rf;
+    - ssh $SSH_LOGIN mv $REMOTE_PATH/$PROJECT_KEY/master $REMOTE_PATH/$PROJECT_KEY/backup;
+    - ssh $SSH_LOGIN mv $REMOTE_PATH/$PROJECT_KEY/release $REMOTE_PATH/$PROJECT_KEY/master;
+    - ssh $SSH_LOGIN rm $REMOTE_PATH/$PROJECT_KEY/artifacts.tar.gz
+    - ssh $SSH_LOGIN $REMOTE_PATH/$PROJECT_KEY

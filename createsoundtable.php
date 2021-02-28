@@ -16,4 +16,4 @@ sort($files);
 
 $lines = implode(PHP_EOL, $files);
 $content = str_replace('{{includes}}', $lines, $content);
-file_put_contents('js/marble/soundtable.js', $content);
+file_put_contents(dirname(__FILE__) . '/js/marble/soundtable.js', $content);

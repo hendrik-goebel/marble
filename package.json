@@ -1,0 +1,46 @@
+{
+  "name": "marble",
+  "version": "1.0.0",
+  "description": "the marbleous beat machine",
+  "main": "index.js",
+  "watch": {
+    "watch:js": "src/**/*.js"
+  },
+  "scripts": {
+    "watch": "npm-watch",
+    "lint": "eslint src/js/*.js",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:watch": "onchange \"src/**/*.js\" -- npm run lint --silent",
+    "build-custom-scss": "node-sass src/sass/style.scss public/css/style.css",
+    "build-scss": "npm run build-custom-scss",
+    "build-js": "webpack",
+    "watch:css": "sass --watch src/sass/style.scss public/css/style.css",
+    "watch:js": "npm run build-js",
+    "build": " npm run build-scss && npm run build-js",
+    "serve": "node server.js",
+    "start": "npm run serve & npm run watch & npm run watch:css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.0.0-beta2",
+    "npm-watch": "^0.7.0",
+    "parcel-bundler": "^1.12.4",
+    "uglify-js-es6": "^2.8.9",
+    "watch": "^1.0.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "eslint": "^7.21.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-vue": "^7.7.0",
+    "express": "^4.17.1",
+    "node-sass": "^5.0.0",
+    "onchange": "^7.1.0",
+    "webpack": "^5.24.3",
+    "webpack-cli": "^4.5.0"
+  }
+}

@@ -1,0 +1,56 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "10_bootstrap_variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+// Optional
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  background-color: #303030;
+  color: #dad7cd;
+
+}
+
+.container {
+  width: 100%;
+
+
+  background-color: $tertiary;
+  padding: 10px;
+}
+
+.form-select {
+  background-color: $primary;
+  color: $body-color;
+}
+
+.form-check-input {
+  color: $body-color;
+  background-color: $link-color;
+}
+
+.form-switch .form-check-input {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3'  style='stroke: rgb(52,78,65); fill: rgb(52,78,65);' /%3e%3c/svg%3e");
+}
+.form-check-input:checked {
+  background-color: $link-hover-color;
+
+}
+
+.form-switch .form-check-input:focus {
+  background-color: $link-hover-color;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3'  style='stroke: white; fill: white' /%3e%3c/svg%3e");
+}
+
+.btn-primary{
+  color: $body-color;
+}
+#canvas-container {
+  height: 100%;
+}
+#canvas {
+  background-color: $secondary;
+  height: 100%;
+  width: 100%;
+
+}

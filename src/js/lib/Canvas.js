@@ -6,28 +6,35 @@ export default class Canvas {
   constructor(createjs) {
     this.createjs = createjs
     this.stage = new this.createjs.Stage("canvas");
-
-
   }
 
   addBall(ball) {
-    let circle = new this.createjs.Shape();
-    circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, ball.radius);
-    circle.x = ball.x;
-    circle.y = ball.y;
+    let circle = this._createShape();
+    let x = ball.x
+    let y = ball.y
+    let radius = ball.radius
+    circle.graphics.beginFill("DeepSkyBlue").drawCircle(ball.x, ball.y, ball.radius);
     this.stage.addChild(circle);
   }
 
+  addBar(bar) {
+    let rect = this._createShape();
+    rect.graphics.beginFill("DeepSkyBlue").drawRect(bar.x, bar.y, bar.width, bar.height);
+    this.stage.addChild(rect);
+  }
+
   addDropper(dropper) {
-    let circle = new this.createjs.Shape();
-    circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, dropper.radius);
-    circle.x = dropper.x;
-    circle.y = dropper.y;
+    let circle = this._createShape();
+    circle.graphics.beginFill("DeepSkyBlue").drawCircle(dropper.x, dropper.y, dropper.radius);
     this.stage.addChild(circle);
   }
 
   clear() {
     this.stage.removeAllChildren();
+  }
+
+  _createShape() {
+    return new this.createjs.Shape()
   }
 
   update() {

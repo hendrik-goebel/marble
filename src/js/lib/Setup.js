@@ -1,4 +1,4 @@
-export default  {
+export default {
   'world': {
     'width': null,
     'height': null
@@ -6,21 +6,26 @@ export default  {
   'dropper': {
     'width': 8,
     'height': 8,
-    'maxBalls': 20,
+    'maxBalls': 1,
     'x': 500,
     'y': 0,
     'radius': 5
   },
   'ball': {
     'width': 5,
-    'height': 5,
     'x': 100,
     'y': 0,
     'radius': 5,
     'speed': 1
   },
-
-  'adjustDimensions' : function() {
+  'bar': {
+    'minWidth': 50,
+    'minHeight': 10,
+  },
+  'mode': {
+    'collisionTest': false
+  },
+  'adjustDimensions': function () {
     let $canvas = document.getElementById('canvas')
     let $canvasContainer = document.getElementById('canvas-container')
     let containerWidth = $canvasContainer.offsetWidth

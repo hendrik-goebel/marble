@@ -1,10 +1,14 @@
+/**
+ * Reacts to changes in the controls ui section
+ * Calls observers: onControlsUpdate
+ *
+ */
 export default class Controls {
 
   constructor(setup) {
     this.setup = setup
-    this.observers = []
     this.controls = {
-      'speed' : document.getElementById('control-speed')
+      'speed': document.getElementById('control-speed')
     }
   }
 
@@ -13,25 +17,24 @@ export default class Controls {
 
   }
 
-  addObserver(observer) {
-    this.observers.push(observer)
-  }
-
   listen() {
     this.speed()
   }
 
-  updateControl(key, value) {
-    this.controls[key].value = value
-  }
-  speed() {
-    let observers = this.observers
-    this.controls['speed'].onchange = function (input) {
-      for (let observer of observers) {
-        let value = parseInt(this.value)
-        observer('ball', 'speed', value)
-      }
-    }
+  updateControl(property, value) {
+    this.controls[property].value = value
   }
 
+  speed() {
+    let Observable = this.Observable
+    this.controls['speed'].onchange = function (input) {
+      Observable.callObservers(
+        'onControlsUpdate',
+        {
+          'entity': 'ball',
+          'property': 'speed',
+          'value': parseInt(this.value)
+        })
+    }
+  }
 }

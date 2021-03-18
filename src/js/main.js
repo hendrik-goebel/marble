@@ -5,59 +5,38 @@ import Controls from './lib/interaction/Controls.js'
 import StageUserInterface from './lib/interaction/StageUserInterface.js'
 import setup from './lib/Setup.js'
 import CollisionDetector from "./lib/CollisionDetector"
+import EventRouting from './lib/EventRouting.js'
 import CollisionTest from "./lib/test/CollisionTest.js"
+import {Observable} from "./lib/helper/ObservableMixin.js"
 
-const canvas = new Canvas(createjs)
-const factory = new Factory(setup)
-const collisionDetector = new CollisionDetector()
-const director = new Director(setup, canvas, factory, collisionDetector)
-const controls = new Controls(setup)
-const stageUi = new StageUserInterface(createjs, canvas.stage)
+Object.assign(Controls.prototype, {Observable})
+Object.assign(StageUserInterface.prototype, {Observable})
+Object.assign(Director.prototype, {Observable})
+Object.assign(Canvas.prototype, {Observable})
 
-// Canvas Dimensions
+const container = {}
+container.canvas = new Canvas(createjs)
+container.factory = new Factory(setup)
+container.collisionDetector = new CollisionDetector()
+container.director = new Director(setup, container.canvas, container.factory, container.collisionDetector)
+container.controls = new Controls(setup)
+container.stageUi = new StageUserInterface(createjs, container.canvas.stage)
+if (setup.mode.test) {
+  container.collisionTest = new CollisionTest()
+}
+const eventRouting = new EventRouting(container, setup)
+eventRouting.route()
+
 setup.adjustDimensions()
-window.onresize = function () {
-  let canvasDimensions = canvas.resize()
-  director.updateCanvasSize(canvasDimensions.width, canvasDimensions.height)
-}
+container.controls.initControls()
 
-
-// Control event handling
-controls.initControls()
-let onControlsUpdate = function (type, property, value) {
-  director.changeObjectProperty(type, property, value)
-  controls.updateControl(property, value)
-}
-controls.addObserver(onControlsUpdate)
-controls.listen()
-
-let onStageUpdate = function (type, x, y) {
-  if (type == 'debug') {
-    director.debug()
-    director.collisionDetector.debug = true
-  }
-  director.updateCanvasEvent(type, x, y)
-}
-stageUi.addObserver(onStageUpdate)
-stageUi.listen()
-
-
+container.controls.listen()
+container.stageUi.listen()
+container.canvas.listen()
 
 // Video tick
-director.tick()
+container.director.tick()
 createjs.Ticker.setFPS(60)
-createjs.Ticker.addEventListener('tick', () => director.tick())
+createjs.Ticker.addEventListener('tick', () => container.director.tick())
 
-
-if (setup.mode.collisionTest) {
-  let collisionTest = new CollisionTest();
-  let collisionTestFunction = function (object) {
-    collisionTest.next(object)
-  }
-  director.addObserver(collisionTestFunction, 'afterInit')
-  director.addObserver(collisionTestFunction, 'afterCollision')
-}
-
-director.init()
-
-
+container.director.init()

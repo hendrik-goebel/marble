@@ -1,21 +1,19 @@
-export default class AbstractBaseClass {
+export let Observable = {
+  observers: {},
 
-  construct() {
-    this.observers = {}
-  }
   addObserver(observerFunction, type) {
     if (!(type in this.observers)) {
       this.observers[type] = []
     }
     this.observers[type].push(observerFunction)
-  }
+  },
 
-  callObservers(type) {
+  callObservers(type, object) {
     if (!(type in this.observers)) {
       return false
     }
     for (let observer of this.observers[type]) {
-      observer(this)
+      observer(object)
     }
   }
 }

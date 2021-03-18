@@ -12,10 +12,10 @@ export default class AbstractEntity {
     this._y = null
     this._isVisible = true
 
-
     this.collision = {
       'object': null,
       'position': null,
+      'depth': null
     }
     this._form = 'rectangle'
     this.observers = []
@@ -32,11 +32,13 @@ export default class AbstractEntity {
   uncollide() {
     this.collision.object = null
     this.collision.position = null
+    this.collision.depth = null
   }
 
-  collide(object, position) {
+  collide(object, position, depth) {
     this.collision.object = object
     this.collision.position = position
+    this.collision.depth = depth
   }
 
   activate() {

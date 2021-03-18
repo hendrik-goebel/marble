@@ -1,12 +1,10 @@
 /**
  * Decides how objects  interact with each other
  */
-import AbstractBaseClass from "./AbstractBaseClass";
 
-export default class Director extends AbstractBaseClass {
+export default class Director {
 
   constructor(setup, canvas, factory, collisionDetector) {
-    super()
     this.setup = setup
     this.canvas = canvas
     this.factory = factory
@@ -18,10 +16,19 @@ export default class Director extends AbstractBaseClass {
     this.bars = []
   }
 
+
   init() {
     this.canvas.prepare()
     this.droppers.push(this.factory.createDropper(10, 10))
     this.droppers[0].dropBall()
+    this.Observable.callObservers('onInit', this)
+  }
+
+  reset() {
+    this.droppers = []
+    this.bars = []
+    this.activeBar = null
+    this.init()
   }
 
   tick() {
@@ -41,13 +48,18 @@ export default class Director extends AbstractBaseClass {
           this.activeBall = ball
           this.collisionDetector.detectCanvasBorderCollision(ball, this.getCanvasDimensions())
           for (let bar of this.bars) {
-
             if (bar.isVisible) {
               this.collisionDetector.detectObjectCollision(ball, bar)
+              if (ball.isColliding) {
+                this.Observable.callObservers('onCollision', ball)
+              }
             }
           }
           if (this.activeBar) {
             this.collisionDetector.detectObjectCollision(ball, this.activeBar)
+            if (ball.isColliding) {
+              this.Observable.callObservers('onCollision', ball)
+            }
           }
 
           ball.move()
@@ -76,10 +88,6 @@ export default class Director extends AbstractBaseClass {
     }
   }
 
-  debug() {
-    debugger
-  }
-
   changeObjectProperty(type, property, value) {
     if (type == 'ball') {
       if (this.setup.ball.hasOwnProperty(property)) {
@@ -98,7 +106,6 @@ export default class Director extends AbstractBaseClass {
   }
 
   startDrawBar(x, y) {
-
     this.activeBar = this.factory.createBar(x, y)
   }
 
@@ -110,9 +117,7 @@ export default class Director extends AbstractBaseClass {
   stopDrawBar(x, y) {
     this.activeBar.width = x - this.activeBar.x
     this.activeBar.height = y - this.activeBar.y
-
     this.bars.push(this.activeBar)
-
   }
 
   updateCanvasSize(width, height) {

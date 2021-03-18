@@ -7,9 +7,10 @@ export default class CollisionDetector {
   detectObjectCollision(subject, object) {
 
     if (subject.form == 'circle' && object.form == 'rectangle') {
-      let collisionPosition = this.detectCircleWithRectangle(subject, object)
-      if (collisionPosition) {
-        subject.collide(object, collisionPosition)
+      let result = this.detectCircleWithRectangle(subject, object)
+
+      if (result.position) {
+        subject.collide(object, result.position, result.difference)
       }
       return subject
     }
@@ -32,47 +33,42 @@ export default class CollisionDetector {
    */
   detectCircleWithRectangle(a, b) {
 
-    let cx = a.x
-    let cy = a.y
+    let testX = a.x
+    let testY = a.y
+    let position = ''
 
-    let rx = b.x
-    let ry = b.y
-    let rw = b.width
-    let rh = b.height
-    let radius = a.radius
-
-    let testX = cx
-    let testY = cy
-
-    let position =''
-
-    // which edge is closest?
-    if (cx < rx) {
-      position="left"
-      testX = rx
-       }
-    else if (cx > rx+rw){
-      testX = rx+rw
-      position="right"
+    /**
+     * find closest edge
+     */
+    if (a.x < b.x) {
+      position = "left"
+      testX = b.x
+    } else if (a.x > b.x + b.width) {
+      testX = b.x + b.width
+      position = "right"
     }
-    if (cy < ry) {
+    if (a.y < b.y) {
       position = "top"
-      testY = ry
-    } else if (cy > ry+rh) {
+      testY = b.y
+    } else if (a.y > b.y + b.height) {
       position = "bottom"
-      testY = ry+rh
+      testY = b.y + b.height
     }
 
-    // get distance from closest edges
-    let distX = cx-testX;
-    let distY = cy-testY;
-    let distance = Math.sqrt( (distX*distX) + (distY*distY) );
+    /**
+     * Calculate distance to closest edge
+     */
+    let distX = a.x - testX;
+    let distY = a.y - testY;
+    let distance = Math.floor(Math.sqrt((distX * distX) + (distY * distY)));
 
+    let difference = distance - a.radius
+    if (distance < a.radius) {
 
-    // if the distance is less than the radius, collision!
-    if (distance < radius) {
-
-      return position;
+      return {
+        'position': position,
+        'difference': difference
+      };
     }
     return false;
   }

@@ -42,10 +42,16 @@ export default class Factory {
     return dropper
   }
 
-  createBar(x = null, y = null) {
+  createBar(x = null, y = null, width = null, height = null) {
     let bar = new Bar(this.setup.bar)
     bar.x = x
     bar.y = y
+    if (width) {
+      bar.width = width
+    }
+    if (height) {
+      bar.height = height
+    }
     this.updateObservers(bar)
     return bar
   }
@@ -59,6 +65,7 @@ export default class Factory {
   addObserver(observerFunction) {
     this.observers.push(observerFunction)
   }
+
   addObjectObserver(observerFunction) {
     this.objectObservers.push(observerFunction)
   }

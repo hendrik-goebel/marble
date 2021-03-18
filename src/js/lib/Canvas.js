@@ -1,3 +1,5 @@
+import setup from "./Setup";
+
 /**
  * A Canvas paints objects
  */
@@ -62,5 +64,18 @@ export default class Canvas {
     let dimensions = this.prepare()
     this.update()
     return dimensions
+  }
+
+  listen() {
+    let canvas = this
+    let Observable = this.Observable
+
+    window.onresize = function () {
+      let canvasDimensions = canvas.resize()
+      Observable.callObservers('onCanvasResize', {
+        'width': canvasDimensions.width,
+        'height': canvasDimensions.height
+      })
+    }
   }
 }

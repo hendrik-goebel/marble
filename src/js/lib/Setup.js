@@ -23,7 +23,7 @@ export default {
     'minHeight': 10,
   },
   'mode': {
-    'collisionTest': false
+    'test': false
   },
   'adjustDimensions': function () {
     let $canvas = document.getElementById('canvas')

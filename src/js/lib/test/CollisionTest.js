@@ -1,5 +1,5 @@
 /**
- * creates a serie of collision situations for testing purposes
+ * creates a series of collision situations for testing purposes
  */
 export default class CollisionTest {
 
@@ -7,24 +7,31 @@ export default class CollisionTest {
     this.state = 1
   }
 
+  reset(director) {
+    let x = setTimeout(function() {
+      director.reset()
+    }, 1000)
+  }
+
+
   next(director) {
     if (this.state == 1) {
-      director.activeBar = director.factory.createBar(300, 300)
-
+      console.log("A ball hits a bar on the left top edge")
+      director.activeBar = director.factory.createBar(100, 100)
     }
-
     if (this.state == 2) {
-      let x = 150
-      let y = 200 - director.setup.bar.minHeight
-      director.bars =[]
-      director.activeBar = director.factory.createBar(x, y)
+      this.reset(director)
     }
     if (this.state == 3) {
-      director.collisionDetector.debug = true
-      let x = 250
-      let y = 300 - director.setup.bar.minHeight
-      director.bars =[]
-      director.activeBar = director.factory.createBar(x, y)
+      console.log("A ball hits a bar on the top edge")
+      director.activeBar = director.factory.createBar(190, 200)
+    }
+    if (this.state == 3) {
+      console.log("A ball hits the canvas top edge")
+    }
+    if (this.state == 5) {
+      console.log("A ball hits a bar on the left edge")
+      director.activeBar = director.factory.createBar(500, 80, 50, 100)
     }
     this.state++
   }

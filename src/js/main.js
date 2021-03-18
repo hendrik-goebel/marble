@@ -9,11 +9,13 @@ import EventRouting from './lib/EventRouting.js'
 import CollisionTest from "./lib/test/CollisionTest.js"
 import {Observable} from "./lib/helper/ObservableMixin.js"
 
+// Add observer mixins
 Object.assign(Controls.prototype, {Observable})
 Object.assign(StageUserInterface.prototype, {Observable})
 Object.assign(Director.prototype, {Observable})
 Object.assign(Canvas.prototype, {Observable})
 
+// init objects and dependencies
 const container = {}
 container.canvas = new Canvas(createjs)
 container.factory = new Factory(setup)
@@ -25,6 +27,8 @@ if (setup.mode.test) {
   container.collisionTest = new CollisionTest()
 }
 const eventRouting = new EventRouting(container, setup)
+
+// run init methods
 eventRouting.route()
 
 setup.adjustDimensions()
@@ -34,7 +38,7 @@ container.controls.listen()
 container.stageUi.listen()
 container.canvas.listen()
 
-// Video tick
+// start video ticker
 container.director.tick()
 createjs.Ticker.setFPS(60)
 createjs.Ticker.addEventListener('tick', () => container.director.tick())

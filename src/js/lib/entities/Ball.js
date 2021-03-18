@@ -20,7 +20,6 @@ export default class Ball extends AbstractEntity {
     this.directionY = 1
   }
 
-
   move() {
     if (this.collision.object) {
       let direction = this.collision.position

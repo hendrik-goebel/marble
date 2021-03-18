@@ -70,7 +70,6 @@ export default class AbstractEntity {
     if (this._width < this.minWidth) {
       this._width = this.minWidth
     }
-
   }
 
   set height(value) {
@@ -148,11 +147,6 @@ export default class AbstractEntity {
   get id() {
     return this._id
   }
-
-  addObserver(observer) {
-    this.observers.push(observer)
-  }
-
   /**
    * abstract
    */

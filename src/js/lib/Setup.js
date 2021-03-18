@@ -9,18 +9,22 @@ export default {
     'maxBalls': 1,
     'x': 500,
     'y': 0,
-    'radius': 5
+    'radius': 5,
+    'color': '#dad7cd'
   },
   'ball': {
     'width': 5,
     'x': 100,
     'y': 0,
     'radius': 5,
-    'speed': 1
+    'speed': 1,
+    'color': '#dad7cd'
   },
   'bar': {
     'minWidth': 50,
     'minHeight': 10,
+    'color': "#a3b18a",
+    'colorSelected': "#dad7cd"
   },
   'mode': {
     'test': false

@@ -13,7 +13,6 @@ export default class CollisionTest {
     }, 1000)
   }
 
-
   next(director) {
     if (this.state == 1) {
       console.log("A ball hits a bar on the left top edge")

@@ -24,6 +24,13 @@ export default class CollisionDetector {
     return subject
   }
 
+  detectClickCollision(subject, object) {
+    if (this.detectPointInsideRectangle(subject, object)) {
+      return object
+    }
+    return null
+  }
+
 
   /**
    * Detects the colision of two objects
@@ -97,5 +104,19 @@ export default class CollisionDetector {
       return 'right'
     }
     return null
+  }
+
+  /**
+   * Detects the collision of a point inside a rectangle
+   *
+   * @param object a a point with params x,y
+   * @param object b a rectangle with params x,y,width, height
+   */
+  detectPointInsideRectangle(a, b) {
+
+    if (a.x >= b.x && a.x <= b.x + b.width && a.y >= b.y && a.y <= b.y + b.height) {
+      return true
+    }
+    return false
   }
 }

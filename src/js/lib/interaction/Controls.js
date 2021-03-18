@@ -8,7 +8,8 @@ export default class Controls {
   constructor(setup) {
     this.setup = setup
     this.controls = {
-      'speed': document.getElementById('control-speed')
+      'speed': document.getElementById('control-speed'),
+      'barSelected': document.getElementById('bar-selected')
     }
   }
 

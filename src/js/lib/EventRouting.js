@@ -1,3 +1,6 @@
+/**
+ * Routes Events to concrete methods
+ */
 export default class EventRouter {
 
   constructor(container, setup) {
@@ -40,11 +43,28 @@ export default class EventRouter {
     container.canvas.Observable.addObserver(function (args) {
       container.director.updateCanvasSize(args.width, args.height)
     }, 'onCanvasResize')
+
+    container.director.Observable.addObserver(function (args) {
+      container.director.mouseDown(args.x, args.y)
+    }, 'onMouseDown')
+
+    container.director.Observable.addObserver(function (args) {
+      container.director.mouseUp(args.x, args.y)
+    }, 'onMouseUp')
+
+    container.director.Observable.addObserver(function (args) {
+      container.director.mouseMove(args.x, args.y)
+    }, 'onMouseMove')
   }
 
   directorEvents() {
     let container = this.container
     let setup = this.setup
+
+    container.director.Observable.addObserver(function (args) {
+      container.controls.updateControl(args.property, args.value)
+    }, 'onSelectBar')
+
     if (setup.mode.test) {
       container.director.Observable.addObserver(function (args) {
         container.collisionTest.next(container.director)

@@ -18,6 +18,7 @@ export default class Ball extends AbstractEntity {
     this.isVisible = false
     this.directionX = 1
     this.directionY = 1
+    this.color = setup.color
   }
 
   move() {

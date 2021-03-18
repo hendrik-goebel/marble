@@ -15,19 +15,19 @@ export default class Canvas {
     let x = ball.x
     let y = ball.y
     let radius = ball.radius
-    circle.graphics.beginFill("DeepSkyBlue").drawCircle(ball.x, ball.y, ball.radius);
+    circle.graphics.beginFill(ball.color).drawCircle(ball.x, ball.y, ball.radius);
     this.stage.addChild(circle);
   }
 
   addBar(bar) {
     let rect = this._createShape();
-    rect.graphics.beginFill("DeepSkyBlue").drawRect(bar.x, bar.y, bar.width, bar.height);
+    rect.graphics.beginFill(bar.color).drawRect(bar.x, bar.y, bar.width, bar.height);
     this.stage.addChild(rect);
   }
 
   addDropper(dropper) {
     let circle = this._createShape();
-    circle.graphics.beginFill("DeepSkyBlue").drawCircle(dropper.x, dropper.y, dropper.radius);
+    circle.graphics.beginFill(dropper.color).drawCircle(dropper.x, dropper.y, dropper.radius);
     this.stage.addChild(circle);
   }
 

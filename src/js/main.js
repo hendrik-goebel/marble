@@ -22,7 +22,7 @@ container.factory = new Factory(setup)
 container.collisionDetector = new CollisionDetector()
 container.director = new Director(setup, container.canvas, container.factory, container.collisionDetector)
 container.controls = new Controls(setup)
-container.stageUi = new StageUserInterface(createjs, container.canvas.stage)
+container.stageUi = new StageUserInterface(container.canvas.stage)
 if (setup.mode.test) {
   container.collisionTest = new CollisionTest()
 }

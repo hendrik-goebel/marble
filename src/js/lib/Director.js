@@ -11,9 +11,10 @@ export default class Director {
     this.collisionDetector = collisionDetector
     this.droppers = []
     this.bars = []
-    this.activeBar = null
+    this.activeBarIndex = null
     this.activeBall = null
     this.bars = []
+    this.editMode = null
   }
 
 
@@ -55,13 +56,6 @@ export default class Director {
               }
             }
           }
-          if (this.activeBar) {
-            this.collisionDetector.detectObjectCollision(ball, this.activeBar)
-            if (ball.isColliding) {
-              this.Observable.callObservers('onCollision', ball)
-            }
-          }
-
           ball.move()
           ball.uncollide()
 
@@ -72,9 +66,7 @@ export default class Director {
   }
 
   _doBarsLoop() {
-    if (this.activeBar) {
-      this.canvas.addBar(this.activeBar)
-    }
+
     for (let bar of this.bars) {
       this.canvas.addBar(bar)
     }
@@ -105,19 +97,64 @@ export default class Director {
     }
   }
 
+  get activeBar() {
+    if (this.activeBarIndex != null) {
+      return this.bars[this.activeBarIndex]
+    }
+    return null
+  }
+
+  set activeBar(bar) {
+    this.activeBarIndex = this.bars.indexOf(bar)
+  }
+
   startDrawBar(x, y) {
-    this.activeBar = this.factory.createBar(x, y)
+    let bar = this.factory.createBar(x, y)
+    this.bars.push(bar)
+    this.selectBar(bar)
   }
 
   drawBar(x, y) {
-    this.activeBar.width = x - this.activeBar.x
-    this.activeBar.height = y - this.activeBar.y
+    if (this.editMode == 'drawingBar') {
+      this.activeBar.width = x - this.activeBar.x
+      this.activeBar.height = y - this.activeBar.y
+    }
   }
 
-  stopDrawBar(x, y) {
-    this.activeBar.width = x - this.activeBar.x
-    this.activeBar.height = y - this.activeBar.y
-    this.bars.push(this.activeBar)
+  selectBar(bar) {
+    if(this.activeBar) {
+      this.activeBar.isSelected = false
+    }
+    bar.isSelected = true
+    this.activeBar = bar
+    this.Observable.callObservers('onSelectBar', {'property' : 'barSelected', 'value': bar.id})
+  }
+
+  mouseDown(x, y) {
+    let collisionObject
+
+    for (let bar of this.bars) {
+      collisionObject = this.collisionDetector.detectClickCollision({'x': x, 'y': y}, bar)
+      if (collisionObject) {
+        this.selectBar(bar)
+        this.editMode = 'movingBar'
+        bar.setOffset(x, y)
+        return
+      }
+    }
+
+    this.editMode = 'drawingBar'
+    this.startDrawBar(x, y)
+  }
+
+  mouseMove(x, y) {
+    if (this.editMode == 'movingBar') {
+      this.activeBar.move(x, y)
+    }
+  }
+
+  mouseUp(x, y,) {
+    this.editMode = 'nothing'
   }
 
   updateCanvasSize(width, height) {

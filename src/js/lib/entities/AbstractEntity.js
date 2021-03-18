@@ -119,11 +119,6 @@ export default class AbstractEntity {
     this._y = Math.floor(value);
   }
 
-  set xStart(value) {
-    this._xStart = value;
-  }
-
-
   get isVisible() {
     return this._isVisible;
   }

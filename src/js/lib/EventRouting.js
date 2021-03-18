@@ -9,26 +9,12 @@ export default class EventRouter {
   }
 
   route() {
-    this.stageEvents()
     this.controlsEvents()
     this.directorEvents()
     this.canvasEvents()
   }
 
-  stageEvents() {
-    let container = this.container
-    container.stageUi.Observable.addObserver(function (args) {
-      container.director.startDrawBar(args.x, args.y)
-    }, 'onStartDrawBar')
 
-    container.stageUi.Observable.addObserver(function (args) {
-      container.director.stopDrawBar(args.x, args.y)
-    }, 'onStopDrawBar')
-
-    container.stageUi.Observable.addObserver(function (args) {
-      container.director.drawBar(args.x, args.y)
-    }, 'onMouseMove')
-  }
 
   controlsEvents() {
     let container = this.container
@@ -49,12 +35,23 @@ export default class EventRouter {
     }, 'onMouseDown')
 
     container.director.Observable.addObserver(function (args) {
-      container.director.mouseUp(args.x, args.y)
-    }, 'onMouseUp')
+      container.director.doubleClick(args.x, args.y)
+    }, 'onDoubleClick')
+
+
+    container.director.Observable.addObserver(function (args) {
+      container.director.singleClick(args.x, args.y)
+    }, 'onSingleClick')
+
 
     container.director.Observable.addObserver(function (args) {
       container.director.mouseMove(args.x, args.y)
     }, 'onMouseMove')
+
+    container.director.Observable.addObserver(function (args) {
+      container.director.mouseUp(args.x, args.y)
+    }, 'onMouseUp')
+
   }
 
   directorEvents() {

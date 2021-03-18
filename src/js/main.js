@@ -40,7 +40,7 @@ container.canvas.listen()
 
 // start video ticker
 container.director.tick()
-createjs.Ticker.setFPS(60)
+createjs.Ticker.setFPS(setup.system.video.fps)
 createjs.Ticker.addEventListener('tick', () => container.director.tick())
 
 container.director.init()

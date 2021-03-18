@@ -17,17 +17,22 @@ export default {
     'x': 100,
     'y': 0,
     'radius': 5,
-    'speed': 1,
+    'speed': 2,
     'color': '#dad7cd'
   },
   'bar': {
-    'minWidth': 50,
+    'minWidth': 10,
     'minHeight': 10,
     'color': "#a3b18a",
     'colorSelected': "#dad7cd"
   },
   'mode': {
     'test': false
+  },
+  'system' : {
+    'video': {
+      'fps': 30
+    },
   },
   'adjustDimensions': function () {
     let $canvas = document.getElementById('canvas')

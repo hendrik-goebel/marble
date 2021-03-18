@@ -15,6 +15,7 @@ export default class Director {
     this.activeBall = null
     this.bars = []
     this.editMode = null
+    this.clickedObject = null
   }
 
 
@@ -122,34 +123,61 @@ export default class Director {
   }
 
   selectBar(bar) {
-    if(this.activeBar) {
+    if (this.activeBar) {
       this.activeBar.isSelected = false
     }
     bar.isSelected = true
     this.activeBar = bar
-    this.Observable.callObservers('onSelectBar', {'property' : 'barSelected', 'value': bar.id})
+    this.Observable.callObservers('onSelectBar', {'property': 'barSelected', 'value': bar.id})
+  }
+
+  deleteBar(bar) {
+    let index = this.bars.indexOf(bar)
+    this.bars.splice(index, 1)
+    if (index == this.activeBarIndex) {
+      if (this.bars.length == 0) {
+        this.activeBarIndex = 0
+      } else {
+        this.activeBarIndex = this.bars.length - 1
+      }
+    }
+  }
+
+  doubleClick(x, y) {
+    if (this.clickedObject) {
+      if (this.clickedObject.type = 'bar') {
+        this.deleteBar(this.clickedObject)
+      }
+    }
+  }
+
+  singleClick(x, y) {
+    if (this.editMode == 'startDrawingBar') {
+      this.editMode = 'drawingBar'
+      this.startDrawBar(x, y)
+    }
   }
 
   mouseDown(x, y) {
-    let collisionObject
-
     for (let bar of this.bars) {
-      collisionObject = this.collisionDetector.detectClickCollision({'x': x, 'y': y}, bar)
-      if (collisionObject) {
+      this.clickedObject = this.collisionDetector.detectClickCollision({'x': x, 'y': y}, bar)
+      if (this.clickedObject) {
         this.selectBar(bar)
         this.editMode = 'movingBar'
         bar.setOffset(x, y)
         return
       }
     }
-
-    this.editMode = 'drawingBar'
-    this.startDrawBar(x, y)
+    this.editMode = 'startDrawingBar'
   }
 
   mouseMove(x, y) {
     if (this.editMode == 'movingBar') {
       this.activeBar.move(x, y)
+    }
+
+    if (this.editMode == 'drawingBar') {
+      this.drawBar(x, y)
     }
   }
 
@@ -169,22 +197,6 @@ export default class Director {
       'y': 0,
       'height': this.setup.world.height,
       'type': 'canvas'
-    }
-  }
-
-  updateCanvasEvent(type, x, y) {
-    /**
-     * TODO: can we do this wih indirect calls instead?
-     */
-    switch (type) {
-      case 'startDrawBar':
-        this.startDrawBar(x, y)
-        break;
-      case 'stopDrawBar':
-        this.stopDrawBar(x, y)
-        break;
-      case 'drawingBar':
-        this.drawBar(x, y)
     }
   }
 }

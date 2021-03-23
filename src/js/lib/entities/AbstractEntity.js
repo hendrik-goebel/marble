@@ -1,7 +1,10 @@
+import constants from "../Constants"
+
 export default class AbstractEntity {
   constructor(setup) {
 
     this.setup = setup
+    this.CONST = constants
     this._id = null
     this._radius = null
     this._width = null

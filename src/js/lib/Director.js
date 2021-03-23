@@ -4,7 +4,7 @@
 
 export default class Director {
 
-  constructor(canvas, factory, collisionDetector, createjs) {
+  constructor(canvas, factory, collisionDetector) {
     this.canvas = canvas
     this.factory = factory
     this.collisionDetector = collisionDetector
@@ -12,17 +12,17 @@ export default class Director {
     this.droppers = []
     this.bars = []
     this.activeBarIndex = null
-    this.activeBall = null
     this.bars = []
     this.editMode = null
     this.clickedObject = null
-    this.createjs = createjs
+
+    this.timerId = 101
+    this.timers = {}
   }
 
   init() {
     this.canvas.prepare()
     this.droppers.push(this.factory.createDropper(10, 10))
-    this.droppers[0].dropBall()
     this.Observable.callObservers('onInit', this)
   }
 
@@ -33,9 +33,15 @@ export default class Director {
     this.init()
   }
 
-  startVideo() {
-    this.createjs.Ticker.setFPS(this.setup.system.video.fps)
-    this.createjs.Ticker.addEventListener('tick', () => this.tickVideo())
+  createVideoTimer(id) {
+    let timer = this.container.create('Timer', id, this.audio.resolution)
+    timer.resolutionMulitplier = 30
+    this.timers[id] = timer
+  }
+
+  start() {
+    this.createVideoTimer(this.timerId)
+    this.timers[this.timerId].run()
   }
 
   tickVideo() {
@@ -48,6 +54,7 @@ export default class Director {
 
   _doBallsLoop() {
     for (let dropper of this.droppers) {
+
       let balls = dropper.balls
       for (let ball of balls) {
 
@@ -83,6 +90,16 @@ export default class Director {
         this.canvas.addDropper(dropper)
       }
     }
+  }
+
+  onUpdateControl(property, value) {
+    if (property == 'speed') {
+      this.changeObjectProperty('ball', 'speed', value)
+    }
+    if (property == 'grid') {
+      this.timers[this.timerId].resolution = value
+    }
+
   }
 
   changeObjectProperty(type, property, value) {
@@ -203,12 +220,21 @@ export default class Director {
     }
   }
 
+  onBeat(timerId, count) {
+    if (timerId == this.timerId) {
+      this.tickVideo()
+    }
 
-  initAudio() {
-    this.audio.createClock(1)
-  }
+    /*
+    * Timers with id >= 100 are video timers
+    * Timers with id < 199 are audio timers
+     */
+    if (timerId < 100) {
 
-  startAudio() {
-    this.audio.start()
+      if (count == 1)
+        for (let dropper of this.droppers) {
+          dropper.dropBall()
+        }
+    }
   }
 }

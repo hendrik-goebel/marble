@@ -17,6 +17,5 @@ container.canvas.listen()
 
 container.director.init()
 
-container.director.startVideo()
-container.director.initAudio()
-container.director.startAudio()
+container.audioDirector.start()
+container.director.start()

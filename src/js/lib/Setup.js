@@ -6,18 +6,18 @@ export default {
   'dropper': {
     'width': 8,
     'height': 8,
-    'maxBalls': 1,
-    'x': 500,
-    'y': 0,
+    'maxBalls': 50,
+    'x': 10,
+    'y': 10,
     'radius': 5,
     'color': '#dad7cd'
   },
   'ball': {
     'width': 5,
-    'x': 100,
-    'y': 0,
+    'x': 10,
+    'y': 10,
     'radius': 5,
-    'speed': 2,
+    'speed': 1,
     'color': '#dad7cd'
   },
   'bar': {
@@ -30,6 +30,7 @@ export default {
     'test': false
   },
   'system' : {
+    'grid': 1,
     'video': {
       'fps': 30
     },

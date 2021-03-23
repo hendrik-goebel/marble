@@ -17,7 +17,6 @@ export default class Factory {
   }
 
   createDropper(x = null, y = null) {
-
     let balls = new Queue([])
     let dropper = new Dropper(this.setup.dropper)
     if (x) {
@@ -35,7 +34,6 @@ export default class Factory {
   }
 
   createBar(x = null, y = null, width = null, height = null) {
-
     let bar = new Bar(this.setup.bar)
     bar.x = x
     bar.y = y

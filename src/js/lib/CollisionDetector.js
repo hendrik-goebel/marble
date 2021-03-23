@@ -6,7 +6,7 @@ export default class CollisionDetector {
 
   detectObjectCollision(subject, object) {
 
-    if (subject.form == 'circle' && object.form == 'rectangle') {
+    if (subject.form == this.CONST.FORM.CIRCLE && object.form == this.CONST.FORM.RECTANGLE) {
       let result = this.detectCircleWithRectangle(subject, object)
 
       if (result.position) {

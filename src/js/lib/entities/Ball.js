@@ -8,8 +8,8 @@ export default class Ball extends AbstractEntity {
 
   constructor(setup) {
     super(setup)
-    this.type = 'ball'
-    this.form = 'circle'
+    this.type = this.CONST.TYPE.BALL
+    this.form = this.CONST.FORM.CIRCLE
     this.x = setup.x
     this.y = setup.y
     this.radius = setup.radius
@@ -80,5 +80,12 @@ export default class Ball extends AbstractEntity {
 
   set speed(value) {
     this._speed = value;
+  }
+
+  reset() {
+    this.y = this.setup.x
+    this.x = this.setup.y
+    this.directionX = 1
+    this.directionY = 1
   }
 }

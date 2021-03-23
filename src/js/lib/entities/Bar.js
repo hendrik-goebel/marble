@@ -5,8 +5,8 @@ export default class Bar extends AbstractEntity {
   constructor(setup) {
     super(setup)
     this._setup = setup;
-    this.type = 'bar'
-    this.form = 'rectangle'
+    this.type = this.CONST.TYPE.BAR
+    this.form = this.CONST.FORM.RECTANGLE
     this.width = setup.minWidth
     this.height = setup.minHeight
     this.minWidth = setup.minWidth;

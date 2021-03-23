@@ -11,7 +11,8 @@ export default class EventRouter {
 
   controlsEvents() {
     this.container.controls.Observable.addObserver((args) => {
-      this.container.director.changeObjectProperty(args.entity, args.property, args.value)
+      this.container.director.onUpdateControl(args.property, args.value)
+      this.container.audioDirector.onUpdateControl(args.property, args.value)
       this.container.controls.updateControl(args.property, args.value)
     }, 'onControlsUpdate')
   }
@@ -29,7 +30,6 @@ export default class EventRouter {
       this.container.director.doubleClick(args.x, args.y)
     }, 'onDoubleClick')
 
-
     this.container.director.Observable.addObserver((args) => {
       this.container.director.singleClick(args.x, args.y)
     }, 'onSingleClick')
@@ -41,14 +41,16 @@ export default class EventRouter {
     this.container.director.Observable.addObserver((args) => {
       this.container.director.mouseUp(args.x, args.y)
     }, 'onMouseUp')
-
   }
 
   directorEvents() {
-
     this.container.director.Observable.addObserver((args) => {
       this.container.controls.updateControl(args.property, args.value)
     }, 'onSelectBar')
+
+    this.container.director.Observable.addObserver((args) => {
+      this.container.audioDirector.playCollisionSound(args)
+    }, 'onCollision')
 
     if (this.setup.mode.test) {
       this.container.director.Observable.addObserver((args) => {
@@ -65,9 +67,10 @@ export default class EventRouter {
    * Audio Clocks can be created on runtime, so we have to assign events to the instances
    * @param audioClock
    */
-  assignAudioClockEvents(audioClock) {
-    audioClock.Observable.addObserver((args) => {
-      this.container.audioDirector.onBeat(args.id)
+  assignTimerEvents(timer) {
+    timer.Observable.addObserver((args) => {
+      this.container.director.onBeat(args.id, args.count)
+      this.container.audioDirector.onBeat(args.id, args.count)
     }, 'onBeat');
   }
 }

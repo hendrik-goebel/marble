@@ -1,14 +1,14 @@
 /**
- * Decides how objects  interact with each other
+ * Decides how objects interact with each other
  */
 
 export default class Director {
 
-  constructor(setup, canvas, factory, collisionDetector) {
-    this.setup = setup
+  constructor(canvas, factory, collisionDetector, createjs) {
     this.canvas = canvas
     this.factory = factory
     this.collisionDetector = collisionDetector
+    this.audio = null
     this.droppers = []
     this.bars = []
     this.activeBarIndex = null
@@ -16,8 +16,8 @@ export default class Director {
     this.bars = []
     this.editMode = null
     this.clickedObject = null
+    this.createjs = createjs
   }
-
 
   init() {
     this.canvas.prepare()
@@ -33,7 +33,12 @@ export default class Director {
     this.init()
   }
 
-  tick() {
+  startVideo() {
+    this.createjs.Ticker.setFPS(this.setup.system.video.fps)
+    this.createjs.Ticker.addEventListener('tick', () => this.tickVideo())
+  }
+
+  tickVideo() {
     this.canvas.clear()
     this._doDroppersLoop()
     this._doBallsLoop()
@@ -67,7 +72,6 @@ export default class Director {
   }
 
   _doBarsLoop() {
-
     for (let bar of this.bars) {
       this.canvas.addBar(bar)
     }
@@ -92,7 +96,6 @@ export default class Director {
             ball[property] = value
           }
         }
-
         this.factory.setup = this.setup
       }
     }
@@ -198,5 +201,14 @@ export default class Director {
       'height': this.setup.world.height,
       'type': 'canvas'
     }
+  }
+
+
+  initAudio() {
+    this.audio.createClock(1)
+  }
+
+  startAudio() {
+    this.audio.start()
   }
 }

@@ -45,19 +45,19 @@ export default class Ball extends AbstractEntity {
       if (direction == 'left') {
         this.directionX *= -1
         if(this.collision.depth < 0) {
-          this.x += this.collision.depth
+          this.x += this.collision.depth + this.setup.speed
         }
       }
       if (direction == 'right') {
         this.directionX *= -1
         if(this.collision.depth < 0) {
-          this.x -= this.collision.depth
+          this.x -= this.collision.depth + this.setup.speed
         }
       }
       if (direction == 'top') {
         this.directionY *= -1
         if(this.collision.depth < 0) {
-          this.y += this.collision.depth
+          this.y += this.collision.depth + this.setup.speed
         }
       }
       if (direction == 'bottom') {

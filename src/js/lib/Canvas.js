@@ -1,5 +1,3 @@
-import setup from "./Setup";
-
 /**
  * A Canvas paints objects
  */

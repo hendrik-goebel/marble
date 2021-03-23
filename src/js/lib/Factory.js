@@ -5,12 +5,7 @@ import Queue from './helper/Queue.js'
 
 export default class Factory {
 
-  constructor(setup) {
-    this.setup = setup
-  }
-
   createBall(x = null, y = null) {
-
     let ball = new Ball(this.setup.ball)
     if (x) {
       ball.x = x

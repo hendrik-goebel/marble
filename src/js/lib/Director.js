@@ -11,10 +11,11 @@ export default class Director {
     this.audio = null
     this.droppers = []
     this.bars = []
-    this.activeBarIndex = null
+    this.activeBarIndex = 0
     this.bars = []
     this.editMode = null
     this.clickedObject = null
+    this.instrument = "first"
 
     this.timerId = 101
     this.timers = {
@@ -120,7 +121,7 @@ export default class Director {
   }
 
   get activeBar() {
-    if (this.activeBarIndex != null) {
+    if (this.activeBarIndex != -1) {
       return this.bars[this.activeBarIndex]
     }
     return null
@@ -130,10 +131,13 @@ export default class Director {
     this.activeBarIndex = this.bars.indexOf(bar)
   }
 
+
   startDrawBar(x, y) {
     let bar = this.factory.createBar(x, y)
+    bar.sound = this.instrument
     this.bars.push(bar)
     this.selectBar(bar)
+
   }
 
   drawBar(x, y) {
@@ -149,7 +153,15 @@ export default class Director {
     }
     bar.isSelected = true
     this.activeBar = bar
-    this.Observable.callObservers('onSelectBar', {'property': 'barSelected', 'value': bar.id})
+    this.Observable.callObservers('onSelectBar', {'property': 'barSelected', 'value': bar})
+  }
+
+  deselectActiveBar() {
+    if (this.activeBar) {
+
+      this.activeBar.isSelected = false
+      this.activeBarIndex = -1
+    }
   }
 
   deleteBar(bar) {
@@ -189,6 +201,7 @@ export default class Director {
         return
       }
     }
+    this.deselectActiveBar()
     this.editMode = 'startDrawingBar'
   }
 
@@ -236,11 +249,18 @@ export default class Director {
   }
 
   onUpdateControl(property, value) {
+    if (property == 'instruments') {
+      this.instrument = value
+
+      if (this.activeBar) {
+        this.activeBar.sound = value
+      }
+    }
     if (property == 'bpm') {
       this.timer.bpm = value
     }
 
-    if(property == 'note') {
+    if (property == 'note') {
       this.timer.note = value
     }
   }

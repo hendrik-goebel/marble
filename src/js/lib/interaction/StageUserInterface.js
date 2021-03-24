@@ -25,12 +25,9 @@ export default class StageUserInterface {
         clickCounter = 0
       }, 200);
       clickCounter++
-
       if (clickCounter > 1) {
         doubleClick()
       }
-
-
 
       function singleClick() {
         Observable.callObservers('onSingleClick', {
@@ -46,8 +43,6 @@ export default class StageUserInterface {
         })
 
       }
-
-
         Observable.callObservers('onMouseDown', {
           'x': evt.stageX,
           'y': evt.stageY
@@ -69,9 +64,7 @@ export default class StageUserInterface {
       })
     });
 
-
     document.onkeyup = keyup;
-
     function keyup(event) {
       if (event.key == "d") {
         Observable.callObservers('onKeyUp', {

@@ -2,6 +2,7 @@
 import {Observable} from "./helper/ObservableMixin";
 import EventRouter from "./EventRouting";
 import setup from "./Setup";
+import sounds from "./config/Sounds.js"
 import constants from "./Constants.js"
 
 import Director from './Director.js'
@@ -40,11 +41,11 @@ export default class Container {
     this.factory = new Factory()
     this.collisionDetector = new CollisionDetector()
     this.audioplayer = new AudioPlayer()
-    this.controls = new Controls()
+    this.controls = new Controls(sounds)
     this.stageUi = new StageUserInterface(this.canvas.stage)
     this.audioplayer = new AudioPlayer()
     this.director = new Director(this.canvas, this.factory, this.collisionDetector, createjs)
-    this.audioDirector = new AudioDirector(this.audioplayer)
+    this.audioDirector = new AudioDirector(this.audioplayer, sounds)
   }
 
   getDefaultPrototypeProperties() {

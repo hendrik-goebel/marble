@@ -18,6 +18,7 @@ export default class Bar extends AbstractEntity {
       'x': 0,
       'y': 0
     }
+    this.sound = null
   }
 
   get isSelected() {

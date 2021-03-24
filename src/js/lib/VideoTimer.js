@@ -10,7 +10,7 @@ export default class VideoTimer extends Timer {
     this.baseTickTime = this.setup.system.video.baseTickTime
     this.scallingFactor = this.setup.system.video.scallingFactor
     this.maxNote = 32
-    this.minNote = 1
+    this.minNote = 4
     this.note = this.setup.system.audio.note
 
   }
@@ -19,9 +19,6 @@ export default class VideoTimer extends Timer {
     let bpmSpeed = ((this.bpm  - this.bpmMin) / (this.bpmMax - this.bpmMin) ) * 100
     let noteSpeed = ((this.note - this.minNote) / (this.maxNote - this.minNote)) * 30
 
-    console.log(bpmSpeed)
-    console.log(noteSpeed)
-    console.log(this.note)
     return bpmSpeed + noteSpeed
 
   }

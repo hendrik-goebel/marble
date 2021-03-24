@@ -3,7 +3,7 @@
  */
 export default class AudioDirector {
 
-  constructor(audioPlayer) {
+  constructor(audioPlayer, sounds) {
     this.player = audioPlayer
     this.timers = {
       0: {
@@ -26,33 +26,20 @@ export default class AudioDirector {
     this.quantisation = true
     this.soundsToPlay = []
     this.metronome = true
-    this.sounds = [
-      {
-        "name": "Click",
-        "file": "samples/click.wav"
-      },
-      {
-        "name": "Kick",
-        "file": "samples/Kick02.wav"
-      }
-    ]
-
-    this.player.registerSounds(this.sounds)
+    this.sounds = sounds.samples
+    this.samplesPath = sounds.path
+    this.instrument = this.sounds[0]
+    this.player.registerSounds(this.sounds, this.samplesPath)
     this.soundRelations = {
       'xyz': 1
     }
   }
 
-  playSound(entity) {
-    let id = 'xyz';
-    let sound
-    if (id in this.soundRelations) {
-      sound = this.sounds[this.soundRelations[id]]
-      if (this.quantisation) {
-        this.soundsToPlay.push(sound)
-      } else {
-        this.player.play(sound)
-      }
+  playSound(sound) {
+    if (this.quantisation) {
+      this.soundsToPlay.push(sound)
+    } else {
+      this.player.play(sound)
     }
   }
 
@@ -82,12 +69,27 @@ export default class AudioDirector {
 
   playCollisionSound(entity) {
     if (entity.type == this.CONST.TYPE.BALL && entity.collision.object.type == this.CONST.TYPE.BAR) {
-      this.playSound(entity)
+      this.playSound(this.findSoundByName(entity.collision.object.sound))
     }
   }
 
   playMetronome() {
-    this.player.play(this.sounds[0])
+    if (this.metronome) {
+
+      this.player.play(this.sounds[0])
+    }
+  }
+
+  findSoundByName(name) {
+    for (let sound of this.sounds) {
+      if (name == "first") {
+        return sound
+      }
+      if (sound.name == name) {
+        return sound
+      }
+    }
+    return null
   }
 
   /**
@@ -103,9 +105,13 @@ export default class AudioDirector {
     }
   }
 
+
   onUpdateControl(property, value) {
 
-    if(property == 'note') {
+    if (property == 'instruments') {
+      this.instrument = this.findSoundByName(value)
+    }
+    if (property == 'note') {
       this.timers[this.timerId].instance.note = value
     }
     if (property == 'grid') {
@@ -115,6 +121,11 @@ export default class AudioDirector {
       for (let id in this.timers) {
         this.timers[id].instance.bpm = value
       }
+    }
+    if (property == 'metronome') {
+
+      this.metronome = !this.metronome
+      console.log(this.metronome)
     }
   }
 }

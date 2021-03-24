@@ -1,8 +1,8 @@
 export default class AudioPlayer {
 
-  registerSounds(sounds) {
+  registerSounds(sounds, path="") {
     for (let sound of sounds) {
-      createjs.Sound.registerSound(sound.file, sound.name);
+      createjs.Sound.registerSound(path + sound.file, sound.name);
     }
   }
 

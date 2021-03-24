@@ -4,17 +4,26 @@
  */
 export default class Timer {
   constructor(id) {
-    this.bpm = 120
-    this.note = 4
+    this.bpm =  this.setup.system.audio.bpm
+    this.note =  this.setup.system.audio.note
     this.messure = 4
     this.resolution = 1
     this.id = id
+    this.label = ''
     this._grid = null
     this._startTime = new Date().getTime();
     this._time = 0;
     this.timeout = null
     this.resolutionMulitplier = 1
     this.count = 1
+  }
+
+  applySetup(setup) {
+    for (let key in setup) {
+      if (this.hasOwnProperty(key)) {
+        this[key] = setup[key]
+      }
+    }
   }
 
   calculateGrid() {
@@ -37,11 +46,7 @@ export default class Timer {
   }
 
   executeCallback() {
-
-    this.Observable.callObservers('onBeat', {
-      'id': this.id,
-      'count': this.count
-    })
+    this.Observable.callObservers('onBeat', this)
 
     this.count++
     if (this.count > this.note) {

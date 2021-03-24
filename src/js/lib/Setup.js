@@ -29,10 +29,15 @@ export default {
   'mode': {
     'test': false
   },
-  'system' : {
-    'grid': 1,
+  'system': {
+    'audio': {
+      'bpm': 120,
+      'bpmMin': 30,
+      'bpmMax': 190,
+      'note': 16,
+    },
     'video': {
-      'fps': 30
+      'baseTickTime': 100,
     },
   },
   'adjustDimensions': function () {

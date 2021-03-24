@@ -14,6 +14,7 @@ import CollisionTest from "./test/CollisionTest.js"
 import AudioPlayer from "./AudioPlayer"
 import AudioDirector from "./AudioDirector.js"
 import Timer from "./Timer.js"
+import VideoTimer from "./VideoTimer.js"
 
 /**
  * Manages initialization of objects and corresponding dependencies
@@ -23,6 +24,7 @@ export default class Container {
   init() {
     this.setup = setup
     Object.assign(Timer.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(VideoTimer.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Controls.prototype, this.getDefaultPrototypeProperties())
     Object.assign(StageUserInterface.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Director.prototype, this.getDefaultPrototypeProperties())
@@ -60,10 +62,23 @@ export default class Container {
         let timer = new Timer(args[1])
         this.eventRouting.assignTimerEvents(timer)
         return timer
-      }
+      },
+      'VideoTimer': (args) => {
+        let timer = new VideoTimer(args[1])
+        this.eventRouting.assignTimerEvents(timer)
+        return timer
+      },
     }
   }
 
+  /**
+   * If instances need to be created on runtime this method can be used
+   * to make sure all dependencies are resolved
+   *
+   * @param className
+   * @param args
+   * @returns {*}
+   */
   create(className, ...args) {
     if (className in this.classMapping) {
       return this.classMapping[className](arguments)

@@ -7,11 +7,8 @@ container.init()
 container.director.audio = container.audioDirector
 
 container.eventRouting.route()
-
 setup.adjustDimensions()
-container.controls.initControls()
 
-container.controls.listen()
 container.stageUi.listen()
 container.canvas.listen()
 

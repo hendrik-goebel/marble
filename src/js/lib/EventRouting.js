@@ -69,8 +69,12 @@ export default class EventRouter {
    */
   assignTimerEvents(timer) {
     timer.Observable.addObserver((args) => {
-      this.container.director.onBeat(args.id, args.count)
-      this.container.audioDirector.onBeat(args.id, args.count)
+      this.container.director.onTick(args)
+    }, 'onTick');
+
+    timer.Observable.addObserver((args) => {
+      this.container.director.onBeat(args)
+      this.container.audioDirector.onBeat(args)
     }, 'onBeat');
   }
 }

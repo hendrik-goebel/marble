@@ -6,48 +6,52 @@
 export default class Controls {
 
   constructor() {
-    this.controls = {
-      'speed': document.getElementById('control-speed'),
-      'barSelected': document.getElementById('bar-selected'),
-      'grid': document.getElementById('control-grid')
+    this.controlItems = ['speed', 'bar-selected', 'bpm', 'bpm-text', 'note', 'note-text']
+    this.controls = {}
+    for (let item of this.controlItems) {
+      this.controls[item] = document.getElementById('control-' + item)
     }
+    this.initControls()
+    this.listen()
   }
 
   initControls() {
     this.controls['speed'].value = this.setup.ball.speed
-    this.controls['grid'].value = this.setup.system.grid
+    this.controls['bpm'].value = this.setup.system.audio.bpm
+    this.controls['bpm-text'].value = this.setup.system.audio.bpm
+    this.controls['note'].value = this.setup.system.audio.note
+    this.controls['note-text'].value = this.setup.system.audio.note
+    this.controls['bpm'].setAttribute("min", this.setup.system.audio.bpmMin)
+    this.controls['bpm'].setAttribute("max", this.setup.system.audio.bpmMax)
+
   }
 
   listen() {
-    this.speed()
-    this.grid()
+    let Observable = this.Observable
+    for (let item of this.controlItems) {
+      if (!this.controls[item]) {
+        continue
+      }
+      this.controls[item].onchange = function (input) {
+        Observable.callObservers(
+          'onControlsUpdate',
+          {
+            'property': item,
+            'value': this.value
+          })
+      }
+    }
   }
 
   updateControl(property, value) {
-    this.controls[property].value = value
-  }
+    if (property in this.controls) {
+      this.controls[property].value = value
+    }
 
-  grid() {
-    let Observable = this.Observable
-    this.controls['grid'].onchange = function (input) {
-      Observable.callObservers(
-        'onControlsUpdate',
-        {
-          'property': 'grid',
-          'value': parseFloat(this.value)
-        })
+    let propertyVariant = property + "-text"
+    if (propertyVariant in this.controls) {
+      this.controls[propertyVariant].value = value
     }
   }
 
-  speed() {
-    let Observable = this.Observable
-    this.controls['speed'].onchange = function (input) {
-      Observable.callObservers(
-        'onControlsUpdate',
-        {
-          'property': 'speed',
-          'value': parseInt(this.value)
-        })
-    }
-  }
 }

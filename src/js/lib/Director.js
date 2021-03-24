@@ -17,7 +17,12 @@ export default class Director {
     this.clickedObject = null
 
     this.timerId = 101
-    this.timers = {}
+    this.timers = {
+      101: {
+        'label': 'video',
+        'instance': null
+      },
+    }
   }
 
   init() {
@@ -33,24 +38,30 @@ export default class Director {
     this.init()
   }
 
+  get timer() {
+    return this.timers[this.timerId].instance
+  }
+
   createVideoTimer(id) {
-    let timer = this.container.create('Timer', id, this.audio.resolution)
-    timer.resolutionMulitplier = 30
-    this.timers[id] = timer
+    this.timers[id].instance = this.container.create('VideoTimer', id)
+    this.timers[id].instance.applySetup(this.timers[id])
+    this.timers[id].instance.run()
   }
 
   start() {
     this.createVideoTimer(this.timerId)
-    this.timers[this.timerId].run()
   }
 
   tickVideo() {
+
     this.canvas.clear()
+    this._doBarsLoop()
     this._doDroppersLoop()
     this._doBallsLoop()
-    this._doBarsLoop()
     this.canvas.update()
+
   }
+
 
   _doBallsLoop() {
     for (let dropper of this.droppers) {
@@ -71,7 +82,6 @@ export default class Director {
           }
           ball.move()
           ball.uncollide()
-
           this.canvas.addBall(ball)
         }
       }
@@ -92,15 +102,6 @@ export default class Director {
     }
   }
 
-  onUpdateControl(property, value) {
-    if (property == 'speed') {
-      this.changeObjectProperty('ball', 'speed', value)
-    }
-    if (property == 'grid') {
-      this.timers[this.timerId].resolution = value
-    }
-
-  }
 
   changeObjectProperty(type, property, value) {
     if (type == 'ball') {
@@ -220,21 +221,27 @@ export default class Director {
     }
   }
 
-  onBeat(timerId, count) {
-    if (timerId == this.timerId) {
+  onTick(timer) {
+    if (timer.label == 'video') {
       this.tickVideo()
     }
+  }
 
-    /*
-    * Timers with id >= 100 are video timers
-    * Timers with id < 199 are audio timers
-     */
-    if (timerId < 100) {
+  onBeat(timer) {
+    if (timer.label == 'metronome' && timer.count == 1) {
+      for (let dropper of this.droppers) {
+        dropper.dropBall()
+      }
+    }
+  }
 
-      if (count == 1)
-        for (let dropper of this.droppers) {
-          dropper.dropBall()
-        }
+  onUpdateControl(property, value) {
+    if (property == 'bpm') {
+      this.timer.bpm = value
+    }
+
+    if(property == 'note') {
+      this.timer.note = value
     }
   }
 }

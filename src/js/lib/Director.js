@@ -44,8 +44,7 @@ export default class Director {
   }
 
   createVideoTimer(id) {
-    this.timers[id].instance = this.container.create('VideoTimer', id)
-    this.timers[id].instance.applySetup(this.timers[id])
+    this.timers[id].instance = this.container.create('VideoTimer', id, 'video')
     this.timers[id].instance.run()
   }
 
@@ -241,7 +240,7 @@ export default class Director {
   }
 
   onBeat(timer) {
-    if (timer.label == 'metronome' && timer.count == 1) {
+    if (timer.label == 'audio' && timer.count == 1) {
       for (let dropper of this.droppers) {
         dropper.dropBall()
       }

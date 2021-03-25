@@ -6,18 +6,13 @@ export default class AudioDirector {
   constructor(audioPlayer, sounds) {
     this.player = audioPlayer
     this.timers = {
+
       0: {
         'label': 'metronome',
-        'note': 4,
-        'measure': 4,
-        'bpm': 120,
         'instance': null
       },
       1: {
         'label': 'audio',
-        'note': 16,
-        'measure': 4,
-        'bpm': 120,
         'instance': null
       }
     }
@@ -55,12 +50,16 @@ export default class AudioDirector {
   }
 
   createTimerInstances() {
-    for (let id in this.timers) {
-      let timer = this.container.create("Timer", id)
-      timer.applySetup(this.timers[id])
+
+      let timer = this.container.create("Timer", 1, 'audio')
       timer.run()
-      this.timers[id].instance = timer
-    }
+      this.timers[1].instance = timer
+
+      let metronomeTimer= this.container.create("Timer", 0, 'metronome')
+    metronomeTimer.note = 4
+    metronomeTimer.run()
+      this.timers[0].instance = metronomeTimer
+
   }
 
   get resolution() {
@@ -125,7 +124,6 @@ export default class AudioDirector {
     if (property == 'metronome') {
 
       this.metronome = !this.metronome
-      console.log(this.metronome)
     }
   }
 }

@@ -60,12 +60,12 @@ export default class Container {
   initClassMapping() {
     this.classMapping = {
       'Timer': (args) => {
-        let timer = new Timer(args[1])
+        let timer = new Timer(args[1], args[2])
         this.eventRouting.assignTimerEvents(timer)
         return timer
       },
       'VideoTimer': (args) => {
-        let timer = new VideoTimer(args[1])
+        let timer = new VideoTimer(args[1], args[2])
         this.eventRouting.assignTimerEvents(timer)
         return timer
       },

@@ -45,6 +45,8 @@ export default {
     let $canvasContainer = document.getElementById('canvas-container')
     let containerWidth = $canvasContainer.offsetWidth
     let containerHeight = $canvasContainer.offsetHeight
+    console.log(containerWidth)
+    console.log(containerHeight)
     $canvas.setAttribute('width', containerWidth)
     $canvas.setAttribute('height', containerHeight)
     this.world.width = containerWidth

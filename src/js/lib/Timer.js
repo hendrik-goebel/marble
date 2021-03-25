@@ -3,19 +3,16 @@
  *  This is a better way for audio because the internal clock fluctuates extremely
  */
 export default class Timer {
-  constructor(id) {
+  constructor(id, label) {
+    this.id = id
+    this.label = label
     this.bpm =  this.setup.system.audio.bpm
     this.note =  this.setup.system.audio.note
-    this.messure = 4
-    this.resolution = 1
-    this.id = id
-    this.label = ''
-    this._grid = null
     this._startTime = new Date().getTime();
+    this.timeInterval = 0
     this._time = 0;
-    this.timeout = null
-    this.resolutionMulitplier = 1
     this.count = 1
+    this.timeout = 0
   }
 
   applySetup(setup) {
@@ -26,18 +23,23 @@ export default class Timer {
     }
   }
 
-  calculateGrid() {
-    return (1000 * 60) / (this.bpm * this.resolution * this.resolutionMulitplier * this.note / this.messure )
+  /**
+   * Calculates the time interval in milliseconds based on bpm and note value
+   * @returns {number}
+   */
+  calculateTimeInterval(bpm, note) {
+    const milisecondsPerMinute = 60000
+    return ((milisecondsPerMinute / bpm)  / note) * 4
   }
 
   calculateTimeout() {
-    this._time += this._grid;
+    this._time += this.timeInterval;
     this._diff = (new Date().getTime() - this._startTime) - this._time;
-    return this._grid - this._diff
+    return this.timeInterval - this._diff
   }
 
   run() {
-    this._grid = this.calculateGrid()
+    this.timeInterval = this.calculateTimeInterval(this.bpm, this.note)
     this.timeout = setTimeout(
       () => this.executeCallback()
       ,

@@ -13,12 +13,19 @@ body {
 
 .container {
   width: 100%;
-
-
+  max-height: 750px;
   background-color: $tertiary;
   padding: 10px;
+  @include media-breakpoint-up(lg) {
+    max-height: 510px;
+  }
 }
 
+#canvas {
+  background-color: $secondary;
+  height: 490px;
+  width: 100%;
+}
 .form-select {
   background-color: $primary;
   color: $body-color;
@@ -45,12 +52,4 @@ body {
 .btn-primary{
   color: $body-color;
 }
-#canvas-container {
-  height: 100%;
-}
-#canvas {
-  background-color: $secondary;
-  height: 100%;
-  width: 100%;
 
-}

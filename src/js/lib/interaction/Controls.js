@@ -42,9 +42,8 @@ export default class Controls {
 
   selectInstrument(key) {
     if (key =='first') {
-
       this.controls['instruments'].value = this.sounds.samples[0].name
-
+      return
     }
     this.controls['instruments'].value = key
 

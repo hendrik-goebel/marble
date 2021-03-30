@@ -6,6 +6,7 @@ export default class Canvas {
   constructor(createjs) {
     this.createjs = createjs
     this.stage = new this.createjs.Stage("canvas");
+    this.createjs.Touch.enable(this.stage );
   }
 
   addBall(ball) {

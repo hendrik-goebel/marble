@@ -6,14 +6,16 @@ import sounds from "./config/Sounds.js"
 import constants from "./Constants.js"
 
 import Director from './Director.js'
+import DirectorUserInteraction from './DirectorUserInteraction.js'
+import DirectorTimer from './DirectorTimer.js'
 import Canvas from './Canvas.js'
 import Factory from './Factory.js'
 import Controls from './interaction/Controls.js'
 import StageUserInterface from './interaction/StageUserInterface.js'
 import CollisionDetector from "./CollisionDetector"
-import CollisionTest from "./test/CollisionTest.js"
 import AudioPlayer from "./AudioPlayer"
-import AudioDirector from "./AudioDirector.js"
+import DirectorAudio from "./DirectorAudio.js"
+import State from "./State.js"
 import Timer from "./Timer.js"
 import VideoTimer from "./VideoTimer.js"
 
@@ -29,8 +31,10 @@ export default class Container {
     Object.assign(Controls.prototype, this.getDefaultPrototypeProperties())
     Object.assign(StageUserInterface.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Director.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(DirectorUserInteraction.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(DirectorTimer.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(DirectorAudio.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Canvas.prototype, this.getDefaultPrototypeProperties())
-    Object.assign(AudioDirector.prototype, this.getDefaultPrototypeProperties())
     Object.assign(EventRouter.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Factory.prototype, this.getDefaultPrototypeProperties())
     Object.assign(CollisionDetector.prototype, this.getDefaultPrototypeProperties())
@@ -44,8 +48,11 @@ export default class Container {
     this.controls = new Controls(sounds)
     this.stageUi = new StageUserInterface(this.canvas.stage)
     this.audioplayer = new AudioPlayer()
-    this.director = new Director(this.canvas, this.factory, this.collisionDetector, createjs)
-    this.audioDirector = new AudioDirector(this.audioplayer, sounds)
+    this.state = new State()
+    this.directorUI = new DirectorUserInteraction(this.state, this.factory, this.collisionDetector)
+    this.director = new Director(this.canvas, this.factory, this.collisionDetector, this.state)
+    this.directorAudio = new DirectorAudio(this.audioplayer, sounds)
+    this.directorTimer = new DirectorTimer()
   }
 
   getDefaultPrototypeProperties() {
@@ -61,12 +68,12 @@ export default class Container {
     this.classMapping = {
       'Timer': (args) => {
         let timer = new Timer(args[1], args[2])
-        this.eventRouting.assignTimerEvents(timer)
+       // this.eventRouting.assignTimerEvents(timer)
         return timer
       },
       'VideoTimer': (args) => {
         let timer = new VideoTimer(args[1], args[2])
-        this.eventRouting.assignTimerEvents(timer)
+      //  this.eventRouting.assignTimerEvents(timer)
         return timer
       },
     }

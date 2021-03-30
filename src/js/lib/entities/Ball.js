@@ -51,7 +51,7 @@ export default class Ball extends AbstractEntity {
       if (direction == 'right') {
         this.directionX *= -1
         if(this.collision.depth < 0) {
-          this.x -= this.collision.depth + this.setup.speed
+          this.x -= this.collision.depth - this.setup.speed
         }
       }
       if (direction == 'top') {
@@ -61,10 +61,13 @@ export default class Ball extends AbstractEntity {
         }
       }
       if (direction == 'bottom') {
-        if (this.collision.object.type == 'canvas') {
+        if (this.collision.object.type == this.CONST.TYPE.WALL) {
           this.deactivate()
         }
         this.directionY *= -1
+        if(this.collision.depth < 0) {
+          this.y -= this.collision.depth - this.setup.speed
+        }
       }
 
       this.uncollide()

@@ -6,21 +6,13 @@ export default class Timer {
   constructor(id, label) {
     this.id = id
     this.label = label
-    this.bpm =  this.setup.system.audio.bpm
-    this.note =  this.setup.system.audio.note
+    this.bpm = this.setup.system.audio.bpm
+    this.note = this.setup.system.audio.note
     this._startTime = new Date().getTime();
     this.timeInterval = 0
     this._time = 0;
-    this.count = 1
+    this.count = 0
     this.timeout = 0
-  }
-
-  applySetup(setup) {
-    for (let key in setup) {
-      if (this.hasOwnProperty(key)) {
-        this[key] = setup[key]
-      }
-    }
   }
 
   /**
@@ -29,7 +21,7 @@ export default class Timer {
    */
   calculateTimeInterval(bpm, note) {
     const milisecondsPerMinute = 60000
-    return ((milisecondsPerMinute / bpm)  / note) * 4
+    return ((milisecondsPerMinute / bpm) / note) * 4
   }
 
   calculateTimeout() {
@@ -49,7 +41,6 @@ export default class Timer {
 
   executeCallback() {
     this.Observable.callObservers('onBeat', this)
-
     this.count++
     if (this.count > this.note) {
       this.count = 1

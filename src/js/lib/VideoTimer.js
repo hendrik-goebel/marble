@@ -2,19 +2,16 @@ import Timer from "./Timer.js"
 
 export default class VideoTimer extends Timer {
 
-
   constructor(id, label) {
     super();
     this.id = id
     this.label = label
     this.bpmMin = this.setup.system.audio.bpmMin
     this.bpmMax = this.setup.system.audio.bpmMax
-    this.videoScallingFactor= 100
+    this.videoScallingFactor= 50
     this.baseTickTime = this.setup.system.video.baseTickTime
-   // this.scallingFactor = this.setup.system.video.scallingFactor
     this.maxNote = 32
     this.minNote = 4
-
 
   }
 
@@ -31,10 +28,7 @@ export default class VideoTimer extends Timer {
     let current = this.calculateTimeInterval(this.bpm, 4)
 
     let noteScalling = 1 / (this.note - 1) / (32 - 1) * 400
-
-
     return ((current - min) / (max -min) * this.videoScallingFactor) + noteScalling
-
   }
 
   calculateTimeout() {
@@ -45,7 +39,6 @@ export default class VideoTimer extends Timer {
 
   run() {
     this.timeInterval = this.calculateTimeIntervalVideo()
-
     this.timeout = setTimeout(
       () => this.executeCallback()
       ,

@@ -1,23 +1,10 @@
 /**
  * Manages everything releated to audio.
  */
-export default class AudioDirector {
+export default class DirectorAudio {
 
   constructor(audioPlayer, sounds) {
     this.player = audioPlayer
-    this.timers = {
-
-      0: {
-        'label': 'metronome',
-        'instance': null
-      },
-      1: {
-        'label': 'audio',
-        'instance': null
-      }
-    }
-
-    this.timerId = 1
     this.quantisation = true
     this.soundsToPlay = []
     this.metronome = true
@@ -25,9 +12,6 @@ export default class AudioDirector {
     this.samplesPath = sounds.path
     this.instrument = this.sounds[0]
     this.player.registerSounds(this.sounds, this.samplesPath)
-    this.soundRelations = {
-      'xyz': 1
-    }
   }
 
   playSound(sound) {
@@ -46,24 +30,13 @@ export default class AudioDirector {
   }
 
   start() {
-    this.createTimerInstances()
+    this.audioTimer.run()
+    this.metronomeTimer.run()
   }
 
-  createTimerInstances() {
-
-      let timer = this.container.create("Timer", 1, 'audio')
-      timer.run()
-      this.timers[1].instance = timer
-
-      let metronomeTimer= this.container.create("Timer", 0, 'metronome')
-    metronomeTimer.note = 4
-    metronomeTimer.run()
-      this.timers[0].instance = metronomeTimer
-
-  }
 
   get resolution() {
-    return this.timers[this.timerId].resolution
+    return this.audioTimer.resolution
   }
 
   playCollisionSound(entity) {
@@ -99,30 +72,18 @@ export default class AudioDirector {
     if (timer.label == 'audio') {
       this.playSounds()
     }
-    if (timer.label == 'metronome') {
+    if (timer.label == 'metronome' ) {
       this.playMetronome()
     }
   }
-
 
   onUpdateControl(property, value) {
 
     if (property == 'instruments') {
       this.instrument = this.findSoundByName(value)
     }
-    if (property == 'note') {
-      this.timers[this.timerId].instance.note = value
-    }
-    if (property == 'grid') {
-      this.timers[this.timerId].resolution = value
-    }
-    if (property == 'bpm') {
-      for (let id in this.timers) {
-        this.timers[id].instance.bpm = value
-      }
-    }
-    if (property == 'metronome') {
 
+    if (property == 'metronome') {
       this.metronome = !this.metronome
     }
   }

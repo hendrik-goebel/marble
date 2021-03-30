@@ -6,7 +6,7 @@ export default {
   'dropper': {
     'width': 8,
     'height': 8,
-    'maxBalls': 50,
+    'maxBalls': 15,
     'x': 10,
     'y': 10,
     'radius': 5,
@@ -27,7 +27,8 @@ export default {
     'colorSelected': "#dad7cd"
   },
   'mode': {
-    'test': false
+    'test': false,
+    'profile': true
   },
   'system': {
     'audio': {
@@ -45,8 +46,6 @@ export default {
     let $canvasContainer = document.getElementById('canvas-container')
     let containerWidth = $canvasContainer.offsetWidth
     let containerHeight = $canvasContainer.offsetHeight
-    console.log(containerWidth)
-    console.log(containerHeight)
     $canvas.setAttribute('width', containerWidth)
     $canvas.setAttribute('height', containerHeight)
     this.world.width = containerWidth

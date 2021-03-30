@@ -7,12 +7,14 @@ export default class EventRouter {
     this.controlsEvents()
     this.directorEvents()
     this.canvasEvents()
+    this.timerEvents()
   }
 
   controlsEvents() {
     this.container.controls.Observable.addObserver((args) => {
-      this.container.director.onUpdateControl(args.property, args.value)
-      this.container.audioDirector.onUpdateControl(args.property, args.value)
+      this.container.directorUI.onUpdateControl(args.property, args.value)
+      this.container.directorAudio.onUpdateControl(args.property, args.value)
+      this.container.directorTimer.onUpdateControl(args.property, args.value)
       this.container.controls.updateControl(args.property, args.value)
     }, 'onControlsUpdate')
   }
@@ -23,24 +25,28 @@ export default class EventRouter {
     }, 'onCanvasResize')
 
     this.container.director.Observable.addObserver((args) => {
-      this.container.director.mouseDown(args.x, args.y)
+      this.container.directorUI.mouseDown(args.x, args.y)
     }, 'onMouseDown')
 
     this.container.director.Observable.addObserver((args) => {
-      this.container.director.doubleClick(args.x, args.y)
+      this.container.directorUI.doubleClick(args.x, args.y)
     }, 'onDoubleClick')
 
     this.container.director.Observable.addObserver((args) => {
-      this.container.director.singleClick(args.x, args.y)
+      this.container.directorUI.singleClick(args.x, args.y)
     }, 'onSingleClick')
 
     this.container.director.Observable.addObserver((args) => {
-      this.container.director.mouseMove(args.x, args.y)
+      this.container.directorUI.mouseMove(args.x, args.y)
     }, 'onMouseMove')
 
     this.container.director.Observable.addObserver((args) => {
-      this.container.director.mouseUp(args.x, args.y)
+      this.container.directorUI.mouseUp(args.x, args.y)
     }, 'onMouseUp')
+
+    this.container.director.Observable.addObserver((args) => {
+      this.container.directorUI.onKeyUp(args.key)
+    }, 'onKeyUp')
   }
 
   directorEvents() {
@@ -49,7 +55,7 @@ export default class EventRouter {
     }, 'onSelectBar')
 
     this.container.director.Observable.addObserver((args) => {
-      this.container.audioDirector.playCollisionSound(args)
+      this.container.directorAudio.playCollisionSound(args)
     }, 'onCollision')
 
     if (this.setup.mode.test) {
@@ -63,18 +69,22 @@ export default class EventRouter {
     }
   }
 
-  /**
-   * Audio Clocks can be created on runtime, so we have to assign events to the instances
-   * @param audioClock
-   */
-  assignTimerEvents(timer) {
-    timer.Observable.addObserver((args) => {
+  timerEvents() {
+    this.container.directorTimer.videoTimer.Observable.addObserver((args) => {
       this.container.director.onTick(args)
-    }, 'onTick');
+    }, 'onTick')
 
-    timer.Observable.addObserver((args) => {
+    this.container.directorTimer.videoTimer.Observable.addObserver((args) => {
       this.container.director.onBeat(args)
-      this.container.audioDirector.onBeat(args)
-    }, 'onBeat');
+    }, 'onBeat')
+
+    this.container.directorTimer.audioTimer.Observable.addObserver((args) => {
+      this.container.directorAudio.onBeat(args)
+    }, 'onBeat')
+
+    this.container.directorTimer.metronomeTimer.Observable.addObserver((args) => {
+      this.container.directorAudio.onBeat(args)
+    }, 'onBeat')
   }
+
 }

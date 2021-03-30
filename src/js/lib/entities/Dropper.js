@@ -17,13 +17,13 @@ export default class Dropper extends AbstractEntity {
   }
 
   dropBall() {
-    let ball = this._balls.dequeue()
-    if (!ball.isVisible) {
-      ball.reset()
-      ball.activate()
+    for (let i in this._balls.items) {
+      if (!this._balls.items[i].isVisible) {
+        this._balls.items[i].reset()
+        this._balls.items[i].activate()
+        return
+      }
     }
-    this._balls.enqueue(ball)
-
   }
 
   get balls() {

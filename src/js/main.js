@@ -16,4 +16,4 @@ container.director.init()
 setTimeout(() => {
   container.directorTimer.run()
 
-}, 1000)
+}, 2000)

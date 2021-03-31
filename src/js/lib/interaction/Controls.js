@@ -8,7 +8,7 @@ import sounds from "../config/Sounds";
 export default class Controls {
 
   constructor(sounds) {
-    this.controlItems = ['speed', 'bar-selected', 'bpm', 'bpm-text', 'note', 'note-text', 'instruments', 'metronome']
+    this.controlItems = ['speed', 'bar-selected', 'bpm', 'bpm-text', 'note', 'note-text', 'instruments', 'metronome', 'metronome-instruments']
     this.controls = {}
     this.sounds = sounds
     for (let item of this.controlItems) {
@@ -37,6 +37,15 @@ export default class Controls {
       option.text = sound.name
       option.value = sound.name
       this.controls['instruments'].appendChild(option)
+    }
+
+    for (let key in sounds.samples) {
+      let sound = sounds.samples[key]
+
+      let option = document.createElement("option");
+      option.text = sound.name
+      option.value = sound.name
+      this.controls['metronome-instruments'].appendChild(option)
     }
   }
 

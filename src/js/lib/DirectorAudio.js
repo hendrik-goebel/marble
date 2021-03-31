@@ -11,6 +11,7 @@ export default class DirectorAudio {
     this.sounds = sounds.samples
     this.samplesPath = sounds.path
     this.instrument = this.sounds[0]
+    this.metronomeinstrument = this.sounds[0]
     this.player.registerSounds(this.sounds, this.samplesPath)
   }
 
@@ -47,8 +48,7 @@ export default class DirectorAudio {
 
   playMetronome() {
     if (this.metronome) {
-
-      this.player.play(this.sounds[0])
+      this.player.play(this.metronomeinstrument)
     }
   }
 
@@ -81,6 +81,10 @@ export default class DirectorAudio {
 
     if (property == 'instruments') {
       this.instrument = this.findSoundByName(value)
+    }
+
+    if (property == 'metronome-instruments') {
+      this.metronomeinstrument = this.findSoundByName(value)
     }
 
     if (property == 'metronome') {

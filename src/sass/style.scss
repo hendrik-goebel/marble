@@ -13,10 +13,9 @@ body {
 
 .container {
   width: 100%;
-  max-height: 750px;
   background-color: $tertiary;
   padding: 10px;
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     max-height: 510px;
   }
 }

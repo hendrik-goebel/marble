@@ -44,19 +44,19 @@ export default class Ball extends AbstractEntity {
 
       if (direction == 'left') {
         this.directionX *= -1
-        if(this.collision.depth < 0) {
+        if (this.collision.depth < 0 && this.collision.object.type == this.CONST.TYPE.BAR) {
           this.x += this.collision.depth + this.setup.speed
         }
       }
       if (direction == 'right') {
         this.directionX *= -1
-        if(this.collision.depth < 0) {
+        if (this.collision.depth < 0 && this.collision.object.type == this.CONST.TYPE.BAR) {
           this.x -= this.collision.depth - this.setup.speed
         }
       }
       if (direction == 'top') {
         this.directionY *= -1
-        if(this.collision.depth < 0) {
+        if (this.collision.depth < 0 && this.collision.object.type == this.CONST.TYPE.BAR) {
           this.y += this.collision.depth + this.setup.speed
         }
       }
@@ -65,7 +65,7 @@ export default class Ball extends AbstractEntity {
           this.deactivate()
         }
         this.directionY *= -1
-        if(this.collision.depth < 0) {
+        if (this.collision.depth < 0 && this.collision.object.type == this.CONST.TYPE.BAR) {
           this.y -= this.collision.depth - this.setup.speed
         }
       }

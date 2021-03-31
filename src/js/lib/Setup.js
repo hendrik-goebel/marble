@@ -6,7 +6,7 @@ export default {
   'dropper': {
     'width': 8,
     'height': 8,
-    'maxBalls': 15,
+    'maxBalls': 30,
     'x': 10,
     'y': 10,
     'radius': 5,

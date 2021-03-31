@@ -4,170 +4,356 @@ export default {
   "samples": [
     
   {
-      "name": "0_click",
-      "file": "0_click.wav"
+      "name": "0Shaker",
+      "file": "0Shaker.wav"
     },
 
 
   {
-      "name": "Clap06",
-      "file": "Clap06.wav"
+      "name": "BigBassDrumHit",
+      "file": "BigBassDrumHit.wav"
     },
 
 
   {
-      "name": "Clap07",
-      "file": "Clap07.wav"
+      "name": "BreakingGlass",
+      "file": "BreakingGlass.wav"
     },
 
 
   {
-      "name": "Closedhat05",
-      "file": "Closedhat05.wav"
+      "name": "CabasaMaracas",
+      "file": "CabasaMaracas.wav"
     },
 
 
   {
-      "name": "Closedhat07",
-      "file": "Closedhat07.wav"
+      "name": "Camera_Canon_2",
+      "file": "Camera_Canon_2.wav"
     },
 
 
   {
-      "name": "Closedhat10",
-      "file": "Closedhat10.wav"
+      "name": "Conga8000",
+      "file": "Conga8000.wav"
     },
 
 
   {
-      "name": "Closedhat19",
-      "file": "Closedhat19.wav"
+      "name": "CongaLo",
+      "file": "CongaLow.wav"
     },
 
 
   {
-      "name": "Kick01",
-      "file": "Kick01.wav"
+      "name": "Congo11",
+      "file": "Congo11.wav"
     },
 
 
   {
-      "name": "Kick02",
-      "file": "Kick02.wav"
+      "name": "CowbellTraks",
+      "file": "CowbellTraks.wav"
     },
 
 
   {
-      "name": "Kick04",
-      "file": "Kick04.wav"
+      "name": "Hi-Hat_Open2",
+      "file": "Hi-Hat_Open2.wav"
     },
 
 
   {
-      "name": "Kick11",
-      "file": "Kick11.wav"
+      "name": "Hi-Hat_Open3",
+      "file": "Hi-Hat_Open3.wav"
     },
 
 
   {
-      "name": "Kick17",
-      "file": "Kick17.wav"
+      "name": "HiHat45",
+      "file": "HiHat45.wav"
     },
 
 
   {
-      "name": "Kick18",
-      "file": "Kick18.wav"
+      "name": "HiHatClosed28",
+      "file": "HiHatClosed28.wav"
     },
 
 
   {
-      "name": "Openhat06",
-      "file": "Openhat06.wav"
+      "name": "HiHatClosed33",
+      "file": "HiHatClosed33.wav"
     },
 
 
   {
-      "name": "Openhat07",
-      "file": "Openhat07.wav"
+      "name": "HiHatCloseHouse",
+      "file": "HiHatCloseHouse.wav"
     },
 
 
   {
-      "name": "Openhat08",
-      "file": "Openhat08.wav"
+      "name": "HiHatOpen25",
+      "file": "HiHatOpen25.wav"
     },
 
 
   {
-      "name": "Perc01",
-      "file": "Perc01.wav"
+      "name": "HiHatOpen3",
+      "file": "HiHatOpen3.wav"
     },
 
 
   {
-      "name": "Perc02",
-      "file": "Perc02.wav"
+      "name": "HiHatOpenHousePach",
+      "file": "HiHatOpenHousePacha.wav"
     },
 
 
   {
-      "name": "Perc04",
-      "file": "Perc04.wav"
+      "name": "Kick606",
+      "file": "Kick606.wav"
     },
 
 
   {
-      "name": "Perc05",
-      "file": "Perc05.wav"
+      "name": "Kick78",
+      "file": "Kick78.wav"
     },
 
 
   {
-      "name": "Perc06",
-      "file": "Perc06.wav"
+      "name": "KickB606",
+      "file": "KickB606.wav"
     },
 
 
   {
-      "name": "Perc08",
-      "file": "Perc08.wav"
+      "name": "KickB8000",
+      "file": "KickB8000.wav"
     },
 
 
   {
-      "name": "Perc10",
-      "file": "Perc10.wav"
+      "name": "KickLinn",
+      "file": "KickLinn.wav"
     },
 
 
   {
-      "name": "Perc11",
-      "file": "Perc11.wav"
+      "name": "Maracas",
+      "file": "Maracas.wav"
     },
 
 
   {
-      "name": "Shaker02",
-      "file": "Shaker02.wav"
+      "name": "Match3",
+      "file": "Match3.wav"
     },
 
 
   {
-      "name": "Snare06",
-      "file": "Snare06.wav"
+      "name": "PercAir",
+      "file": "PercAir.wav"
     },
 
 
   {
-      "name": "Snare10",
-      "file": "Snare10.wav"
+      "name": "PercAnt",
+      "file": "PercAnt.wav"
     },
 
 
   {
-      "name": "Snare18",
-      "file": "Snare18.wav"
+      "name": "PercCloud",
+      "file": "PercCloud.wav"
+    },
+
+
+  {
+      "name": "PercFuture",
+      "file": "PercFuture.wav"
+    },
+
+
+  {
+      "name": "PercLight",
+      "file": "PercLight.wav"
+    },
+
+
+  {
+      "name": "PercLo",
+      "file": "PercLow.wav"
+    },
+
+
+  {
+      "name": "PercPunchy",
+      "file": "PercPunchy.wav"
+    },
+
+
+  {
+      "name": "PercShaky",
+      "file": "PercShaky.wav"
+    },
+
+
+  {
+      "name": "PercShort",
+      "file": "PercShort.wav"
+    },
+
+
+  {
+      "name": "PercSnare",
+      "file": "PercSnare.wav"
+    },
+
+
+  {
+      "name": "PercTiny",
+      "file": "PercTiny.wav"
+    },
+
+
+  {
+      "name": "Piano",
+      "file": "Piano.wav"
+    },
+
+
+  {
+      "name": "Quajada3",
+      "file": "Quajada3.wav"
+    },
+
+
+  {
+      "name": "ReverseCrash",
+      "file": "ReverseCrash.wav"
+    },
+
+
+  {
+      "name": "Ride110",
+      "file": "Ride110.wav"
+    },
+
+
+  {
+      "name": "Ride8000",
+      "file": "Ride8000.wav"
+    },
+
+
+  {
+      "name": "RideRC2",
+      "file": "RideRC2.wav"
+    },
+
+
+  {
+      "name": "RideRC3",
+      "file": "RideRC3.wav"
+    },
+
+
+  {
+      "name": "RideRC3_mugent",
+      "file": "RideRC3_mugent.wav"
+    },
+
+
+  {
+      "name": "RideRC5",
+      "file": "RideRC5.wav"
+    },
+
+
+  {
+      "name": "ShakerDMX",
+      "file": "ShakerDMX.wav"
+    },
+
+
+  {
+      "name": "ShakerTraks",
+      "file": "ShakerTraks.wav"
+    },
+
+
+  {
+      "name": "SimmonsDrumsHighTom",
+      "file": "SimmonsDrumsHighTom.wav"
+    },
+
+
+  {
+      "name": "SnareDrumHit",
+      "file": "SnareDrumHit.wav"
+    },
+
+
+  {
+      "name": "SnareDrumSnareOffHit",
+      "file": "SnareDrumSnareOffHit.wav"
+    },
+
+
+  {
+      "name": "SpacedHouseTopKick",
+      "file": "SpacedHouseTopKick.wav"
+    },
+
+
+  {
+      "name": "Tom",
+      "file": "Tom.wav"
+    },
+
+
+  {
+      "name": "Tom1",
+      "file": "Tom1.wav"
+    },
+
+
+  {
+      "name": "Tom18",
+      "file": "Tom18.wav"
+    },
+
+
+  {
+      "name": "Tom25",
+      "file": "Tom25.wav"
+    },
+
+
+  {
+      "name": "Tom7",
+      "file": "Tom7.wav"
+    },
+
+
+  {
+      "name": "Tom76",
+      "file": "Tom76.wav"
+    },
+
+
+  {
+      "name": "Tom8",
+      "file": "Tom8.wav"
+    },
+
+
+  {
+      "name": "TomElectro",
+      "file": "TomElectro.wav"
     },
 
   ]

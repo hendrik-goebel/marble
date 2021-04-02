@@ -2,18 +2,29 @@ import setup from './lib/Setup.js'
 import Container from "./lib/Container.js"
 
 
-let container = new Container()
-container.init()
-container.director.audio = container.directorAudio
-container.eventRouting.route()
-setup.adjustDimensions()
+function init(sounds) {
 
-container.stageUi.listen()
-container.canvas.listen()
+  let container = new Container()
+  container.init(sounds)
+  container.director.audio = container.directorAudio
+  container.eventRouting.route()
+  setup.adjustDimensions()
 
-container.director.init()
+  container.stageUi.listen()
+  container.canvas.listen()
+  container.director.init()
+}
 
-setTimeout(() => {
-  container.directorTimer.run()
+document.addEventListener("DOMContentLoaded", function (event) {
+  async function getSounds() {
 
-}, 2000)
+    // You need to load your own samples here.
+    // Format: { name: url_to_mp3, name2: url_to_another_mp3, ...}
+    let sounds = {}
+
+    init(sounds)
+  }
+  getSounds()
+});
+
+

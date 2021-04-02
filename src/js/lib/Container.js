@@ -2,7 +2,6 @@
 import {Observable} from "./helper/ObservableMixin";
 import EventRouter from "./EventRouting";
 import setup from "./Setup";
-import sounds from "./config/Sounds.js"
 import constants from "./Constants.js"
 
 import Director from './Director.js'
@@ -13,7 +12,8 @@ import Factory from './Factory.js'
 import Controls from './interaction/Controls.js'
 import StageUserInterface from './interaction/StageUserInterface.js'
 import CollisionDetector from "./CollisionDetector"
-import AudioPlayer from "./AudioPlayer"
+import AudioPlayerCreateJs from "./AudioPlayerCreateJs"
+import AudioPlayerSoundJs from "./AudioPlayerSoundJs"
 import DirectorAudio from "./DirectorAudio.js"
 import State from "./State.js"
 import Timer from "./Timer.js"
@@ -24,7 +24,8 @@ import VideoTimer from "./VideoTimer.js"
  */
 export default class Container {
 
-  init() {
+  init(sounds) {
+    this.sounds = sounds
     this.setup = setup
     Object.assign(Timer.prototype, this.getDefaultPrototypeProperties())
     Object.assign(VideoTimer.prototype, this.getDefaultPrototypeProperties())
@@ -38,20 +39,20 @@ export default class Container {
     Object.assign(EventRouter.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Factory.prototype, this.getDefaultPrototypeProperties())
     Object.assign(CollisionDetector.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(AudioPlayerSoundJs.prototype, this.getDefaultPrototypeProperties())
 
     this.initClassMapping()
     this.eventRouting = new EventRouter()
     this.canvas = new Canvas(createjs)
     this.factory = new Factory()
     this.collisionDetector = new CollisionDetector()
-    this.audioplayer = new AudioPlayer()
-    this.controls = new Controls(sounds)
+    this.audioplayer = new AudioPlayerSoundJs()
+    this.controls = new Controls(this.sounds)
     this.stageUi = new StageUserInterface(this.canvas.stage)
-    this.audioplayer = new AudioPlayer()
     this.state = new State()
     this.directorUI = new DirectorUserInteraction(this.state, this.factory, this.collisionDetector)
     this.director = new Director(this.canvas, this.factory, this.collisionDetector, this.state)
-    this.directorAudio = new DirectorAudio(this.audioplayer, sounds)
+    this.directorAudio = new DirectorAudio(this.audioplayer, this.sounds)
     this.directorTimer = new DirectorTimer()
   }
 
@@ -68,12 +69,10 @@ export default class Container {
     this.classMapping = {
       'Timer': (args) => {
         let timer = new Timer(args[1], args[2])
-       // this.eventRouting.assignTimerEvents(timer)
         return timer
       },
       'VideoTimer': (args) => {
         let timer = new VideoTimer(args[1], args[2])
-      //  this.eventRouting.assignTimerEvents(timer)
         return timer
       },
     }

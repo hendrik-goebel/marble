@@ -1,4 +1,4 @@
-export default class AudioPlayer {
+export default class AudioPlayerCreateJs {
 
   registerSounds(sounds, path="") {
     for (let sound of sounds) {

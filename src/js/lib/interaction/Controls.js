@@ -30,32 +30,30 @@ export default class Controls {
   }
 
   initInstrumentControls(sounds) {
-    for (let key in sounds.samples) {
-      let sound = sounds.samples[key]
-
+    for (let key in sounds) {
       let option = document.createElement("option");
-      option.text = sound.name
-      option.value = sound.name
+      option.text = key
+      option.value = key
       this.controls['instruments'].appendChild(option)
     }
 
-    for (let key in sounds.samples) {
-      let sound = sounds.samples[key]
-
+    for (let key in sounds) {
       let option = document.createElement("option");
-      option.text = sound.name
-      option.value = sound.name
+      option.text = key
+      option.value = key
       this.controls['metronome-instruments'].appendChild(option)
     }
   }
 
   selectInstrument(key) {
+
     if (key =='first') {
-      this.controls['instruments'].value = this.sounds.samples[0].name
-      return
+      for (let key in this.sounds) {
+        this.controls['instruments'].value = key
+        return
+      }
     }
     this.controls['instruments'].value = key
-
   }
 
   listen() {

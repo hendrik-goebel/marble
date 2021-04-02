@@ -14,7 +14,6 @@ export default class DirectorTimer {
   }
 
   onUpdateControl(property, value) {
-
     if (property == 'bpm') {
       this.videoTimer.bpm = value
       this.audioTimer.bpm = value

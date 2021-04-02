@@ -8,11 +8,17 @@ export default class DirectorAudio {
     this.quantisation = true
     this.soundsToPlay = []
     this.metronome = true
-    this.sounds = sounds.samples
-    this.samplesPath = sounds.path
-    this.instrument = this.sounds[0]
-    this.metronomeinstrument = this.sounds[0]
-    this.player.registerSounds(this.sounds, this.samplesPath)
+    this.sounds = sounds
+    this.instrument = this.defaultInstrument
+    this.metronomeinstrument = this.defaultInstrument
+    this.player.registerSounds(this.sounds)
+    this._lastBeatTime
+  }
+
+  get defaultInstrument() {
+    for (let key in this.sounds) {
+      return key
+    }
   }
 
   playSound(sound) {
@@ -35,11 +41,6 @@ export default class DirectorAudio {
     this.metronomeTimer.run()
   }
 
-
-  get resolution() {
-    return this.audioTimer.resolution
-  }
-
   playCollisionSound(entity) {
     if (entity.type == this.CONST.TYPE.BALL && entity.collision.object.type == this.CONST.TYPE.BAR) {
       this.playSound(this.findSoundByName(entity.collision.object.sound))
@@ -53,15 +54,12 @@ export default class DirectorAudio {
   }
 
   findSoundByName(name) {
-    for (let sound of this.sounds) {
-      if (name == "first") {
-        return sound
-      }
-      if (sound.name == name) {
+    if (name == "first") {
+      for (let sound in this.sounds) {
         return sound
       }
     }
-    return null
+    return name
   }
 
   /**
@@ -69,22 +67,23 @@ export default class DirectorAudio {
    * @param id
    */
   onBeat(timer) {
+
     if (timer.label == 'audio') {
       this.playSounds()
     }
-    if (timer.label == 'metronome' ) {
+    if (timer.label == 'metronome') {
       this.playMetronome()
+
     }
   }
 
   onUpdateControl(property, value) {
-
     if (property == 'instruments') {
-      this.instrument = this.findSoundByName(value)
+      this.instrument = value
     }
 
     if (property == 'metronome-instruments') {
-      this.metronomeinstrument = this.findSoundByName(value)
+      this.metronomeinstrument = value
     }
 
     if (property == 'metronome') {

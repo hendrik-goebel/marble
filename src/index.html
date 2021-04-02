@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="js/easeljs.min.js"></script>
+
+  <script src="js/soundjs-0.6.2.min.js"></script>
+  <script src="js/wad.min.js"></script>
+
+  <link href="css/style.css" rel="stylesheet"/>
+  <title>The Marbleous Beat Machine</title>
+</head>
+<body class="h-100">
+<div id="main-container" class="container h-100">
+  <div class="row h-100">
+    <div class="col-lg-3">
+      <!--Sidebar -->
+
+      <div class="row">
+        <div class="col-6 mb-3">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="control-metronome" value="1" checked>
+            <label class="form-check-label" for="control-metronome">Metronome</label>
+          </div>
+        </div>
+        <div class="col-6 mb-3">
+          <label for="control-metronome-instruments" class="form-label">Sound</label>
+          <select class="form-select" aria-label="Instrument" id="control-metronome-instruments">
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 mb-3" title="Beats per Minute">
+          <label for="control-bpm" class="form-label">BPM</label>
+          <input type="range" value="" class="form-range" id="control-bpm" min="60" max="180">
+        </div>
+        <div class="col-6 mb-3">
+          <label for="control-bpm-text" class="form-label"></label>
+          <input id="control-bpm-text" class="form-control" type="text" value=""/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 mb-3">
+          <div class="col-6 mb-3">
+            <label for="control-bpm" class="form-label">Quantisation</label>
+            <select class="form-select" aria-label="Note" id="control-note">
+              <option selected>Note</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="8">8</option>
+              <option value="16">16</option>
+              <option value="32">32</option>
+              <option value="3">3</option>
+              <option value="6">6</option>
+              <option value="12">12</option>
+              <option value="5">5</option>
+              <option value="7">7</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6 mb-3">
+          <label for="control-note-text" class="form-label">&nbsp;</label>
+          <input id="control-note-text" class="form-control" type="text" value=""/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="control-instruments" class="form-label">Instrument</label>
+          <select class="form-select" aria-label="Instrument" id="control-instruments">
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-9">
+      <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+      </div>
+      <!-- Canvas -->
+    </div>
+  </div>
+</div>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -8,6 +8,13 @@ export default class EventRouter {
     this.directorEvents()
     this.canvasEvents()
     this.timerEvents()
+    this.audioPlayerEvents()
+  }
+
+  audioPlayerEvents() {
+    this.container.audioplayer.Observable.addObserver((args) => {
+      this.container.directorTimer.run()
+    }, 'onSoundsLoaded')
   }
 
   controlsEvents() {
@@ -76,15 +83,7 @@ export default class EventRouter {
 
     this.container.directorTimer.videoTimer.Observable.addObserver((args) => {
       this.container.director.onBeat(args)
-    }, 'onBeat')
-
-    this.container.directorTimer.audioTimer.Observable.addObserver((args) => {
-      this.container.directorAudio.onBeat(args)
-    }, 'onBeat')
-
-    this.container.directorTimer.metronomeTimer.Observable.addObserver((args) => {
       this.container.directorAudio.onBeat(args)
     }, 'onBeat')
   }
-
 }

@@ -16,14 +16,19 @@ function init(sounds) {
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
-  async function getSounds() {
+  function getSounds() {
 
     // You need to load your own samples here.
     // Format: { name: url_to_mp3, name2: url_to_another_mp3, ...}
-    let sounds = {}
+    let sounds = {
+      'MySample' : "samples/MySample.mp3"
+    }
+
+    console.log(sounds)
 
     init(sounds)
   }
+  console.log("GO")
   getSounds()
 });
 

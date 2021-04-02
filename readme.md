@@ -15,9 +15,16 @@ Its more exciting when you turn on audio.
 
 
 ### How to install
-Download everything and write "npm run start".
 
-mp3-samples are not included in this repo. You have to include your own by providing an object with the uris (see comment in main.js).
+include uri to your own samples in main.js
+
+npm install
+
+npm run build
+
+npm run start
+
+open browser with localhost:9000
 
 ### Samples
 Samples are not included in the repo. The ones used on the website come from [mugent](https://www.mugent.com/)

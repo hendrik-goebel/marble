@@ -19,7 +19,7 @@
     "build": " npm run build-scss && npm run build-js",
     "test": "mocha",
     "serve": "node server.js",
-    "compile": "npm run watch & npm run watch:css"
+    "compile": "npm run watch & npm run watch:css",
     "start": "npm run serve && npm run watch & npm run watch:css"
   },
   "author": "",

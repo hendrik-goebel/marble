@@ -43,12 +43,7 @@ export default {
   },
   'adjustDimensions': function () {
     let $canvas = document.getElementById('canvas')
-    let $canvasContainer = document.getElementById('canvas-container')
-    let containerWidth = $canvasContainer.offsetWidth
-    let containerHeight = $canvasContainer.offsetHeight
-    $canvas.setAttribute('width', containerWidth)
-    $canvas.setAttribute('height', containerHeight)
-    this.world.width = containerWidth
-    this.world.height = containerHeight
+    this.world.width = $canvas.offsetWidth
+    this.world.height = $canvas.offsetHeight
   }
 }

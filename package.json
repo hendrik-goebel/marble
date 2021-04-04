@@ -20,7 +20,7 @@
     "test": "mocha",
     "serve": "node server.js",
     "compile": "npm run watch & npm run watch:css",
-    "start": "npm run serve && npm run watch & npm run watch:css"
+    "start": "npm run compile & npm run serve"
   },
   "author": "",
   "license": "ISC",

@@ -18,6 +18,7 @@ import DirectorAudio from "./DirectorAudio.js"
 import State from "./State.js"
 import Timer from "./Timer.js"
 import VideoTimer from "./VideoTimer.js"
+import CollisionTest from "./CollisionTest";
 
 /**
  * Manages initialization of objects and corresponding dependencies
@@ -42,18 +43,19 @@ export default class Container {
     Object.assign(AudioPlayerSoundJs.prototype, this.getDefaultPrototypeProperties())
 
     this.initClassMapping()
+    this.state = new State()
     this.eventRouting = new EventRouter()
     this.canvas = new Canvas(createjs)
     this.factory = new Factory()
     this.collisionDetector = new CollisionDetector()
     this.audioplayer = new AudioPlayerSoundJs()
-    this.controls = new Controls(this.sounds)
+    this.controls = new Controls(this.sounds, this.state)
     this.stageUi = new StageUserInterface(this.canvas.stage)
-    this.state = new State()
     this.directorUI = new DirectorUserInteraction(this.state, this.factory, this.collisionDetector)
     this.director = new Director(this.canvas, this.factory, this.collisionDetector, this.state)
     this.directorAudio = new DirectorAudio(this.audioplayer, this.sounds)
     this.directorTimer = new DirectorTimer()
+    this.collisionTest = new CollisionTest(this.state, this.factory, this.director)
   }
 
   getDefaultPrototypeProperties() {

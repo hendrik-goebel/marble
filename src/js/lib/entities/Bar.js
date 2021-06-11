@@ -18,6 +18,7 @@ export default class Bar extends AbstractEntity {
       'x': 0,
       'y': 0
     }
+    this.fixed = true
     this.sound = null
   }
 
@@ -41,8 +42,35 @@ export default class Bar extends AbstractEntity {
     this.y = y - this.offset.y
   }
 
+  moveOnBallCollision() {
+    if (!this.isColliding) {
+      return
+    }
+    if (this.collision.object.type != this.CONST.TYPE.BALL) {
+      return
+    }
+
+    let position = this.collision.position
+    if (position == 'top') {
+      this.y += this.collisionSpeed
+    }
+    if (position == 'bottom') {
+      this.y += this.collisionSpeed
+    }
+    if (position == 'left') {
+      this.x += this.collisionSpeed
+    }
+    if (position == 'right') {
+      this.x -= this.collisionSpeed
+    }
+  }
+
+  get collisionSpeed() {
+    return this.setup.collisionSpeed
+  }
+
   setOffset(x, y) {
-    this.offset.x = x -this.x
-    this.offset.y = y -this.y
+    this.offset.x = x - this.x
+    this.offset.y = y - this.y
   }
 }

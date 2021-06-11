@@ -18,6 +18,7 @@ export default class AbstractEntity {
     this.collision = {
       'object': null,
       'position': null,
+      'subPosition': null,
       'depth': null
     }
     this._form = 'rectangle'
@@ -38,10 +39,11 @@ export default class AbstractEntity {
     this.collision.depth = null
   }
 
-  collide(object, position, depth) {
+  collide(object, position, depth, subPosition) {
     this.collision.object = object
     this.collision.position = position
     this.collision.depth = depth
+    this.collision.subPosition = subPosition
   }
 
   activate() {

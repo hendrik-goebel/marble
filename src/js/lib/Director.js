@@ -11,6 +11,7 @@ export default class Director {
     this.collisionDetector = collisionDetector
     this.audio = null
     this.state = state
+    this.barFixed = false
   }
 
   init() {
@@ -62,6 +63,10 @@ export default class Director {
 
   _doBarsLoop() {
     for (let bar of this.state.bars) {
+      if (!bar.fixed && bar.isColliding) {
+        bar.moveOnBallCollision();
+        bar.uncollide();
+      }
       this.canvas.addBar(bar)
     }
   }
@@ -115,6 +120,12 @@ export default class Director {
       for (let dropper of this.state.droppers) {
         dropper.dropBall()
       }
+    }
+  }
+
+  onUpdateControl(property, value) {
+    if (property == 'barfixed' && this.state.activeBar) {
+      this.state.activeBar.fixed = !this.state.activeBar.fixed
     }
   }
 }

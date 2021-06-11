@@ -5,9 +5,10 @@ export default class CollisionDetector {
       let result = this.detectCircleWithRectangle(subject, object)
 
       if (result.position) {
-        subject.collide(object, result.position, result.difference)
+        object.collide(subject, result.position, result.difference, result.subPosition)
+        subject.collide(object, result.position, result.difference, result.subPosition)
       }
-      return subject
+      return [subject, object]
     }
   }
 
@@ -38,6 +39,7 @@ export default class CollisionDetector {
     let testX = a.x
     let testY = a.y
     let position = ''
+    let subPosition = ''
 
     /**
      * find closest edge
@@ -66,11 +68,32 @@ export default class CollisionDetector {
 
     let difference = distance - a.radius
     if (distance < a.radius) {
+      //calculate the more specific subPosition
+      if (position == 'top' || position == 'bottom') {
+        let center = ((b.width - b.x) / 2) + b.x;
+        if ((a.x + a.radius) < center) {
+          subPosition = 'left'
+        }
+        if ((a.x - a.radius) >= center) {
+          subPosition = 'right'
+        }
+      }
+
+      if (position == 'left' || position == 'right') {
+        let center = ((b.height - b.y) / 2) + b.y
+        if ((a.y + a.radius) < center) {
+          subPosition = 'top'
+        }
+        if ((a.y + a.radius) >= center) {
+          subPosition = 'bottom'
+        }
+      }
 
       return {
         'position': position,
+        'subPosition': subPosition,
         'difference': difference
-      };
+      }
     }
     return false;
   }

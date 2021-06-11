@@ -3,34 +3,44 @@
  */
 export default class CollisionTest {
 
-  constructor() {
+  constructor(state, factory, director) {
+    this.appState = state
+    this.factory = factory
+    this.director = director
     this.state = 1
   }
 
-  reset(director) {
+  reset() {
+    let director = this.director
+    let obj = this
     let x = setTimeout(function() {
       director.reset()
+      obj.next()
     }, 1000)
   }
 
   next(director) {
     if (this.state == 1) {
       console.log("A ball hits a bar on the left top edge")
-      director.activeBar = director.factory.createBar(100, 100)
+      let bar = this.factory.createBar(100, 100, 100)
+      this.appState.addBar(bar)
     }
     if (this.state == 2) {
-      this.reset(director)
+      this.reset()
     }
     if (this.state == 3) {
       console.log("A ball hits a bar on the top edge")
-      director.activeBar = director.factory.createBar(190, 200)
+      let bar = this.factory.createBar(190, 200, 100)
+      this.appState.addBar(bar)
     }
     if (this.state == 3) {
-      console.log("A ball hits the canvas top edge")
+      this.reset()
     }
     if (this.state == 5) {
       console.log("A ball hits a bar on the left edge")
       director.activeBar = director.factory.createBar(500, 80, 50, 100)
+      let bar = this.factory.createBar(500, 80, 50, 200)
+      this.appState.addBar(bar)
     }
     this.state++
   }

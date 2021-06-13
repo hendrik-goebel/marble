@@ -55,7 +55,7 @@ export default class Bar extends AbstractEntity {
       this.y += this.collisionSpeed
     }
     if (position == 'bottom') {
-      this.y += this.collisionSpeed
+      this.y -= this.collisionSpeed
     }
     if (position == 'left') {
       this.x += this.collisionSpeed

@@ -13,7 +13,7 @@ export default class DirectorUserInteraction {
     let bar = this.factory.createBar(x, y)
     bar.sound = this.state.instrument
     this.state.addBar(bar)
-
+    this.Observable.callObservers('onStartDrawBar', {'property': 'startDrawBar', 'value': bar})
   }
 
   drawBar(x, y) {
@@ -31,10 +31,11 @@ export default class DirectorUserInteraction {
 
   unselectActiveBar() {
     this.state.unselectActiveBar()
+    this.Observable.callObservers('onUnselectBar', {'property': 'barUnselected', 'value': ''})
   }
 
   deleteBar(bar) {
-   this.state.deleteBar(bar)
+    this.state.deleteBar(bar)
   }
 
   doubleClick(x, y) {
@@ -46,7 +47,7 @@ export default class DirectorUserInteraction {
   }
 
   singleClick(x, y) {
-    if (this.editMode ==  this.CONST.MODE.START_DRAWING) {
+    if (this.editMode == this.CONST.MODE.START_DRAWING) {
       this.editMode = this.CONST.MODE.DRAWING
       this.startDrawBar(x, y)
     }
@@ -63,7 +64,10 @@ export default class DirectorUserInteraction {
       }
       this.editMode = this.CONST.MODE.START_DRAWING
     }
-    this.unselectActiveBar()
+    if (this.state.activeBar) {
+      this.unselectActiveBar()
+    }
+
     this.editMode = this.CONST.MODE.START_DRAWING
   }
 

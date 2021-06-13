@@ -8,7 +8,7 @@ import sounds from "../config/Sounds";
 export default class Controls {
 
   constructor(sounds, state) {
-    this.controlItems = ['speed', 'bar-selected', 'bpm', 'bpm-text', 'note', 'note-text', 'instruments', 'metronome', 'metronome-instruments', 'barfixed']
+    this.controlItems = ['speed', 'bar-selected', 'bpm', 'bpm-text', 'note', 'note-text', 'instruments', 'metronome', 'metronome-instruments', 'barmoves']
     this.controls = {}
     this.sounds = sounds
     this.state = state
@@ -28,7 +28,8 @@ export default class Controls {
     this.controls['bpm'].setAttribute("min", this.setup.system.audio.bpmMin)
     this.controls['bpm'].setAttribute("max", this.setup.system.audio.bpmMax)
     this.controls['metronome'].value = 1
-    this.controls['barfixed'].value = 1
+    this.controls['barmoves'].value = 1
+    console.log(this.controls)
   }
 
   initInstrumentControls(sounds) {
@@ -57,20 +58,20 @@ export default class Controls {
     this.controls['instruments'].value = key
   }
 
-  updateBarFixedToggle() {
+  updateBarMovesToggle() {
 
     if (this.state.activeBar) {
-      this.controls.barfixed.disabled = false
+      this.controls.barmoves.disabled = false
     } else {
-      this.controls.barfixed.checked = false
-      this.controls.barfixed.disabled = true
+      this.controls.barmoves.checked = false
+      this.controls.barmoves.disabled = true
       return
     }
 
     if (this.state.activeBar.fixed) {
-      this.controls.barfixed.checked = true
+      this.controls.barmoves.checked = false
     } else {
-      this.controls.barfixed.checked = false
+      this.controls.barmoves.checked = true
     }
   }
 
@@ -94,15 +95,15 @@ export default class Controls {
   updateControl(property, value) {
     if (property == 'barSelected') {
       this.selectInstrument(value.sound)
-      this.updateBarFixedToggle()
+      this.updateBarMovesToggle()
     }
 
     if (property == 'startDrawBar') {
-      this.updateBarFixedToggle()
+      this.updateBarMovesToggle()
     }
 
     if (property == 'barUnselected') {
-      this.updateBarFixedToggle()
+      this.updateBarMovesToggle()
     }
 
     if (property in this.controls) {

@@ -11,7 +11,6 @@ export default class Director {
     this.collisionDetector = collisionDetector
     this.audio = null
     this.state = state
-    this.barFixed = false
   }
 
   init() {
@@ -124,7 +123,7 @@ export default class Director {
   }
 
   onUpdateControl(property, value) {
-    if (property == 'barfixed' && this.state.activeBar) {
+    if (property == 'barmoves' && this.state.activeBar) {
       this.state.activeBar.fixed = !this.state.activeBar.fixed
     }
   }

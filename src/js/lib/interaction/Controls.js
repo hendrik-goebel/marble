@@ -8,7 +8,7 @@ import sounds from "../config/Sounds";
 export default class Controls {
 
   constructor(sounds, state) {
-    this.controlItems = ['speed', 'bar-selected', 'bpm', 'bpm-text', 'note', 'note-text', 'instruments', 'metronome', 'metronome-instruments', 'barmoves']
+    this.controlItems = ['speed', 'bar-selected', 'bpm', 'note','instruments', 'metronome', 'metronome-instruments', 'barmoves']
     this.controls = {}
     this.sounds = sounds
     this.state = state
@@ -22,13 +22,12 @@ export default class Controls {
 
   initControls() {
     this.controls['bpm'].value = this.setup.system.audio.bpm
-    this.controls['bpm-text'].value = this.setup.system.audio.bpm
     this.controls['note'].value = this.setup.system.audio.note
-    this.controls['note-text'].value = this.setup.system.audio.note
     this.controls['bpm'].setAttribute("min", this.setup.system.audio.bpmMin)
     this.controls['bpm'].setAttribute("max", this.setup.system.audio.bpmMax)
     this.controls['metronome'].value = 1
     this.controls['barmoves'].value = 1
+    this.controls['barmoves'].disabled = true
     console.log(this.controls)
   }
 

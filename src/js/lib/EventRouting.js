@@ -67,7 +67,9 @@ export default class EventRouter {
       this.container.controls.updateControl(args.property, args.value)
     }, 'onStartDrawBar')
 
-
+    this.container.director.Observable.addObserver((args) => {
+      this.container.controls.updateControl(args.property, args.value)
+    }, 'onUnselectBar')
 
     this.container.director.Observable.addObserver((args) => {
       this.container.directorAudio.playCollisionSound(args)

@@ -8,16 +8,39 @@ import sounds from "../config/Sounds";
 export default class Controls {
 
   constructor(sounds, state) {
-    this.controlItems = ['speed', 'bar-selected', 'bpm', 'note','instruments', 'metronome', 'metronome-instruments', 'barmoves']
+    this.controlItems = ['speed', 'bar-selected', 'bpm', 'note', 'metronome', 'metronome-instruments', 'barmoves', 'active-instrument']
     this.controls = {}
+    this.controlsInstrumentButtons = null
     this.sounds = sounds
     this.state = state
-    for (let item of this.controlItems) {
-      this.controls[item] = document.getElementById('control-' + item)
-    }
+    this.buildInstrumentButtons()
+    this.getControlElements()
+
+
     this.initControls()
     this.initInstrumentControls(sounds)
     this.listen()
+  }
+
+  getControlElements() {
+    for (let item of this.controlItems) {
+      this.controls[item] = document.getElementById('control-' + item)
+    }
+
+    this.controlsInstrumentButtons = [].slice.call(document.getElementsByClassName('instrument-button'));
+  }
+
+  buildInstrumentButtons() {
+    let $instrumentButtonContainer = document.getElementById('instrument-buttons-container')
+    let $instrumentButtonTemplate = document.getElementById('instrument-button-template')
+    for (let key in this.sounds) {
+      let $instrumentButton = $instrumentButtonTemplate.cloneNode()
+      $instrumentButton.removeAttribute('id')
+      $instrumentButton.setAttribute('data-sound', key)
+      $instrumentButton.setAttribute('title', key)
+      $instrumentButtonContainer.appendChild($instrumentButton)
+    }
+    $instrumentButtonTemplate.parentNode.removeChild($instrumentButtonTemplate)
   }
 
   initControls() {
@@ -28,16 +51,10 @@ export default class Controls {
     this.controls['metronome'].value = 1
     this.controls['barmoves'].value = 1
     this.controls['barmoves'].disabled = true
-    console.log(this.controls)
+
   }
 
   initInstrumentControls(sounds) {
-    for (let key in sounds) {
-      let option = document.createElement("option");
-      option.text = key
-      option.value = key
-      this.controls['instruments'].appendChild(option)
-    }
 
     for (let key in sounds) {
       let option = document.createElement("option");
@@ -45,20 +62,52 @@ export default class Controls {
       option.value = key
       this.controls['metronome-instruments'].appendChild(option)
     }
+
+    this.updateInstrumentDisplay()
+    this.updateInstrumentButtonDisplay()
+  }
+
+  getFirstSound() {
+    for (let key in this.sounds) {
+      return key
+    }
   }
 
   selectInstrument(key) {
+    let sound = key
     if (key == 'first') {
-      for (let key in this.sounds) {
-        this.controls['instruments'].value = key
-        return
+      sound = this.getFirstSound()
+    }
+
+    this.updateInstrumentDisplay(sound)
+  }
+
+  updateInstrumentDisplay(key) {
+    let sound = key
+    if (key == 'first') {
+      sound = this.getFirstSound()
+    }
+    this.controls['active-instrument'].textContent = sound
+  }
+
+  updateInstrumentButtonDisplay(key) {
+
+    let sound = key
+    if (!key) {
+      sound = this.getFirstSound()
+    }
+    for (let index in this.controlsInstrumentButtons) {
+      let button = this.controlsInstrumentButtons[index]
+      if (button.dataset.sound == sound) {
+        button.classList.add('btn-selected')
+        button.focus()
+      } else {
+        button.classList.remove('btn-selected')
       }
     }
-    this.controls['instruments'].value = key
   }
 
   updateBarMovesToggle() {
-
     if (this.state.activeBar) {
       this.controls.barmoves.disabled = false
     } else {
@@ -88,21 +137,46 @@ export default class Controls {
             'value': this.value
           })
       }
+      for (let button of this.controlsInstrumentButtons) {
+        button.onclick = (event) => {
+          Observable.callObservers(
+            'onControlsUpdate',
+            {
+              'property': 'instrumentButton',
+              'value': event.target.dataset.sound
+            })
+        }
+      }
     }
   }
 
   updateControl(property, value) {
+
     if (property == 'barSelected') {
       this.selectInstrument(value.sound)
       this.updateBarMovesToggle()
+      this.updateInstrumentDisplay(value.sound)
+      this.updateInstrumentButtonDisplay(value.sound)
     }
 
     if (property == 'startDrawBar') {
       this.updateBarMovesToggle()
+      this.updateInstrumentDisplay(value.sound)
     }
 
     if (property == 'barUnselected') {
       this.updateBarMovesToggle()
+      this.updateInstrumentDisplay()
+    }
+
+    if (property == 'instruments') {
+      if (this.state.activeBar) {
+        this.updateInstrumentDisplay(value)
+      }
+    }
+
+    if (property == 'instrumentButton') {
+      this.updateInstrumentButtonDisplay(value)
     }
 
     if (property in this.controls) {

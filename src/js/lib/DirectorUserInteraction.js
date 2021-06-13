@@ -92,7 +92,7 @@ export default class DirectorUserInteraction {
   }
 
   onUpdateControl(property, value) {
-    if (property == 'instruments') {
+    if (property == 'instruments' || property=='instrumentButton') {
       this.state.instrument = value
 
       if (this.state.activeBar) {

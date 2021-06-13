@@ -81,6 +81,9 @@ export default class DirectorAudio {
     if (property == 'instruments') {
       this.instrument = value
     }
+    if (property == 'instrumentButton') {
+      this.instrument = value
+    }
 
     if (property == 'metronome-instruments') {
       this.metronomeinstrument = value

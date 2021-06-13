@@ -58,9 +58,7 @@
 
       <div class="row">
         <div class="col-6 mb-3">
-          <div class="col-6 mb-3">
-
-          </div>
+          Bar Settings
         </div>
         <div class="col-6 mb-3">
         </div>
@@ -68,18 +66,39 @@
 
       <div class="row">
         <div class="col-6 mb-3">
-          <label for="control-instruments" class="form-label">Instrument</label>
-          <select class="form-select" aria-label="Instrument" id="control-instruments">
-          </select>
+          <div class="form-check form-switch">
+            <label for="control-barmoves" class="form-label">Moves on collision</label>
+            <input class="form-check-input" type="checkbox" id="control-barmoves" value="1">
+          </div>
+
+        </div>
+        <div class="col-6 mb-3">
+
+
+          <span>Sound:</span> </span><span id="control-active-instrument"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 mb-3">
+          <label for="control-instruments" class="form-label">Instruments</label>
+
+
         </div>
         <div class="col-6 mb-3">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="control-barmoves" value="1">
-            <label class="form-check-label" for="control-barmoves">Bar moves</label>
+
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-12 mb-6">
+          <div id="instrument-buttons-container"></div>
+          <button type="button" id="instrument-button-template" class="btn btn-primary instrument-button"></button>
+        </div>
+
+      </div>
     </div>
+
 
     <div class="col-lg-9" id="canvas-container">
 

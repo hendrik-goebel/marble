@@ -24,11 +24,12 @@ export default {
     'minWidth': 10,
     'minHeight': 10,
     'color': "#a3b18a",
-    'colorSelected': "#dad7cd"
+    'colorSelected': "#dad7cd",
+    'collisionSpeed': 1
   },
   'mode': {
     'test': false,
-    'profile': true
+    'profile': false
   },
   'system': {
     'audio': {

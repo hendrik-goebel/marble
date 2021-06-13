@@ -18,10 +18,11 @@ export default class EventRouter {
   }
 
   controlsEvents() {
-    this.container.controls.Observable.addObserver((args) => {
+      this.container.controls.Observable.addObserver((args) => {
       this.container.directorUI.onUpdateControl(args.property, args.value)
       this.container.directorAudio.onUpdateControl(args.property, args.value)
       this.container.directorTimer.onUpdateControl(args.property, args.value)
+      this.container.director.onUpdateControl(args.property, args.value)
       this.container.controls.updateControl(args.property, args.value)
     }, 'onControlsUpdate')
   }
@@ -54,12 +55,19 @@ export default class EventRouter {
     this.container.director.Observable.addObserver((args) => {
       this.container.directorUI.onKeyUp(args.key)
     }, 'onKeyUp')
+
   }
 
   directorEvents() {
     this.container.director.Observable.addObserver((args) => {
       this.container.controls.updateControl(args.property, args.value)
     }, 'onSelectBar')
+
+    this.container.director.Observable.addObserver((args) => {
+      this.container.controls.updateControl(args.property, args.value)
+    }, 'onStartDrawBar')
+
+
 
     this.container.director.Observable.addObserver((args) => {
       this.container.directorAudio.playCollisionSound(args)

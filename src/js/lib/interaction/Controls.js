@@ -63,8 +63,7 @@ export default class Controls {
       this.controls['metronome-instruments'].appendChild(option)
     }
 
-    this.updateInstrumentDisplay()
-    this.updateInstrumentButtonDisplay()
+    this.selectInstrument('first')
   }
 
   getFirstSound() {
@@ -80,6 +79,7 @@ export default class Controls {
     }
 
     this.updateInstrumentDisplay(sound)
+    this.updateInstrumentButtonDisplay(key)
   }
 
   updateInstrumentDisplay(key) {
@@ -91,9 +91,8 @@ export default class Controls {
   }
 
   updateInstrumentButtonDisplay(key) {
-
     let sound = key
-    if (!key) {
+    if (key=='first') {
       sound = this.getFirstSound()
     }
     for (let index in this.controlsInstrumentButtons) {
@@ -103,6 +102,7 @@ export default class Controls {
         button.focus()
       } else {
         button.classList.remove('btn-selected')
+        button.blur()
       }
     }
   }
@@ -166,7 +166,6 @@ export default class Controls {
 
     if (property == 'barUnselected') {
       this.updateBarMovesToggle()
-      this.updateInstrumentDisplay()
     }
 
     if (property == 'instruments') {
@@ -177,6 +176,7 @@ export default class Controls {
 
     if (property == 'instrumentButton') {
       this.updateInstrumentButtonDisplay(value)
+      this.updateInstrumentDisplay(value)
     }
 
     if (property in this.controls) {

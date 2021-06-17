@@ -8,7 +8,6 @@
 body {
   background-color: #303030;
   color: #dad7cd;
-
 }
 
 .container {
@@ -42,7 +41,6 @@ body {
 
 .form-check-input:checked {
   background-color: $link-hover-color;
-
 }
 
 .form-switch .form-check-input:focus {
@@ -58,21 +56,20 @@ body {
   padding: 10px 0;
 }
 
-.btn-selected {
-  box-shadow: 0 0 0 0.25rem rgb(139 150 117 / 70%);
-  background-color: #b5c1a1;
-  border-color: #acb996
-}
-
 .instrument-button {
   width: 30px;
   height: 30px;
   margin: 0 10px 10px 0;
-
-
 }
 
 #instrument-button-template {
   display: none;
 }
 
+.btn-selected {
+  @extend .btn:focus;
+  background-color: $gray-600;
+  &:focus {
+    background-color: $gray-600;
+  }
+}

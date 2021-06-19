@@ -73,8 +73,11 @@ export default class DirectorAudio {
     }
     if (timer.label == 'metronome') {
       this.playMetronome()
-
     }
+  }
+
+  onCollision(value) {
+    this.playCollisionSound(value)
   }
 
   onUpdateControl(property, value) {

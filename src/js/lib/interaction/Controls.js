@@ -150,7 +150,7 @@ export default class Controls {
     }
   }
 
-  updateControl(property, value) {
+  onUpdateControl(property, value) {
 
     if (property == 'barSelected') {
       this.selectInstrument(value.sound)

@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // You need to load your own samples here.
     // Format: { name: url_to_mp3, name2: url_to_another_mp3, ...}
     let sounds = {
-      '0Shaker' : "samples/0Shaker.ogg"
+      '0Shaker' : "samples/0Shaker.ogg",
+      'Kick78' : "samples/Kick78.ogg",
+      'PercLight' : "samples/PercLight.ogg"
     }
     init(sounds)
   }

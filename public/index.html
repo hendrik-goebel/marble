@@ -23,7 +23,6 @@
           </div>
         </div>
         <div class="col-6 mb-3">
-          <label for="control-metronome-instruments" class="form-label">Sound</label>
           <select class="form-select" aria-label="Instrument" id="control-metronome-instruments">
           </select>
         </div>
@@ -31,63 +30,151 @@
 
       <div class="row">
         <div class="col-6 mb-3" title="Beats per Minute">
-          <label for="control-bpm" class="form-label">BPM</label>
+          <label for="control-bpm" class="form-label">Speed</label>
           <input type="range" value="" class="form-range" id="control-bpm" min="60" max="180">
         </div>
         <div class="col-6 mb-3">
-          <label for="control-bpm-text" class="form-label"></label>
-          <input id="control-bpm-text" class="form-control" type="text" value=""/>
+          <label for="control-bpm" class="form-label">Quantisation</label>
+          <select class="form-select" aria-label="Note" id="control-note">
+            <option selected>Note</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="12">12</option>
+            <option value="5">5</option>
+            <option value="7">7</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+          </select>
         </div>
       </div>
 
       <div class="row">
         <div class="col-6 mb-3">
-          <div class="col-6 mb-3">
-            <label for="control-bpm" class="form-label">Quantisation</label>
-            <select class="form-select" aria-label="Note" id="control-note">
-              <option selected>Note</option>
-              <option value="2">2</option>
-              <option value="4">4</option>
-              <option value="8">8</option>
-              <option value="16">16</option>
-              <option value="32">32</option>
-              <option value="3">3</option>
-              <option value="6">6</option>
-              <option value="12">12</option>
-              <option value="5">5</option>
-              <option value="7">7</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-            </select>
-          </div>
+
         </div>
         <div class="col-6 mb-3">
-          <label for="control-note-text" class="form-label">&nbsp;</label>
-          <input id="control-note-text" class="form-control" type="text" value=""/>
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-6 mb-3">
+          <div class="form-check form-switch">
+            <label for="control-barmoves" class="form-label">Moveable</label>
+            <input class="form-check-input" type="checkbox" id="control-barmoves" value="1">
+          </div>
+
+        </div>
+        <div class="col-6 mb-3">
+
+        </div>
+      </div>
       <div class="row">
         <div class="col-6 mb-3">
           <label for="control-instruments" class="form-label">Instrument</label>
-          <select class="form-select" aria-label="Instrument" id="control-instruments">
-          </select>
         </div>
         <div class="col-6 mb-3">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="control-barmoves" value="1">
-            <label class="form-check-label" for="control-barmoves">Bar moves</label>
+            <span id="control-active-instrument"></span>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-12 mb-6">
+          <div class="container-fluid" id="instrument-buttons-container">
+            <div class="row">
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+              <button type="button" class="btn btn-primary instrument-button" disabled></button>
+
+
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
     </div>
+
 
     <div class="col-lg-9" id="canvas-container">
 
-        <canvas id="canvas"></canvas>
+      <canvas id="canvas"></canvas>
 
       <!-- Canvas -->
     </div>

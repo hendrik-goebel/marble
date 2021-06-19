@@ -43,12 +43,15 @@ export default class DirectorAudio {
 
   playCollisionSound(entity) {
     if (entity.type == this.CONST.TYPE.BALL && entity.collision.object.type == this.CONST.TYPE.BAR) {
-      this.playSound(this.findSoundByName(entity.collision.object.sound))
+      let soundName = entity.collision.object.sound
+      this.Observable.callObservers('onStartPlaySound', {property: 'bar', value: soundName})
+      this.playSound(this.findSoundByName(soundName))
     }
   }
 
   playMetronome() {
     if (this.metronome) {
+      this.Observable.callObservers('onStartPlaySound', {property: 'metronome', value: this.metronomeinstrument})
       this.player.play(this.metronomeinstrument)
     }
   }
@@ -73,12 +76,18 @@ export default class DirectorAudio {
     }
     if (timer.label == 'metronome') {
       this.playMetronome()
-
     }
+  }
+
+  onCollision(value) {
+    this.playCollisionSound(value)
   }
 
   onUpdateControl(property, value) {
     if (property == 'instruments') {
+      this.instrument = value
+    }
+    if (property == 'instrumentButton') {
       this.instrument = value
     }
 

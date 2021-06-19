@@ -24,40 +24,40 @@ export default class DirectorUserInteraction {
     }
   }
 
-  selectBar(bar) {
+  onSelectBar(bar) {
     this.state.selectBar(bar)
     this.Observable.callObservers('onSelectBar', {'property': 'barSelected', 'value': bar})
   }
 
-  unselectActiveBar() {
+  onUnselectActiveBar() {
     this.state.unselectActiveBar()
     this.Observable.callObservers('onUnselectBar', {'property': 'barUnselected', 'value': ''})
   }
 
-  deleteBar(bar) {
+  onDeleteBar(bar) {
     this.state.deleteBar(bar)
   }
 
-  doubleClick(x, y) {
+  onDoubleClick(x, y) {
     if (this.clickedObject) {
       if (this.clickedObject.type = 'bar') {
-        this.deleteBar(this.clickedObject)
+        this.onDeleteBar(this.clickedObject)
       }
     }
   }
 
-  singleClick(x, y) {
+  onSingleClick(x, y) {
     if (this.editMode == this.CONST.MODE.START_DRAWING) {
       this.editMode = this.CONST.MODE.DRAWING
       this.startDrawBar(x, y)
     }
   }
 
-  mouseDown(x, y) {
+  onMouseDown(x, y) {
     for (let bar of this.state.bars) {
       this.clickedObject = this.collisionDetector.detectClickCollision({'x': x, 'y': y}, bar)
       if (this.clickedObject) {
-        this.selectBar(bar)
+        this.onSelectBar(bar)
         this.editMode = this.CONST.MODE.MOVING
         bar.setOffset(x, y)
         return
@@ -65,13 +65,13 @@ export default class DirectorUserInteraction {
       this.editMode = this.CONST.MODE.START_DRAWING
     }
     if (this.state.activeBar) {
-      this.unselectActiveBar()
+      this.onUnselectActiveBar()
     }
 
     this.editMode = this.CONST.MODE.START_DRAWING
   }
 
-  mouseMove(x, y) {
+  onMouseMove(x, y) {
     if (this.editMode == this.CONST.MODE.MOVING) {
       this.state.activeBar.move(x, y)
     }
@@ -81,7 +81,7 @@ export default class DirectorUserInteraction {
     }
   }
 
-  mouseUp(x, y,) {
+  onMouseUp(x, y,) {
     this.editMode = this.CONST.MODE.NONE
   }
 
@@ -92,9 +92,8 @@ export default class DirectorUserInteraction {
   }
 
   onUpdateControl(property, value) {
-    if (property == 'instruments') {
+    if (property == 'instruments' || property=='instrumentButton') {
       this.state.instrument = value
-
       if (this.state.activeBar) {
         this.state.activeBar.sound = value
       }

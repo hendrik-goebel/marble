@@ -93,7 +93,7 @@ export default class Director {
     }
   }
 
-  updateCanvasSize(width, height) {
+  onUpdateCanvasSize(width, height) {
     this.setup.world.width = width
     this.setup.world.height = height
   }

@@ -9,6 +9,7 @@ export default class EventRouter {
     this.canvasEvents()
     this.timerEvents()
     this.audioPlayerEvents()
+    this.audioDirectorEvents()
   }
 
   audioPlayerEvents() {
@@ -83,6 +84,13 @@ export default class EventRouter {
         this.container.collisionTest.next(this.container.director)
       }, 'onCollision')
     }
+  }
+
+  audioDirectorEvents() {
+
+    this.container.directorAudio.Observable.addObserver((args) => {
+      this.container.controls.onStartPlaySound(args.property, args.value)
+    }, 'onStartPlaySound')
   }
 
   timerEvents() {

@@ -10,10 +10,10 @@ export default class Controls {
   constructor(sounds, state) {
     this.controlItems = ['speed', 'bar-selected', 'bpm', 'note', 'metronome', 'metronome-instruments', 'barmoves', 'active-instrument']
     this.controls = {}
-    this.controlsInstrumentButtons = null
+    this.controlsInstrumentButtons = []
     this.sounds = sounds
     this.state = state
-    this.buildInstrumentButtons()
+    this.initInstrumentButtons()
     this.getControlElements()
 
 
@@ -26,21 +26,31 @@ export default class Controls {
     for (let item of this.controlItems) {
       this.controls[item] = document.getElementById('control-' + item)
     }
-
-    this.controlsInstrumentButtons = [].slice.call(document.getElementsByClassName('instrument-button'));
   }
 
-  buildInstrumentButtons() {
-    let $instrumentButtonContainer = document.getElementById('instrument-buttons-container')
-    let $instrumentButtonTemplate = document.getElementById('instrument-button-template')
+  initInstrumentButtons() {
+    let $instrumentButtons = document.getElementsByClassName('instrument-button')
+    let i = 0;
     for (let key in this.sounds) {
-      let $instrumentButton = $instrumentButtonTemplate.cloneNode()
-      $instrumentButton.removeAttribute('id')
+      let $instrumentButton = $instrumentButtons[i]
       $instrumentButton.setAttribute('data-sound', key)
       $instrumentButton.setAttribute('title', key)
-      $instrumentButtonContainer.appendChild($instrumentButton)
+      $instrumentButton.disabled = false
+      this.controlsInstrumentButtons.push($instrumentButton)
+      i++;
     }
-    $instrumentButtonTemplate.parentNode.removeChild($instrumentButtonTemplate)
+  }
+
+  getInstrumentButtonBySound(sound) {
+    if (sound == 'first') {
+      return this.controlsInstrumentButtons[0]
+    }
+    for (let $instrumentButton of this.controlsInstrumentButtons) {
+      if ($instrumentButton.dataset.sound == sound) {
+        return $instrumentButton
+      }
+    }
+    return null
   }
 
   initControls() {
@@ -55,14 +65,12 @@ export default class Controls {
   }
 
   initInstrumentControls(sounds) {
-
     for (let key in sounds) {
       let option = document.createElement("option");
       option.text = key
       option.value = key
       this.controls['metronome-instruments'].appendChild(option)
     }
-
     this.selectInstrument('first')
   }
 
@@ -92,7 +100,7 @@ export default class Controls {
 
   updateInstrumentButtonDisplay(key) {
     let sound = key
-    if (key=='first') {
+    if (key == 'first') {
       sound = this.getFirstSound()
     }
     for (let index in this.controlsInstrumentButtons) {
@@ -150,8 +158,25 @@ export default class Controls {
     }
   }
 
-  onUpdateControl(property, value) {
+  onStartPlaySound(property, value) {
+    let $element
+    let cssClass
+    if (property == 'bar') {
+      $element = this.getInstrumentButtonBySound(value)
+      cssClass = 'button-playing'
+    }
+    if (property == 'metronome') {
+      $element = this.controls.metronome
+      cssClass = 'metronome-playing'
+    }
 
+    $element.classList.add(cssClass)
+    setTimeout(function () {
+      $element.classList.remove(cssClass)
+    }, 200)
+  }
+
+  onUpdateControl(property, value) {
     if (property == 'barSelected') {
       this.selectInstrument(value.sound)
       this.updateBarMovesToggle()

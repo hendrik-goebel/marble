@@ -57,19 +57,58 @@ body {
 }
 
 .instrument-button {
-  width: 30px;
-  height: 30px;
-  margin: 0 10px 10px 0;
+  width: 2em;
+  height: 2em;
+  margin-left: 0.92em;
+  margin-bottom: 0.92em;
+  transition: background-color 1s ease;
 }
 
-#instrument-button-template {
-  display: none;
+#control-metronome {
+  transition: background-color .5s ease;
+}
+.button-playing, .metronome-playing {
+    background-color: $green2 !important;
+    transition: background-color .5s ease;
+}
+
+#instrument-buttons-container {
+  padding: 0;
+  width: 95%;
+}
+
+#instrument-buttons-container .row {
+  margin-bottom: 1em;
 }
 
 .btn-selected {
-  @extend .btn:focus;
   background-color: $gray-600;
   &:focus {
     background-color: $gray-600;
+  }
+}
+
+
+@include media-breakpoint-up(sm) {
+}
+
+@include media-breakpoint-up(md) {
+
+}
+
+@include media-breakpoint-up(lg) {
+
+}
+
+@include media-breakpoint-up(xl) {
+  #instrument-buttons-container {
+    width: 79%;
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+
+  #instrument-buttons-container {
+    width: 100%;
   }
 }

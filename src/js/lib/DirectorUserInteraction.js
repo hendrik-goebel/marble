@@ -41,7 +41,7 @@ export default class DirectorUserInteraction {
   onDoubleClick(x, y) {
     if (this.clickedObject) {
       if (this.clickedObject.type = 'bar') {
-        this.deleteBar(this.clickedObject)
+        this.onDeleteBar(this.clickedObject)
       }
     }
   }

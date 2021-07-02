@@ -5,6 +5,7 @@ export default class Canvas {
 
   constructor(createjs) {
     this.createjs = createjs
+    this.prepare()
     this.stage = new this.createjs.Stage("canvas");
     this.createjs.Touch.enable(this.stage );
   }
@@ -48,10 +49,15 @@ export default class Canvas {
   prepare() {
     let $canvas = document.getElementById('canvas')
     let $canvasContainer = document.getElementById('canvas-container')
-    let width = $canvasContainer.offsetWidth
-    let height = $canvasContainer.offsetHeight
-    $canvas.setAttribute('height', height)
-    $canvas.setAttribute('width', width)
+    let rowsHeight = document.getElementById('row1').offsetHeight
+    rowsHeight += document.getElementById('row2').offsetHeight
+
+    let width = $canvasContainer.clientWidth
+    let height = document.getElementById('main-container').offsetHeight - rowsHeight
+
+
+    $canvas.height = height
+    $canvas.width = width
 
     return {
       'width': width,
@@ -70,11 +76,13 @@ export default class Canvas {
     let Observable = this.Observable
 
     window.onresize = function () {
-      let canvasDimensions = canvas.resize()
+    //  let canvasDimensions = canvas.resize()
+
+      /*
       Observable.callObservers('onCanvasResize', {
         'width': canvasDimensions.width,
         'height': canvasDimensions.height
-      })
+      })*/
     }
   }
 }

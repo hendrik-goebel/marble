@@ -12,7 +12,7 @@
     "lint": "eslint src/js/*.js",
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "onchange \"src/**/*.js\" -- npm run lint --silent",
-    "build-custom-scss": "node-sass src/sass/style.scss public/css/style.css",
+    "build-custom-scss": "sass src/sass/style.scss public/css/style.css",
     "build-scss": "npm run build-custom-scss",
     "build-js": "webpack",
     "watch:css": "sass --watch src/sass/style.scss public/css/style.css",

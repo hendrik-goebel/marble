@@ -30,8 +30,13 @@ export default class Controls {
 
   initInstrumentButtons() {
     let $instrumentButtons = document.getElementsByClassName('instrument-button')
+
     let i = 0;
     for (let key in this.sounds) {
+      if (i >= $instrumentButtons.length) {
+        console.warn("More Instruments avaiable than buttons. A few instruments were not assigned.")
+        return;
+      }
       let $instrumentButton = $instrumentButtons[i]
       $instrumentButton.setAttribute('data-sound', key)
       $instrumentButton.setAttribute('title', key)
@@ -42,11 +47,11 @@ export default class Controls {
   }
 
   getInstrumentButtonBySound(sound) {
-    if (sound == 'first') {
+    if (sound === 'first') {
       return this.controlsInstrumentButtons[0]
     }
     for (let $instrumentButton of this.controlsInstrumentButtons) {
-      if ($instrumentButton.dataset.sound == sound) {
+      if ($instrumentButton.dataset.sound === sound) {
         return $instrumentButton
       }
     }
@@ -82,7 +87,7 @@ export default class Controls {
 
   selectInstrument(key) {
     let sound = key
-    if (key == 'first') {
+    if (key === 'first') {
       sound = this.getFirstSound()
     }
 
@@ -92,7 +97,7 @@ export default class Controls {
 
   updateInstrumentDisplay(key) {
     let sound = key
-    if (key == 'first') {
+    if (key === 'first') {
       sound = this.getFirstSound()
     }
     this.controls['active-instrument'].textContent = sound
@@ -100,12 +105,12 @@ export default class Controls {
 
   updateInstrumentButtonDisplay(key) {
     let sound = key
-    if (key == 'first') {
+    if (key === 'first') {
       sound = this.getFirstSound()
     }
     for (let index in this.controlsInstrumentButtons) {
       let button = this.controlsInstrumentButtons[index]
-      if (button.dataset.sound == sound) {
+      if (button.dataset.sound === sound) {
         button.classList.add('btn-selected')
         button.focus()
       } else {
@@ -137,7 +142,7 @@ export default class Controls {
       if (!this.controls[item]) {
         continue
       }
-      this.controls[item].onchange = function (input) {
+      this.controls[item].onchange = function () {
         Observable.callObservers(
           'onControlsUpdate',
           {
@@ -161,11 +166,11 @@ export default class Controls {
   onStartPlaySound(property, value) {
     let $element
     let cssClass
-    if (property == 'bar') {
+    if (property === 'bar') {
       $element = this.getInstrumentButtonBySound(value)
       cssClass = 'button-playing'
     }
-    if (property == 'metronome') {
+    if (property === 'metronome') {
       $element = this.controls.metronome
       cssClass = 'metronome-playing'
     }
@@ -177,29 +182,29 @@ export default class Controls {
   }
 
   onUpdateControl(property, value) {
-    if (property == 'barSelected') {
+    if (property === 'barSelected') {
       this.selectInstrument(value.sound)
       this.updateBarMovesToggle()
       this.updateInstrumentDisplay(value.sound)
       this.updateInstrumentButtonDisplay(value.sound)
     }
 
-    if (property == 'startDrawBar') {
+    if (property === 'startDrawBar') {
       this.updateBarMovesToggle()
       this.updateInstrumentDisplay(value.sound)
     }
 
-    if (property == 'barUnselected') {
+    if (property === 'barUnselected') {
       this.updateBarMovesToggle()
     }
 
-    if (property == 'instruments') {
+    if (property === 'instruments') {
       if (this.state.activeBar) {
         this.updateInstrumentDisplay(value)
       }
     }
 
-    if (property == 'instrumentButton') {
+    if (property === 'instrumentButton') {
       this.updateInstrumentButtonDisplay(value)
       this.updateInstrumentDisplay(value)
     }

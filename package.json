@@ -7,11 +7,12 @@
     "watch:js": "src/**/*.js"
   },
   "scripts": {
+    "webpack": "webpack",
     "watch": "npm-watch",
     "lint": "eslint src/js/*.js",
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "onchange \"src/**/*.js\" -- npm run lint --silent",
-    "build-custom-scss": "node-sass src/sass/style.scss public/css/style.css",
+    "build-custom-scss": "sass src/sass/style.scss public/css/style.css",
     "build-scss": "npm run build-custom-scss",
     "build-js": "webpack",
     "watch:css": "sass --watch src/sass/style.scss public/css/style.css",
@@ -25,26 +26,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^5.0.0-beta2",
-    "npm-watch": "^0.7.0",
-    "parcel-bundler": "^1.12.4",
+    "bootstrap": "^5.0.2",
+    "@popperjs/core": "^2.9.2",
     "tone": "^14.7.77",
-    "uglify-js-es6": "^2.8.9",
-    "watch": "^1.0.2"
+    "sass": "^1.35.1",
+    "webpack": "^5.42.0",
+    "webpack-cli": "^4.7.2"
   },
   "devDependencies": {
-    "concurrently": "^6.0.0",
-    "eslint": "^7.21.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-vue": "^7.7.0",
-    "express": "^4.17.1",
-    "mocha": "^8.3.2",
-    "node-sass": "^5.0.0",
-    "onchange": "^7.1.0",
-    "webpack": "^5.24.3",
-    "webpack-cli": "^4.5.0"
+    "concurrently": "^6.2.0",
+    "eslint": "^7.29.0",
+    "npm-watch": "^0.10.0"
   }
 }

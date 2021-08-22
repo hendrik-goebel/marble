@@ -13,126 +13,182 @@
 <div id="main-container" class="container ">
 
   <div class="row" id="row1">
-    <div class="col-6 col-md-3">
-      &nbsp;
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="control-metronome" value="1" checked>
-        <label class="form-check-label" for="control-metronome">Metronome</label>
-      </div>
-    </div>
-    <div class="col-6 col-md-3">
-      &nbsp;
-      <select class="form-select" aria-label="Instrument" id="control-metronome-instruments">
-      </select>
-    </div>
-    <div class="col-6 col-md-3" title="Beats per Minute">
-      <label for="control-bpm" class="form-label">Speed</label>
-      <input type="range" value="" class="form-range" id="control-bpm" min="60" max="180">
-    </div>
-    <div class="col-6 col-md-3">
-      <label for="control-bpm" class="form-label">Quantisation</label>
-      <select class="form-select" aria-label="Note" id="control-note">
-        <option selected>Note</option>
-        <option value="2">2</option>
-        <option value="4">4</option>
-        <option value="8">8</option>
-        <option value="16">16</option>
-        <option value="32">32</option>
-        <option value="3">3</option>
-        <option value="6">6</option>
-        <option value="12">12</option>
-        <option value="5">5</option>
-        <option value="7">7</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-      </select>
-    </div>
-    <div class="col-6 col-md-3">
-      <div class="form-check form-switch">
-        <label for="control-barmoves" class="form-label">Moveable</label>
-        <input class="form-check-input" type="checkbox" id="control-barmoves" value="1">
-      </div>
-    </div>
-    <div class="col-6 col-md-3">
+    <div class="col-12">
+      <div id="settingsCarousel" class="settings-container carousel slide" data-bs-interval="false">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
 
-    </div>
-    <div class="col-6 col-md-3">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <h2>Instruments</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xxl-3">
+                  <div class="container-fluid" id="instrument-buttons-container">
+                    <div class="row">
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                      <button type="button" class="btn btn-primary instrument-button" disabled></button>
+                    </div>
+                    <div class="row">
+                      <div class="form-check form-switch">
+                        <span id="control-active-instrument"></span>
+                      </div>
 
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl-3">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <h2>Audio Settings</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-3" title="Beats per Minute">
+                  <label for="control-bpm" class="form-label">Speed</label>
+                  <input type="range" value="" class="form-range" id="control-bpm" min="60" max="180">
+                </div>
+                <div class="col-6 col-md-3">
+                  <label for="control-bpm" class="form-label">Quantisation</label>
+                  <select class="form-select" aria-label="Note" id="control-note">
+                    <option selected>Note</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="16">16</option>
+                    <option value="32">32</option>
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="12">12</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                  </select>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label for="control-metronome-instruments" class="form-label">Metronome</label>
+                  <select class="form-select" aria-label="Instrument" id="control-metronome-instruments"></select>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label for="control-metronome-instruments" class="form-label">&nbsp;</label>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="control-metronome" value="1" checked>
+                    <label class="form-check-label" for="control-metronome">Metronome on</label>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-12">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <h2>Bar Settings</h2>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6 col-md-3">
+                  <div class="form-check form-switch">
+                    <label for="control-barmoves" class="form-label">Selected Bar moves on colision</label>
+                    <input class="form-check-input" type="checkbox" id="control-barmoves" value="1">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#settingsCarousel"
+                data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#settingsCarousel"
+                data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="row" id="row2">
-    <div class="col-md-4">
-      <div class="container-fluid" id="instrument-buttons-container">
-        <div class="row">
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-          <button type="button" class="btn btn-primary instrument-button" disabled></button>
-        </div>
-      </div>
-    </div>
-    <div class="col-4 mb-4">
-      <div class="form-check form-switch">
-        <span id="control-active-instrument"></span>
-      </div>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-lg-12">
 
       <div id="canvas-container" class="container-fluid ">
         <canvas id="canvas" height="5" width="5"></canvas>
       </div>
+    </div>
+    <!-- Canvas -->
+  </div>
 </div>
-      <!-- Canvas -->
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="footer">
-        <a href="https://github.com/hg2000/marble">source</a>
-      </div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="footer">
+      <a href="https://github.com/hg2000/marble">source</a>
     </div>
   </div>
+</div>
 </div>
 <span id="sound-hash" data-hash="{{hash}}"></span>
 <script src="js/main.js"></script>
+
+
 </body>
 </html>

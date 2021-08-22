@@ -47,21 +47,23 @@ export default class Canvas {
    * Sets the correct width and height
    */
   prepare() {
+
     let $canvas = document.getElementById('canvas')
     let $canvasContainer = document.getElementById('canvas-container')
-    let rowsHeight = document.getElementById('row1').offsetHeight
-    rowsHeight += document.getElementById('row2').offsetHeight
+
+    let mainContainerHeight = document.getElementById('main-container').clientHeight
+    let firstRowHeight = document.getElementById('row1').clientHeight
+
+    let canvasHeight = mainContainerHeight - firstRowHeight -20;
 
     let width = $canvasContainer.clientWidth
-    let height = document.getElementById('main-container').offsetHeight - rowsHeight
 
-
-    $canvas.height = height
+    $canvas.height = canvasHeight
     $canvas.width = width
 
     return {
       'width': width,
-      'height': height
+      'height': canvasHeight
     }
   }
 
@@ -76,13 +78,11 @@ export default class Canvas {
     let Observable = this.Observable
 
     window.onresize = function () {
-    //  let canvasDimensions = canvas.resize()
-
-      /*
+    let canvasDimensions = canvas.resize()
       Observable.callObservers('onCanvasResize', {
         'width': canvasDimensions.width,
         'height': canvasDimensions.height
-      })*/
+      })
     }
   }
 }

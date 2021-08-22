@@ -30,10 +30,11 @@ export default class Controls {
 
   initInstrumentButtons() {
     let $instrumentButtons = document.getElementsByClassName('instrument-button')
+
     let i = 0;
     for (let key in this.sounds) {
       if (i >= $instrumentButtons.length) {
-        console.warn("More Instruments avaiable than buttons. A few instruemnts were not assigned.")
+        console.warn("More Instruments avaiable than buttons. A few instruments were not assigned.")
         return;
       }
       let $instrumentButton = $instrumentButtons[i]

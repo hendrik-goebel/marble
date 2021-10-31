@@ -20,7 +20,19 @@ export default class DirectorTimer {
       this.metronomeTimer.bpm = value
     }
 
+    if (property == 'speed-plus' || property == 'speed-minus') {
+      this.videoTimer.bpm = value
+      this.audioTimer.bpm = value
+      this.metronomeTimer.bpm = value
+    }
+
     if (property == 'note') {
+      this.videoTimer.note = value
+      this.audioTimer.note = value
+    }
+
+
+    if (property == 'note-plus' ||  property == 'note-minus') {
       this.videoTimer.note = value
       this.audioTimer.note = value
     }

@@ -7,25 +7,17 @@ import sounds from "../config/Sounds";
  */
 export default class Controls {
 
-  constructor(sounds, state) {
-    this.controlItems = ['speed', 'bar-selected', 'bpm', 'note', 'metronome', 'metronome-instruments', 'barmoves', 'active-instrument']
+  constructor(sounds) {
     this.controls = {}
+    this.displayElements = {}
     this.controlsInstrumentButtons = []
     this.sounds = sounds
-    this.state = state
+
+    this.initElements()
+    this.setDefaultValues()
     this.initInstrumentButtons()
-    this.getControlElements()
-
-
-    this.initControls()
     this.initInstrumentControls(sounds)
     this.listen()
-  }
-
-  getControlElements() {
-    for (let item of this.controlItems) {
-      this.controls[item] = document.getElementById('control-' + item)
-    }
   }
 
   initInstrumentButtons() {
@@ -58,15 +50,45 @@ export default class Controls {
     return null
   }
 
-  initControls() {
-    this.controls['bpm'].value = this.setup.system.audio.bpm
-    this.controls['note'].value = this.setup.system.audio.note
-    this.controls['bpm'].setAttribute("min", this.setup.system.audio.bpmMin)
-    this.controls['bpm'].setAttribute("max", this.setup.system.audio.bpmMax)
+  /**
+   * A control element is an ui element of the top area.
+   * to be recognized it needs to have the class "control" and an id
+   * which corresponds with the internal id used in the application code.
+   *
+   * A display element displays dynamicly a value. It needs the class "display"
+   */
+  initElements() {
+
+    let displayElements = document.getElementsByClassName('display')
+    for (const element of displayElements) {
+      let id = element.getAttribute('id')
+      if (!id) {
+        console.warn('display element without id: ', element)
+        continue
+      }
+      this.displayElements[id] = element;
+    }
+
+    let controlElements = document.getElementsByClassName('control')
+    for (const control of controlElements) {
+      let id = control.getAttribute('id')
+      if (!id) {
+        console.warn('Control element without id: ' + control.textContent)
+        continue
+      }
+      this.controls[id] = control;
+    }
+  }
+
+  setDefaultValues() {
+    this.state.note = this.setup.system.audio.note
+
     this.controls['metronome'].value = 1
     this.controls['barmoves'].value = 1
     this.controls['barmoves'].disabled = true
 
+    this.displayElements['note'].textContent = this.state.note
+    this.displayElements['speed'].textContent = this.state.speed
   }
 
   initInstrumentControls(sounds) {
@@ -100,7 +122,12 @@ export default class Controls {
     if (key === 'first') {
       sound = this.getFirstSound()
     }
-    this.controls['active-instrument'].textContent = sound
+    this.displayElements['active-instrument'].textContent = sound
+  }
+
+  updateDisplayElements() {
+    this.displayElements['note'].textContent = this.state.note
+    this.displayElements['speed'].textContent = this.state.speed
   }
 
   updateInstrumentButtonDisplay(key) {
@@ -138,18 +165,77 @@ export default class Controls {
 
   listen() {
     let Observable = this.Observable
-    for (let item of this.controlItems) {
-      if (!this.controls[item]) {
-        continue
-      }
-      this.controls[item].onchange = function () {
+    for (const id in this.controls) {
+      let item = this.controls[id]
+
+      item.onchange = function () {
         Observable.callObservers(
           'onControlsUpdate',
           {
-            'property': item,
+            'property': id,
             'value': this.value
           })
       }
+
+      this.controls['speed-plus'].onclick = (event) => {
+        this.state.speed++
+        if (this.state.speed >= 250) {
+          this.state.speed = 250
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
+      }
+      this.controls['speed-double-plus'].onclick = (event) => {
+        this.state.speed += 10
+        if (this.state.speed >= 250) {
+          this.state.speed = 250
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
+      }
+      this.controls['speed-minus'].onclick = (event) => {
+        this.state.speed--
+        if (this.state.speed <= 5) {
+          this.state.speed = 5
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
+      }
+      this.controls['speed-double-minus'].onclick = (event) => {
+        this.state.speed -= 10
+        if (this.state.speed <= 5) {
+          this.state.speed = 5
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
+      }
+
+
+      this.controls['note-plus'].onclick = (event) => {
+        this.state.note++
+        if (this.state.note >= 128) {
+          this.state.note = 124
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'note-plus', value: this.state.note})
+      }
+      this.controls['note-minus'].onclick = (event) => {
+        this.state.note--
+        if (this.state.note <= 2) {
+          this.state.note = 2
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'note-minus', value: this.state.note})
+      }
+      this.controls['note-double-plus'].onclick = (event) => {
+        this.state.note *= 2
+        if (this.state.note >= 128) {
+          this.state.note = 128
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'note-plus', value: this.state.note})
+      }
+      this.controls['note-double-minus'].onclick = (event) => {
+        this.state.note = Math.floor(this.state.note / 2)
+        if (this.state.note <= 2) {
+          this.state.note = 2
+        }
+        Observable.callObservers('onControlsUpdate', {property: 'note-minus', value: this.state.note})
+      }
+
       for (let button of this.controlsInstrumentButtons) {
         button.onclick = (event) => {
           Observable.callObservers(
@@ -217,5 +303,6 @@ export default class Controls {
     if (propertyVariant in this.controls) {
       this.controls[propertyVariant].value = value
     }
+    this.updateDisplayElements()
   }
 }

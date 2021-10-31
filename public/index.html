@@ -63,7 +63,7 @@
                     </div>
                     <div class="row">
                       <div class="form-check form-switch">
-                        <span id="control-active-instrument"></span>
+                        <span class="display" id="active-instrument"></span>
                       </div>
 
                     </div>
@@ -86,48 +86,47 @@
                   <h2>Audio Settings</h2>
                 </div>
               </div>
+
+
               <div class="row">
                 <div class="col-6 col-md-3" title="Beats per Minute">
-                  <label for="control-bpm" class="form-label">Speed</label>
-                  <input type="range" value="" class="form-range" id="control-bpm" min="60" max="180">
-                </div>
-                <div class="col-6 col-md-3">
-                  <label for="control-bpm" class="form-label">Quantisation</label>
-                  <select class="form-select" aria-label="Note" id="control-note">
-                    <option selected>Note</option>
-                    <option value="2">2</option>
-                    <option value="4">4</option>
-                    <option value="8">8</option>
-                    <option value="16">16</option>
-                    <option value="32">32</option>
-                    <option value="3">3</option>
-                    <option value="6">6</option>
-                    <option value="12">12</option>
-                    <option value="5">5</option>
-                    <option value="7">7</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                  </select>
-                </div>
-                <div class="col-6 col-md-3">
-                  <label for="control-metronome-instruments" class="form-label">Metronome</label>
-                  <select class="form-select" aria-label="Instrument" id="control-metronome-instruments"></select>
-                </div>
-                <div class="col-6 col-md-3">
-                  <label for="control-metronome-instruments" class="form-label">&nbsp;</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="control-metronome" value="1" checked>
-                    <label class="form-check-label" for="control-metronome">Metronome on</label>
+                  <label class="form-label">Speed</label>
+                  <div>
+                    <button type="button" id="speed-double-minus" class="btn btn-primary control">--</button>
+                    <button type="button" id="speed-minus" class="btn btn-primary control">-</button>
+                    <span class="display" id="speed"></span>
+                    <button id="speed-plus" type="button" class="btn btn-primary plus-button control">+</button>
+                    <button id="speed-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
                   </div>
                 </div>
 
+                <div class="col-6 col-md-3">
+                  <label class="form-label">Quantisation</label>
+                  <div class="quantisation-container">
+                    <button type="button" id="note-double-minus" class="btn btn-primary control">--</button>
+                    <button type="button" id="note-minus" class="btn btn-primary control">-</button>
+                    <span class="display" id="note"></span>
+                    <button id="note-plus" type="button" class="btn btn-primary plus-button control">+</button>
+                    <button id="note-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                  <label for="metronome-instruments" class="form-label">Metronome</label>
+                  <select class="form-select control" aria-label="Instrument" id="metronome-instruments"></select>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label for="metronome" class="form-label">&nbsp;</label>
+                  <div class="form-check form-switch">
+                    <input id="metronome" class="form-check-input control" type="checkbox" id="control-metronome"
+                           value="1" checked>
+                    <label class="form-check-label" for="control-metronome">Metronome on</label>
+                  </div>
+                </div>
               </div>
+
               <div class="row">
                 <div class="col-12">
-
                 </div>
               </div>
             </div>
@@ -143,8 +142,8 @@
               <div class="row">
                 <div class="col-6 col-md-3">
                   <div class="form-check form-switch">
-                    <label for="control-barmoves" class="form-label">Selected Bar moves on colision</label>
-                    <input class="form-check-input" type="checkbox" id="control-barmoves" value="1">
+                    <label for="barmoves" class="form-label">Selected Bar moves on colision</label>
+                    <input class="form-check-input control" type="checkbox" id="barmoves" value="1">
                   </div>
                 </div>
               </div>

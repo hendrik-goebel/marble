@@ -107,6 +107,12 @@ body {
   top: unset;
 }
 
+.display {
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+}
+
 @include media-breakpoint-up(sm) {
 }
 

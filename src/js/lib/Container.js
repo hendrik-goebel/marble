@@ -28,6 +28,7 @@ export default class Container {
   init(sounds) {
     this.sounds = sounds
     this.setup = setup
+    this.state = new State()
     Object.assign(Timer.prototype, this.getDefaultPrototypeProperties())
     Object.assign(VideoTimer.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Controls.prototype, this.getDefaultPrototypeProperties())
@@ -43,7 +44,7 @@ export default class Container {
     Object.assign(AudioPlayerSoundJs.prototype, this.getDefaultPrototypeProperties())
 
     this.initClassMapping()
-    this.state = new State()
+
     this.eventRouting = new EventRouter()
     this.canvas = new Canvas(createjs)
     this.factory = new Factory()
@@ -63,6 +64,7 @@ export default class Container {
       'Observable': Observable,
       'container': this,
       'setup': this.setup,
+      'state': this.state,
       'CONST': constants
     }
   }

@@ -87,7 +87,6 @@
                 </div>
               </div>
 
-
               <div class="row">
                 <div class="col-6 col-md-3" title="Beats per Minute">
                   <label class="form-label">Speed</label>
@@ -113,7 +112,12 @@
 
                 <div class="col-6 col-md-3">
                   <label for="metronome-instruments" class="form-label">Metronome</label>
-                  <select class="form-select control" aria-label="Instrument" id="metronome-instruments"></select>
+                  <div class="metronome-instruments-container">
+                    <button type="button" id="metronome-instrument-minus" class="btn btn-primary control">-</button>
+                    <span class="display" id="metronome-instrument"></span>
+                    <button id="metronome-instrument-plus" type="button" class="btn btn-primary plus-button control">+</button>
+                  </div>
+
                 </div>
                 <div class="col-6 col-md-3">
                   <label for="metronome" class="form-label">&nbsp;</label>

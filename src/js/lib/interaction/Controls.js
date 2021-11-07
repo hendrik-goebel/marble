@@ -1,5 +1,5 @@
 import sounds from "../config/Sounds";
-
+import PlusMinusControl from './controlComponents/PlusMinusControl.js'
 /**
  * Reacts to changes in the controls ui section
  * Calls observers: onControlsUpdate
@@ -16,7 +16,6 @@ export default class Controls {
     this.initElements()
     this.setDefaultValues()
     this.initInstrumentButtons()
-    this.initInstrumentControls(sounds)
     this.listen()
   }
 
@@ -36,18 +35,6 @@ export default class Controls {
       this.controlsInstrumentButtons.push($instrumentButton)
       i++;
     }
-  }
-
-  getInstrumentButtonBySound(sound) {
-    if (sound === 'first') {
-      return this.controlsInstrumentButtons[0]
-    }
-    for (let $instrumentButton of this.controlsInstrumentButtons) {
-      if ($instrumentButton.dataset.sound === sound) {
-        return $instrumentButton
-      }
-    }
-    return null
   }
 
   /**
@@ -91,14 +78,16 @@ export default class Controls {
     this.displayElements['speed'].textContent = this.state.speed
   }
 
-  initInstrumentControls(sounds) {
-    for (let key in sounds) {
-      let option = document.createElement("option");
-      option.text = key
-      option.value = key
-      this.controls['metronome-instruments'].appendChild(option)
+  getInstrumentButtonBySound(sound) {
+    if (sound === 'first') {
+      return this.controlsInstrumentButtons[0]
     }
-    this.selectInstrument('first')
+    for (let $instrumentButton of this.controlsInstrumentButtons) {
+      if ($instrumentButton.dataset.sound === sound) {
+        return $instrumentButton
+      }
+    }
+    return null
   }
 
   getFirstSound() {
@@ -205,7 +194,6 @@ export default class Controls {
         }
         Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
       }
-
 
       this.controls['note-plus'].onclick = (event) => {
         this.state.note++

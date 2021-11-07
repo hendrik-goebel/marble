@@ -19,6 +19,8 @@ import State from "./State.js"
 import Timer from "./Timer.js"
 import VideoTimer from "./VideoTimer.js"
 import CollisionTest from "./CollisionTest";
+import PlusMinusControl from './interaction/controlComponents/PlusMinusControl.js'
+import MetronomeInstrumentControl from './interaction/controlComponents/MetronomeInstrumentControl'
 
 /**
  * Manages initialization of objects and corresponding dependencies
@@ -42,6 +44,7 @@ export default class Container {
     Object.assign(Factory.prototype, this.getDefaultPrototypeProperties())
     Object.assign(CollisionDetector.prototype, this.getDefaultPrototypeProperties())
     Object.assign(AudioPlayerSoundJs.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(PlusMinusControl.prototype, this.getDefaultPrototypeProperties())
 
     this.initClassMapping()
 
@@ -50,7 +53,8 @@ export default class Container {
     this.factory = new Factory()
     this.collisionDetector = new CollisionDetector()
     this.audioplayer = new AudioPlayerSoundJs()
-    this.controls = new Controls(this.sounds, this.state)
+    this.metronomeInstrumentControl = new MetronomeInstrumentControl(this.sounds)
+    this.controls = new Controls(this.sounds)
     this.stageUi = new StageUserInterface(this.canvas.stage)
     this.directorUI = new DirectorUserInteraction(this.state, this.factory, this.collisionDetector)
     this.director = new Director(this.canvas, this.factory, this.collisionDetector, this.state)
@@ -72,12 +76,10 @@ export default class Container {
   initClassMapping() {
     this.classMapping = {
       'Timer': (args) => {
-        let timer = new Timer(args[1], args[2])
-        return timer
+        return new Timer(args[1], args[2])
       },
       'VideoTimer': (args) => {
-        let timer = new VideoTimer(args[1], args[2])
-        return timer
+        return new VideoTimer(args[1], args[2])
       },
     }
   }

@@ -6,9 +6,6 @@ export default class State {
     this.editMode = ''
     this.instrument = 'first'
     this.metronomeInstrument = 'first'
-
-    // TODO: use setup values
-    this.note = 16
     this.speed = 120
   }
 

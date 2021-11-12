@@ -21,7 +21,7 @@ import VideoTimer from "./VideoTimer.js"
 import CollisionTest from "./CollisionTest";
 import PlusMinusControl from './interaction/controlComponents/PlusMinusControl.js'
 import MetronomeInstrumentControl from './interaction/controlComponents/MetronomeInstrumentControl'
-
+import QuantisationControl from './interaction/controlComponents/QuantisationControl'
 /**
  * Manages initialization of objects and corresponding dependencies
  */
@@ -54,6 +54,7 @@ export default class Container {
     this.collisionDetector = new CollisionDetector()
     this.audioplayer = new AudioPlayerSoundJs()
     this.metronomeInstrumentControl = new MetronomeInstrumentControl(this.sounds)
+    this.quantisationControl = new QuantisationControl()
     this.controls = new Controls(this.sounds)
     this.stageUi = new StageUserInterface(this.canvas.stage)
     this.directorUI = new DirectorUserInteraction(this.state, this.factory, this.collisionDetector)

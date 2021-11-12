@@ -68,13 +68,9 @@ export default class Controls {
   }
 
   setDefaultValues() {
-    this.state.note = this.setup.system.audio.note
-
     this.controls['metronome'].value = 1
     this.controls['barmoves'].value = 1
     this.controls['barmoves'].disabled = true
-
-    this.displayElements['note'].textContent = this.state.note
     this.displayElements['speed'].textContent = this.state.speed
   }
 
@@ -115,7 +111,6 @@ export default class Controls {
   }
 
   updateDisplayElements() {
-    this.displayElements['note'].textContent = this.state.note
     this.displayElements['speed'].textContent = this.state.speed
   }
 
@@ -193,35 +188,6 @@ export default class Controls {
           this.state.speed = 5
         }
         Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
-      }
-
-      this.controls['note-plus'].onclick = (event) => {
-        this.state.note++
-        if (this.state.note >= 128) {
-          this.state.note = 124
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-plus', value: this.state.note})
-      }
-      this.controls['note-minus'].onclick = (event) => {
-        this.state.note--
-        if (this.state.note <= 2) {
-          this.state.note = 2
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-minus', value: this.state.note})
-      }
-      this.controls['note-double-plus'].onclick = (event) => {
-        this.state.note *= 2
-        if (this.state.note >= 128) {
-          this.state.note = 128
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-plus', value: this.state.note})
-      }
-      this.controls['note-double-minus'].onclick = (event) => {
-        this.state.note = Math.floor(this.state.note / 2)
-        if (this.state.note <= 2) {
-          this.state.note = 2
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-minus', value: this.state.note})
       }
 
       for (let button of this.controlsInstrumentButtons) {

@@ -96,7 +96,7 @@ export default class DirectorAudio {
     }
 
     if (property == 'metronome') {
-      this.metronome = !this.metronome
+      this.metronome = value
     }
   }
 }

@@ -1,5 +1,3 @@
-import sounds from "../config/Sounds";
-import PlusMinusControl from './controlComponents/PlusMinusControl.js'
 /**
  * Reacts to changes in the controls ui section
  * Calls observers: onControlsUpdate
@@ -25,7 +23,7 @@ export default class Controls {
     let i = 0;
     for (let key in this.sounds) {
       if (i >= $instrumentButtons.length) {
-        console.warn("More Instruments avaiable than buttons. A few instruments were not assigned.")
+        console.warn("More Instruments available than buttons. A few instruments were not assigned.")
         return;
       }
       let $instrumentButton = $instrumentButtons[i]
@@ -68,10 +66,8 @@ export default class Controls {
   }
 
   setDefaultValues() {
-    this.controls['metronome'].value = 1
     this.controls['barmoves'].value = 1
     this.controls['barmoves'].disabled = true
-    this.displayElements['speed'].textContent = this.state.speed
   }
 
   getInstrumentButtonBySound(sound) {
@@ -111,7 +107,6 @@ export default class Controls {
   }
 
   updateDisplayElements() {
-    this.displayElements['speed'].textContent = this.state.speed
   }
 
   updateInstrumentButtonDisplay(key) {
@@ -161,35 +156,6 @@ export default class Controls {
           })
       }
 
-      this.controls['speed-plus'].onclick = (event) => {
-        this.state.speed++
-        if (this.state.speed >= 250) {
-          this.state.speed = 250
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
-      }
-      this.controls['speed-double-plus'].onclick = (event) => {
-        this.state.speed += 10
-        if (this.state.speed >= 250) {
-          this.state.speed = 250
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
-      }
-      this.controls['speed-minus'].onclick = (event) => {
-        this.state.speed--
-        if (this.state.speed <= 5) {
-          this.state.speed = 5
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
-      }
-      this.controls['speed-double-minus'].onclick = (event) => {
-        this.state.speed -= 10
-        if (this.state.speed <= 5) {
-          this.state.speed = 5
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
-      }
-
       for (let button of this.controlsInstrumentButtons) {
         button.onclick = (event) => {
           Observable.callObservers(
@@ -210,15 +176,6 @@ export default class Controls {
       $element = this.getInstrumentButtonBySound(value)
       cssClass = 'button-playing'
     }
-    if (property === 'metronome') {
-      $element = this.controls.metronome
-      cssClass = 'metronome-playing'
-    }
-
-    $element.classList.add(cssClass)
-    setTimeout(function () {
-      $element.classList.remove(cssClass)
-    }, 200)
   }
 
   onUpdateControl(property, value) {

@@ -14,13 +14,7 @@ export default class DirectorTimer {
   }
 
   onUpdateControl(property, value) {
-    if (property == 'bpm') {
-      this.videoTimer.bpm = value
-      this.audioTimer.bpm = value
-      this.metronomeTimer.bpm = value
-    }
-
-    if (property == 'speed-plus' || property == 'speed-minus') {
+    if (property == 'speed') {
       this.videoTimer.bpm = value
       this.audioTimer.bpm = value
       this.metronomeTimer.bpm = value

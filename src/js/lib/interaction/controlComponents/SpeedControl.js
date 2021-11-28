@@ -1,10 +1,10 @@
 import PlusMinusControl from "./components/PlusMinusControl";
 
-export default class QuantisationControl extends PlusMinusControl {
+export default class SpeedControl extends PlusMinusControl {
 
   constructor() {
-    super([], 'quantisation', '')
-    this.setValue(this.setup.system.audio.quantisation)
+    super([], 'speed', '')
+    this.setValue(this.setup.system.audio.bpm)
   }
 
   onPlus() {
@@ -24,7 +24,7 @@ export default class QuantisationControl extends PlusMinusControl {
   }
 
   onDoublePlus() {
-    this.value *= 2
+    this.value += 10
     if (this.value > 256) {
       this.value = 256
     }
@@ -32,7 +32,7 @@ export default class QuantisationControl extends PlusMinusControl {
   }
 
   onDoubleMinus() {
-    this.value = Math.floor(this.value / 2)
+    this.value -= 10
     if (this.value <= 1) {
       this.value = 1
     }

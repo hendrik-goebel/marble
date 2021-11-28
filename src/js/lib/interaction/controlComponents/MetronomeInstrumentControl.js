@@ -1,5 +1,4 @@
-import './PlusMinusControl'
-import PlusMinusControl from "./PlusMinusControl";
+import PlusMinusControl from "./components/PlusMinusControl";
 
 export default class MetronomeInstrumentControl extends PlusMinusControl {
 

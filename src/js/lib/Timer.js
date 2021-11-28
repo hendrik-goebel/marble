@@ -7,7 +7,7 @@ export default class Timer {
     this.id = id
     this.label = label
     this.bpm = this.setup.system.audio.bpm
-    this.note = this.setup.system.audio.note
+    this.note = this.setup.system.audio.quantisation
     this._startTime = new Date().getTime();
     this.timeInterval = 0
     this._time = 0;

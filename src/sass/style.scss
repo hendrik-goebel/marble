@@ -90,6 +90,10 @@ body {
   margin-bottom: 1em;
 }
 
+#metronome-instrument {
+  width: 100px;
+}
+
 .btn-selected {
   background-color: $gray-600;
   &:focus {

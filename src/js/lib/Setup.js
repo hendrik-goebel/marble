@@ -36,7 +36,7 @@ export default {
       'bpm': 120,
       'bpmMin': 30,
       'bpmMax': 190,
-      'note': 16,
+      'quantisation': 16,
     },
     'video': {
       'baseTickTime': 100,

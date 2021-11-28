@@ -1,5 +1,5 @@
 import sounds from "../config/Sounds";
-
+import PlusMinusControl from './controlComponents/PlusMinusControl.js'
 /**
  * Reacts to changes in the controls ui section
  * Calls observers: onControlsUpdate
@@ -16,7 +16,6 @@ export default class Controls {
     this.initElements()
     this.setDefaultValues()
     this.initInstrumentButtons()
-    this.initInstrumentControls(sounds)
     this.listen()
   }
 
@@ -36,18 +35,6 @@ export default class Controls {
       this.controlsInstrumentButtons.push($instrumentButton)
       i++;
     }
-  }
-
-  getInstrumentButtonBySound(sound) {
-    if (sound === 'first') {
-      return this.controlsInstrumentButtons[0]
-    }
-    for (let $instrumentButton of this.controlsInstrumentButtons) {
-      if ($instrumentButton.dataset.sound === sound) {
-        return $instrumentButton
-      }
-    }
-    return null
   }
 
   /**
@@ -81,24 +68,22 @@ export default class Controls {
   }
 
   setDefaultValues() {
-    this.state.note = this.setup.system.audio.note
-
     this.controls['metronome'].value = 1
     this.controls['barmoves'].value = 1
     this.controls['barmoves'].disabled = true
-
-    this.displayElements['note'].textContent = this.state.note
     this.displayElements['speed'].textContent = this.state.speed
   }
 
-  initInstrumentControls(sounds) {
-    for (let key in sounds) {
-      let option = document.createElement("option");
-      option.text = key
-      option.value = key
-      this.controls['metronome-instruments'].appendChild(option)
+  getInstrumentButtonBySound(sound) {
+    if (sound === 'first') {
+      return this.controlsInstrumentButtons[0]
     }
-    this.selectInstrument('first')
+    for (let $instrumentButton of this.controlsInstrumentButtons) {
+      if ($instrumentButton.dataset.sound === sound) {
+        return $instrumentButton
+      }
+    }
+    return null
   }
 
   getFirstSound() {
@@ -126,7 +111,6 @@ export default class Controls {
   }
 
   updateDisplayElements() {
-    this.displayElements['note'].textContent = this.state.note
     this.displayElements['speed'].textContent = this.state.speed
   }
 
@@ -204,36 +188,6 @@ export default class Controls {
           this.state.speed = 5
         }
         Observable.callObservers('onControlsUpdate', {property: 'speed-plus', value: this.state.speed})
-      }
-
-
-      this.controls['note-plus'].onclick = (event) => {
-        this.state.note++
-        if (this.state.note >= 128) {
-          this.state.note = 124
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-plus', value: this.state.note})
-      }
-      this.controls['note-minus'].onclick = (event) => {
-        this.state.note--
-        if (this.state.note <= 2) {
-          this.state.note = 2
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-minus', value: this.state.note})
-      }
-      this.controls['note-double-plus'].onclick = (event) => {
-        this.state.note *= 2
-        if (this.state.note >= 128) {
-          this.state.note = 128
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-plus', value: this.state.note})
-      }
-      this.controls['note-double-minus'].onclick = (event) => {
-        this.state.note = Math.floor(this.state.note / 2)
-        if (this.state.note <= 2) {
-          this.state.note = 2
-        }
-        Observable.callObservers('onControlsUpdate', {property: 'note-minus', value: this.state.note})
       }
 
       for (let button of this.controlsInstrumentButtons) {

@@ -10,7 +10,7 @@ export default class DirectorAudio {
     this.metronome = true
     this.sounds = sounds
     this.instrument = this.defaultInstrument
-    this.metronomeinstrument = this.defaultInstrument
+    this.metronomeInstrument = this.defaultInstrument
     this.player.registerSounds(this.sounds)
     this._lastBeatTime
   }
@@ -51,8 +51,8 @@ export default class DirectorAudio {
 
   playMetronome() {
     if (this.metronome) {
-      this.Observable.callObservers('onStartPlaySound', {property: 'metronome', value: this.metronomeinstrument})
-      this.player.play(this.metronomeinstrument)
+      this.Observable.callObservers('onStartPlaySound', {property: 'metronome', value: this.metronomeInstrument})
+      this.player.play(this.metronomeInstrument)
     }
   }
 
@@ -91,8 +91,8 @@ export default class DirectorAudio {
       this.instrument = value
     }
 
-    if (property == 'metronome-instruments') {
-      this.metronomeinstrument = value
+    if (property == 'metronome-instrument') {
+      this.metronomeInstrument = value
     }
 
     if (property == 'metronome') {

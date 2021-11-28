@@ -76,9 +76,10 @@ body {
 #control-metronome {
   transition: background-color .5s ease;
 }
+
 .button-playing, .metronome-playing {
-    background-color: $green2 !important;
-    transition: background-color .5s ease;
+  background-color: $green2 !important;
+  transition: background-color .5s ease;
 }
 
 #instrument-buttons-container {
@@ -96,6 +97,7 @@ body {
 
 .btn-selected {
   background-color: $gray-600;
+
   &:focus {
     background-color: $gray-600;
   }
@@ -117,11 +119,39 @@ body {
   text-align: center;
 }
 
+.control-container {
+  max-width: 195px;
+  overflow: hidden;
+  max-height: 70px;
+  margin-bottom: 24px;
+
+  .form-label {
+    margin-bottom: 2px;
+  }
+}
+
+.show-from-md,
+.show-from-xxl{
+  display: none;
+}
+
+.show-till-md,
+.show-till-md {
+  display: block;
+}
+
 @include media-breakpoint-up(sm) {
 }
 
 @include media-breakpoint-up(md) {
 
+  .show-from-md {
+    display: block;
+  }
+
+  .show-till-md {
+    display: none;
+  }
 }
 
 @include media-breakpoint-up(lg) {
@@ -137,5 +167,13 @@ body {
 @include media-breakpoint-up(xxl) {
   #instrument-buttons-container {
     width: 100%;
+  }
+
+  .show-from-xxl {
+    display: block;
+  }
+
+  .show-till-xxl {
+    display: none;
   }
 }

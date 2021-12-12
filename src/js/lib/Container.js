@@ -23,6 +23,7 @@ import PlusMinusControl from './interaction/controlComponents/components/PlusMin
 import MetronomeInstrumentControl from './interaction/controlComponents/MetronomeInstrumentControl'
 import SwitchControl from './interaction/controlComponents/components/SwitchControl.js'
 import MetronomeControl from './interaction/controlComponents/MetronomeControl'
+import BarMovesControl from './interaction/controlComponents/BarMovesControl.js'
 import QuantisationControl from './interaction/controlComponents/QuantisationControl'
 import SpeedControl from './interaction/controlComponents/SpeedControl'
 import BaseComponent  from './interaction/controlComponents/components/BaseComponent'
@@ -52,6 +53,7 @@ export default class Container {
     Object.assign(PlusMinusControl.prototype, this.getDefaultPrototypeProperties())
     Object.assign(SpeedControl.prototype, this.getDefaultPrototypeProperties())
     Object.assign(MetronomeControl.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(BarMovesControl.prototype, this.getDefaultPrototypeProperties())
 
 
     this.initClassMapping()
@@ -72,6 +74,7 @@ export default class Container {
     this.collisionTest = new CollisionTest(this.state, this.factory, this.director)
     this.metronomeInstrumentControl = new MetronomeInstrumentControl(this.sounds)
     this.quantisationControl = new QuantisationControl()
+    this.barmovesControl = new BarMovesControl()
   }
 
   getDefaultPrototypeProperties() {

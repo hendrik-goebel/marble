@@ -11,8 +11,8 @@ export default class Controls {
     this.controlsInstrumentButtons = []
     this.sounds = sounds
 
-    this.initElements()
-    this.setDefaultValues()
+  //  this.initElements()
+  //  this.setDefaultValues()
     this.initInstrumentButtons()
     this.listen()
   }
@@ -48,15 +48,15 @@ export default class Controls {
     for (const element of displayElements) {
       let id = element.getAttribute('id')
       if (!id) {
-        console.warn('display element without id: ', element)
-        continue
+        id = element.dataset.id
       }
       this.displayElements[id] = element;
     }
 
     let controlElements = document.getElementsByClassName('control')
     for (const control of controlElements) {
-      let id = control.getAttribute('id')
+
+      let id = control.dataset.id
       if (!id) {
         console.warn('Control element without id: ' + control.textContent)
         continue

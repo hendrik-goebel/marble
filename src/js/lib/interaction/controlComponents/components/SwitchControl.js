@@ -3,9 +3,9 @@
  */
 import BaseComponent from "./BaseComponent"
 
-export default class SwitchControl extends BaseComponent{
+export default class SwitchControl extends BaseComponent {
 
-  constructor(elementId, checked=true) {
+  constructor(elementId, checked = true) {
     super()
     this.elementId = elementId
     this.checked = checked
@@ -15,25 +15,32 @@ export default class SwitchControl extends BaseComponent{
   }
 
   initElements() {
-    this.element = document.getElementById(this.elementId)
+    this.elements = document.querySelectorAll('[data-id="' + this.elementId + '"]')
   }
 
   onChange() {
     this.checked = !this.checked
     if (this.checked) {
-      this.element.checked = true
+      for (let element of this.elements) {
+        element.checked = true
+      }
     } else {
-      this.element.checked = false
+      for (let element of this.elements) {
+        element.checked = false
+      }
     }
     return this.checked
   }
 
   addChangeEvent() {
-    this.element.onchange = (event) => {
-      this.Observable.callObservers('onControlsUpdate', {
-        'property': this.elementId,
-        'value': this.onChange()
-      })
+
+    for (let element of this.elements) {
+      element.onchange = (event) => {
+        this.Observable.callObservers('onControlsUpdate', {
+          'property': this.elementId,
+          'value': this.onChange()
+        })
+      }
     }
   }
 

@@ -159,17 +159,13 @@ body {
 }
 
 @include media-breakpoint-up(xl) {
-  #instrument-buttons-container {
-    width: 79%;
-  }
+
 }
 
 @include media-breakpoint-up(xxl) {
-  #instrument-buttons-container {
-    width: 100%;
-  }
 
-  .show-from-xxl {
+
+  .l {
     display: block;
   }
 

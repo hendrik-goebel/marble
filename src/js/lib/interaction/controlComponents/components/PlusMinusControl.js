@@ -19,10 +19,10 @@ export default class PlusMinusControl {
     this.initElements()
     this.addPlusEvent()
     this.addMinusEvent()
-    if (this.doublePlusElement) {
+    if (this.doublePlusElements) {
       this.addDoublePlusEvent()
     }
-    if (this.doubleMinusElement) {
+    if (this.doubleMinusElements) {
       this.addDoubleMinusEvent()
     }
     this.updateDisplay()
@@ -30,11 +30,11 @@ export default class PlusMinusControl {
   }
 
   initElements() {
-    this.displayElement = document.getElementById(this.displayElementId)
-    this.plusElement = document.getElementById(this.plusElementId)
-    this.minusElement = document.getElementById(this.minusElementId)
-    this.doublePlusElement = document.getElementById(this.doublePlusElementId)
-    this.doubleMinusElement = document.getElementById(this.doubleMinusElementId)
+    this.displayElements = document.querySelectorAll('[data-id="' + this.displayElementId + '"]')
+    this.plusElements = document.querySelectorAll('[data-id="' + this.plusElementId + '"]')
+    this.minusElements = document.querySelectorAll('[data-id="' + this.minusElementId + '"]')
+    this.doublePlusElements = document.querySelectorAll('[data-id="' + this.doublePlusElementId + '"]')
+    this.doubleMinusElements = document.querySelectorAll('[data-id="' + this.doubleMinusElementId + '"]')
   }
 
   setValue(value) {
@@ -46,7 +46,9 @@ export default class PlusMinusControl {
   }
 
   updateDisplay() {
-    this.displayElement.textContent = this.value
+    for (let displayElement of this.displayElements) {
+      displayElement.textContent = this.value
+    }
   }
 
   onPlus() {
@@ -59,11 +61,13 @@ export default class PlusMinusControl {
   }
 
   addPlusEvent() {
-    this.plusElement.onclick = (event) => {
-      this.Observable.callObservers('onControlsUpdate', {
-        'property': this.displayElementId,
-        'value': this.onPlus()
-      })
+    for (let plusElement of this.plusElements) {
+      plusElement.onclick = (event) => {
+        this.Observable.callObservers('onControlsUpdate', {
+          'property': this.displayElementId,
+          'value': this.onPlus()
+        })
+      }
     }
   }
 
@@ -77,29 +81,35 @@ export default class PlusMinusControl {
   }
 
   addMinusEvent() {
-    this.minusElement.onclick = (event) => {
-      this.Observable.callObservers('onControlsUpdate', {
-        'property': this.displayElementId,
-        'value': this.onMinus()
-      })
+    for (let minusElement of this.minusElements) {
+      minusElement.onclick = (event) => {
+        this.Observable.callObservers('onControlsUpdate', {
+          'property': this.displayElementId,
+          'value': this.onMinus()
+        })
+      }
     }
   }
 
   addDoublePlusEvent() {
-    this.doublePlusElement.onclick = (event) => {
-      this.Observable.callObservers('onControlsUpdate', {
-        'property': this.displayElementId,
-        'value': this.onDoublePlus()
-      })
+    for (let doublePlusElement of this.doublePlusElements) {
+      doublePlusElement.onclick = (event) => {
+        this.Observable.callObservers('onControlsUpdate', {
+          'property': this.displayElementId,
+          'value': this.onDoublePlus()
+        })
+      }
     }
   }
 
   addDoubleMinusEvent() {
-    this.doubleMinusElement.onclick = (event) => {
-      this.Observable.callObservers('onControlsUpdate', {
-        'property': this.displayElementId,
-        'value': this.onDoubleMinus()
-      })
+    for (let doubleMinusElement of this.doubleMinusElements) {
+      doubleMinusElement.onclick = (event) => {
+        this.Observable.callObservers('onControlsUpdate', {
+          'property': this.displayElementId,
+          'value': this.onDoubleMinus()
+        })
+      }
     }
   }
 

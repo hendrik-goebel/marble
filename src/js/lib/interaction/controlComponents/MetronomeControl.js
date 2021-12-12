@@ -12,16 +12,17 @@ export default class MetronomeControl extends SwitchControl {
 
   onStartPlaySound(property) {
     if (property == this.elementId) {
-      this.element.classList.add('metronome-playing')
-      setTimeout(() => {
-            this.element.classList.remove('metronome-playing')
-      }, 200)
+      for (let element of this.elements) {
+        element.classList.add('metronome-playing')
+        setTimeout(() => {
+          this.element.classList.remove('metronome-playing')
+        }, 200)
+      }
     }
   }
 
   initListeners() {
     super.initListeners()
-
     this.container.directorAudio.Observable.addObserver((args) => {
       this.onStartPlaySound(args.property, args.value)
     }, 'onStartPlaySound')

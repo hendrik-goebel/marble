@@ -9,7 +9,6 @@ import DirectorUserInteraction from './DirectorUserInteraction.js'
 import DirectorTimer from './DirectorTimer.js'
 import Canvas from './Canvas.js'
 import Factory from './Factory.js'
-import Controls from './interaction/Controls.js'
 import StageUserInterface from './interaction/StageUserInterface.js'
 import CollisionDetector from "./CollisionDetector"
 import AudioPlayerCreateJs from "./AudioPlayerCreateJs"
@@ -21,12 +20,13 @@ import VideoTimer from "./VideoTimer.js"
 import CollisionTest from "./CollisionTest";
 import PlusMinusControl from './interaction/controlComponents/components/PlusMinusControl.js'
 import MetronomeInstrumentControl from './interaction/controlComponents/MetronomeInstrumentControl'
-import SwitchControl from './interaction/controlComponents/components/SwitchControl.js'
 import MetronomeControl from './interaction/controlComponents/MetronomeControl'
 import BarMovesControl from './interaction/controlComponents/BarMovesControl.js'
 import QuantisationControl from './interaction/controlComponents/QuantisationControl'
 import SpeedControl from './interaction/controlComponents/SpeedControl'
 import BaseComponent  from './interaction/controlComponents/components/BaseComponent'
+import InstrumentButtonControl from "./interaction/controlComponents/instrumentButtonControl";
+import ActiveInstrumentDisplay from "./interaction/controlComponents/ActiveInstrumentDisplay";
 /**
  * Manages initialization of objects and corresponding dependencies
  */
@@ -38,7 +38,6 @@ export default class Container {
     this.state = new State()
     Object.assign(Timer.prototype, this.getDefaultPrototypeProperties())
     Object.assign(VideoTimer.prototype, this.getDefaultPrototypeProperties())
-    Object.assign(Controls.prototype, this.getDefaultPrototypeProperties())
     Object.assign(StageUserInterface.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Director.prototype, this.getDefaultPrototypeProperties())
     Object.assign(DirectorUserInteraction.prototype, this.getDefaultPrototypeProperties())
@@ -54,7 +53,8 @@ export default class Container {
     Object.assign(SpeedControl.prototype, this.getDefaultPrototypeProperties())
     Object.assign(MetronomeControl.prototype, this.getDefaultPrototypeProperties())
     Object.assign(BarMovesControl.prototype, this.getDefaultPrototypeProperties())
-
+    Object.assign(ActiveInstrumentDisplay.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(InstrumentButtonControl.prototype, this.getDefaultPrototypeProperties())
 
     this.initClassMapping()
 
@@ -65,16 +65,17 @@ export default class Container {
     this.audioplayer = new AudioPlayerSoundJs()
     this.directorAudio = new DirectorAudio(this.audioplayer, this.sounds)
     this.speedControl = new SpeedControl()
-    this.metronomeControl = new MetronomeControl()
-    this.controls = new Controls(this.sounds)
     this.stageUi = new StageUserInterface(this.canvas.stage)
     this.directorUI = new DirectorUserInteraction(this.state, this.factory, this.collisionDetector)
     this.director = new Director(this.canvas, this.factory, this.collisionDetector, this.state)
     this.directorTimer = new DirectorTimer()
     this.collisionTest = new CollisionTest(this.state, this.factory, this.director)
+    this.activeInstrumentDisplay= new ActiveInstrumentDisplay()
+    this.metronomeControl = new MetronomeControl()
     this.metronomeInstrumentControl = new MetronomeInstrumentControl(this.sounds)
     this.quantisationControl = new QuantisationControl()
     this.barmovesControl = new BarMovesControl()
+    this.metronomeInstrumentControl = new InstrumentButtonControl(this.sounds)
   }
 
   getDefaultPrototypeProperties() {

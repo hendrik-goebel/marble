@@ -14,6 +14,7 @@ export default class DirectorTimer {
   }
 
   onUpdateControl(property, value) {
+    console.log(property, value)
     if (property == 'speed') {
       this.videoTimer.bpm = value
       this.audioTimer.bpm = value
@@ -24,5 +25,11 @@ export default class DirectorTimer {
       this.videoTimer.note = value
       this.audioTimer.note = value
     }
+  }
+
+  initListeners() {
+    this.Observable.addObserver((args) => {
+      this.onUpdateControl(args.property, args.value)
+    }, 'onControlsUpdate')
   }
 }

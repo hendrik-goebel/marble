@@ -15,11 +15,12 @@ export default class MetronomeControl extends SwitchControl {
       for (let element of this.elements) {
         element.classList.add('metronome-playing')
         setTimeout(() => {
-          this.element.classList.remove('metronome-playing')
+          element.classList.remove('metronome-playing')
         }, 200)
       }
     }
   }
+
 
   initListeners() {
     super.initListeners()

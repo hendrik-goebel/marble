@@ -90,13 +90,4 @@ export default class DirectorUserInteraction {
       debugger
     }
   }
-
-  onUpdateControl(property, value) {
-    if (property == 'instruments' || property=='instrumentButton') {
-      this.state.instrument = value
-      if (this.state.activeBar) {
-        this.state.activeBar.sound = value
-      }
-    }
-  }
 }

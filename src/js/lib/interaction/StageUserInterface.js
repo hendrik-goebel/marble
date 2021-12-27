@@ -7,13 +7,11 @@ export default class StageUserInterface {
 
   /**
    * Listens for mouse (or touch) events on the canvas and translates them to the
-   * internel event system
+   * internal event system
    */
   listen() {
     let Observable = this.Observable
-    let timepoint = this.timepoint
     let clickCounter = 0
-    let clickType = ''
     this.stage.on("stagemousedown", function (evt) {
 
       // detect single or double click type

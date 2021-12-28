@@ -19,21 +19,41 @@ export default class SwitchControl extends BaseComponent {
   }
 
   onChange() {
-    this.checked = !this.checked
-    if (this.checked) {
-      for (let element of this.elements) {
-        element.checked = true
-      }
+    if (this.checked ) {
+      this.uncheck()
     } else {
-      for (let element of this.elements) {
-        element.checked = false
-      }
+      this.check()
     }
     return this.checked
   }
 
-  addChangeEvent() {
+  enable() {
+    for (let element of this.elements) {
+      element.disabled = false
+    }
+  }
 
+  disable() {
+    for (let element of this.elements) {
+      element.disabled = true
+    }
+  }
+
+  check() {
+    this.checked = true
+    for (let element of this.elements) {
+      element.checked = true
+    }
+  }
+
+  uncheck() {
+    this.checked = false
+    for (let element of this.elements) {
+      element.checked = false
+    }
+  }
+
+  addChangeEvent() {
     for (let element of this.elements) {
       element.onchange = (event) => {
         this.Observable.callObservers('onControlsUpdate', {

@@ -6,68 +6,7 @@
 export default class Controls {
 
   constructor(sounds) {
-    this.controls = {}
-    this.displayElements = {}
-    this.controlsInstrumentButtons = []
-    this.sounds = sounds
 
-  //  this.initElements()
-  //  this.setDefaultValues()
-    this.initInstrumentButtons()
-    this.listen()
-  }
-
-  initInstrumentButtons() {
-    let $instrumentButtons = document.getElementsByClassName('instrument-button')
-
-    let i = 0;
-    for (let key in this.sounds) {
-      if (i >= $instrumentButtons.length) {
-        console.warn("More Instruments available than buttons. A few instruments were not assigned.")
-        return;
-      }
-      let $instrumentButton = $instrumentButtons[i]
-      $instrumentButton.setAttribute('data-sound', key)
-      $instrumentButton.setAttribute('title', key)
-      $instrumentButton.disabled = false
-      this.controlsInstrumentButtons.push($instrumentButton)
-      i++;
-    }
-  }
-
-  /**
-   * A control element is an ui element of the top area.
-   * to be recognized it needs to have the class "control" and an id
-   * which corresponds with the internal id used in the application code.
-   *
-   * A display element displays dynamicly a value. It needs the class "display"
-   */
-  initElements() {
-
-    let displayElements = document.getElementsByClassName('display')
-    for (const element of displayElements) {
-      let id = element.getAttribute('id')
-      if (!id) {
-        id = element.dataset.id
-      }
-      this.displayElements[id] = element;
-    }
-
-    let controlElements = document.getElementsByClassName('control')
-    for (const control of controlElements) {
-
-      let id = control.dataset.id
-      if (!id) {
-        console.warn('Control element without id: ' + control.textContent)
-        continue
-      }
-      this.controls[id] = control;
-    }
-  }
-
-  setDefaultValues() {
-    this.controls['barmoves'].value = 1
-    this.controls['barmoves'].disabled = true
   }
 
   getInstrumentButtonBySound(sound) {
@@ -103,7 +42,7 @@ export default class Controls {
     if (key === 'first') {
       sound = this.getFirstSound()
     }
-    this.displayElements['active-instrument'].textContent = sound
+ //   this.displayElements['active-instrument'].textContent = sound
   }
 
   updateDisplayElements() {
@@ -126,21 +65,7 @@ export default class Controls {
     }
   }
 
-  updateBarMovesToggle() {
-    if (this.state.activeBar) {
-      this.controls.barmoves.disabled = false
-    } else {
-      this.controls.barmoves.checked = false
-      this.controls.barmoves.disabled = true
-      return
-    }
 
-    if (this.state.activeBar.fixed) {
-      this.controls.barmoves.checked = false
-    } else {
-      this.controls.barmoves.checked = true
-    }
-  }
 
   listen() {
     let Observable = this.Observable
@@ -156,43 +81,24 @@ export default class Controls {
           })
       }
 
-      for (let button of this.controlsInstrumentButtons) {
-        button.onclick = (event) => {
-          Observable.callObservers(
-            'onControlsUpdate',
-            {
-              'property': 'instrumentButton',
-              'value': event.target.dataset.sound
-            })
-        }
-      }
+
     }
   }
 
-  onStartPlaySound(property, value) {
-    let $element
-    let cssClass
-    if (property === 'bar') {
-      $element = this.getInstrumentButtonBySound(value)
-      cssClass = 'button-playing'
-    }
-  }
+
 
   onUpdateControl(property, value) {
     if (property === 'barSelected') {
       this.selectInstrument(value.sound)
-      this.updateBarMovesToggle()
       this.updateInstrumentDisplay(value.sound)
       this.updateInstrumentButtonDisplay(value.sound)
     }
 
     if (property === 'startDrawBar') {
-      this.updateBarMovesToggle()
       this.updateInstrumentDisplay(value.sound)
     }
 
     if (property === 'barUnselected') {
-      this.updateBarMovesToggle()
     }
 
     if (property === 'instruments') {
@@ -201,7 +107,7 @@ export default class Controls {
       }
     }
 
-    if (property === 'instrumentButton') {
+    if (property === 'instruinstrumentButton') {
       this.updateInstrumentButtonDisplay(value)
       this.updateInstrumentDisplay(value)
     }

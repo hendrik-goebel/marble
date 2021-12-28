@@ -4,7 +4,6 @@
 export default class EventRouter {
 
   route() {
-    this.controlsEvents()
     this.directorEvents()
     this.canvasEvents()
     this.timerEvents()
@@ -16,16 +15,6 @@ export default class EventRouter {
     this.container.audioplayer.Observable.addObserver((args) => {
       this.container.directorTimer.run()
     }, 'onSoundsLoaded')
-  }
-
-  controlsEvents() {
-      this.container.controls.Observable.addObserver((args) => {
-      this.container.directorUI.onUpdateControl(args.property, args.value)
-      this.container.directorAudio.onUpdateControl(args.property, args.value)
-      this.container.directorTimer.onUpdateControl(args.property, args.value)
-      this.container.director.onUpdateControl(args.property, args.value)
-      this.container.controls.onUpdateControl(args.property, args.value)
-    }, 'onControlsUpdate')
   }
 
   canvasEvents() {
@@ -59,17 +48,7 @@ export default class EventRouter {
   }
 
   directorEvents() {
-    this.container.director.Observable.addObserver((args) => {
-      this.container.controls.onUpdateControl(args.property, args.value)
-    }, 'onSelectBar')
 
-    this.container.director.Observable.addObserver((args) => {
-      this.container.controls.onUpdateControl(args.property, args.value)
-    }, 'onStartDrawBar')
-
-    this.container.director.Observable.addObserver((args) => {
-      this.container.controls.onUpdateControl(args.property, args.value)
-    }, 'onUnselectBar')
 
     this.container.director.Observable.addObserver((args) => {
       this.container.directorAudio.onCollision(args)
@@ -87,10 +66,6 @@ export default class EventRouter {
   }
 
   audioDirectorEvents() {
-
-    this.container.directorAudio.Observable.addObserver((args) => {
-      this.container.controls.onStartPlaySound(args.property, args.value)
-    }, 'onStartPlaySound')
   }
 
   timerEvents() {

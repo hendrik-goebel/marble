@@ -70,12 +70,10 @@ body {
   height: 2em;
   margin-left: 0.5em;
   margin-bottom: 0.5em;
-  transition: background-color 1s ease;
+  transition: background-color .1s ease;
 }
 
-#control-metronome {
-  transition: background-color .5s ease;
-}
+
 
 .button-playing, .metronome-playing {
   background-color: $green2 !important;

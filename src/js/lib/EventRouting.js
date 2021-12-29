@@ -1,20 +1,11 @@
 /**
- * Routes Events to concrete methods
+ * Routes Events to concrete methods. This is legacy.
  */
 export default class EventRouter {
 
   route() {
     this.directorEvents()
     this.canvasEvents()
-    this.timerEvents()
-    this.audioPlayerEvents()
-    this.audioDirectorEvents()
-  }
-
-  audioPlayerEvents() {
-    this.container.audioplayer.Observable.addObserver((args) => {
-      this.container.directorTimer.run()
-    }, 'onSoundsLoaded')
   }
 
   canvasEvents() {
@@ -48,8 +39,6 @@ export default class EventRouter {
   }
 
   directorEvents() {
-
-
     this.container.director.Observable.addObserver((args) => {
       this.container.directorAudio.onCollision(args)
     }, 'onCollision')
@@ -63,19 +52,5 @@ export default class EventRouter {
         this.container.collisionTest.next(this.container.director)
       }, 'onCollision')
     }
-  }
-
-  audioDirectorEvents() {
-  }
-
-  timerEvents() {
-    this.container.directorTimer.videoTimer.Observable.addObserver((args) => {
-      this.container.director.onTick(args)
-    }, 'onTick')
-
-    this.container.directorTimer.videoTimer.Observable.addObserver((args) => {
-      this.container.director.onBeat(args)
-      this.container.directorAudio.onBeat(args)
-    }, 'onBeat')
   }
 }

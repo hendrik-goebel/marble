@@ -1,34 +1,28 @@
-import Timer from "./Timer.js"
-
-export default class VideoTimer extends Timer {
-
+/**
+ *  A clock which is relying on Datetime rather than js internal clock
+ *  This is a better way for audio because the internal clock fluctuates extremely
+ */
+export default class VideoTimer {
   constructor(id, label) {
-    super();
     this.id = id
     this.label = label
-    this.bpmMin = this.setup.system.audio.bpmMin
-    this.bpmMax = this.setup.system.audio.bpmMax
-    this.videoScallingFactor= 50
-    this.baseTickTime = this.setup.system.video.baseTickTime
-    this.maxNote = 32
-    this.minNote = 4
-
+    this._startTime = new Date().getTime();
+    this.timeInterval = 0
+    this._time = 0
+    this.count = 0
+    this.timeout = 0
+    this.initListeners()
   }
 
-  calculateMinTimeInterval() {
-    return this.calculateTimeInterval(this.bpmMin, 32)
-  }
-  calculateMaxTimeInterval() {
-    return this.calculateTimeInterval(this.bpmMax, 1)
-  }
+  /**
+   * Calculates the time interval in milliseconds based on bpm and note value
+   * @returns {number}
+   */
+  calculateTimeInterval() {
+    const milisecondsPerMinute = 60000
+    let result = (milisecondsPerMinute / this.state.bpm * (this.state.measure / this.state.note)) / 5
 
-  calculateTimeIntervalVideo() {
-    let min = this.calculateMinTimeInterval()
-    let max = this.calculateMaxTimeInterval()
-    let current = this.calculateTimeInterval(this.bpm, 4)
-
-    let noteScalling = 1 / (this.note - 1) / (32 - 1) * 400
-    return ((current - min) / (max -min) * this.videoScallingFactor) + noteScalling
+    return 16
   }
 
   calculateTimeout() {
@@ -38,7 +32,7 @@ export default class VideoTimer extends Timer {
   }
 
   run() {
-    this.timeInterval = this.calculateTimeIntervalVideo()
+    this.timeInterval = this.calculateTimeInterval()
     this.timeout = setTimeout(
       () => this.executeCallback()
       ,
@@ -47,13 +41,23 @@ export default class VideoTimer extends Timer {
   }
 
   executeCallback() {
-    this.Observable.callObservers('onTick', this)
-
     this.count++
-    if (this.count > this.note) {
+    if (this.count > this.state.note) {
       this.count = 1
     }
+    this.Observable.callObservers('onTick', {property: 'tick', value: this.count})
     this.run()
   }
 
+  onControlsUpdate(property, value) {
+    if (property == 'speed') {
+      this.state.bpm = value
+    }
+  }
+
+  initListeners() {
+    this.Observable.addObserver((args) => {
+      this.onControlsUpdate(args.property, args.value)
+    }, 'onControlsUpdate')
+  }
 }

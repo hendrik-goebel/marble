@@ -3,7 +3,7 @@
  */
 export default class DirectorAudio {
 
-  constructor(audioPlayer, sounds) {
+  constructor(audioPlayer, sounds, audioTimer, metronomeTimer) {
     this.player = audioPlayer
     this.quantisation = true
     this.soundsToPlay = []
@@ -12,8 +12,12 @@ export default class DirectorAudio {
     this.instrument = this.defaultInstrument
     this.metronomeInstrument = this.defaultInstrument
     this.player.registerSounds(this.sounds)
+    this.audioTimer = audioTimer
+    this.metronomeTimer = metronomeTimer
     this._lastBeatTime
     this.initListeners()
+    this.audioTimer.run()
+    this.audioTimer.runMetronome()
   }
 
   get defaultInstrument() {
@@ -40,6 +44,7 @@ export default class DirectorAudio {
   start() {
     this.audioTimer.run()
     this.metronomeTimer.run()
+    this.metronomeTimer.runMetronome()
   }
 
   playCollisionSound(entity) {
@@ -66,18 +71,12 @@ export default class DirectorAudio {
     return name
   }
 
-  /**
-   * Will be called everytime we are on beat
-   * @param id
-   */
-  onBeat(timer) {
+  onBeat(property, value) {
+    this.playSounds()
+  }
 
-    if (timer.label == 'audio') {
-      this.playSounds()
-    }
-    if (timer.label == 'metronome') {
-      this.playMetronome()
-    }
+  onMetronomeBeat(property, value) {
+    this.playMetronome()
   }
 
   onCollision(value) {
@@ -85,6 +84,10 @@ export default class DirectorAudio {
   }
 
   onUpdateControl(property, value) {
+
+    if (property == 'quantisation') {
+      this.state.note = value
+    }
 
     if (property == 'instruments') {
       this.instrument = value
@@ -106,5 +109,13 @@ export default class DirectorAudio {
     this.Observable.addObserver((args) => {
       this.onUpdateControl(args.property, args.value)
     }, 'onControlsUpdate')
+
+    this.Observable.addObserver((args) => {
+      this.onBeat(args.property, args.value)
+    }, 'onBeat')
+
+    this.Observable.addObserver((args) => {
+      this.onMetronomeBeat(args.property, args.value)
+    }, 'onMetronomeBeat')
   }
 }

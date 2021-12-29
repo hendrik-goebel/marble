@@ -7,7 +7,11 @@ export default class State {
     this.instrument = 'first'
     this.metronomeInstrument = 'first'
     this.speed = 120
-  }
+    this.bpm = 120
+    this.note = 16
+    this.noteMetronome = 4
+    this.measure = 4
+  }W
 
   addBar(bar) {
     this.unselectActiveBar()

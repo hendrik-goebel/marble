@@ -20,16 +20,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // You need to load your own samples here.
     // Format: { name: url_to_mp3, name2: url_to_another_mp3, ...}
     let sounds = {
-      '0stick' : "samples/0stick.ogg",
+      'stick' : "samples/0stick.ogg",
       'kick1' : "samples/kick1.ogg",
       'kick2' : "samples/kick2.ogg",
-      'kick3' : "samples/kick3.ogg",
+      'kickdeep' : "samples/kickdeep.ogg",
+      'tom' : "samples/kick3.ogg",
       'bell' : "samples/bell.ogg",
       'hihat' : "samples/hihat.ogg",
+      'hihat2' : "samples/hihat2.ogg",
+      'hihat3' : "samples/hihat3.ogg",
       'roll' : "samples/roll.ogg",
       'snare1' : "samples/snare1.ogg",
-      'splash' : "samples/splash.ogg"
-
+      'snare2' : "samples/snare2.ogg",
+      'splash' : "samples/splash.ogg",
+      'splash2' : "samples/splash2.ogg",
+      'pling' : "samples/pling.ogg"
     }
     init(sounds)
   }

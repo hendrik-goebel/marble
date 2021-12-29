@@ -28,15 +28,15 @@ export default class BarMovesControl extends SwitchControl {
 
   initListeners() {
     super.initListeners()
-    this.container.director.Observable.addObserver((args) => {
+    this.Observable.addObserver((args) => {
       this.onSelectBar(args.property, args.value)
     }, 'onSelectBar')
 
-    this.container.director.Observable.addObserver((args) => {
+    this.Observable.addObserver((args) => {
       this.onSelectBar(args.property, args.value)
     }, 'onStartDrawBar')
 
-    this.container.director.Observable.addObserver((args) => {
+    this.Observable.addObserver((args) => {
       this.onUnselectBar(args.property, args.value)
     }, 'onUnselectBar')
   }

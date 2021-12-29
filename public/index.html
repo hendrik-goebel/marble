@@ -27,7 +27,6 @@
     <div class="col-12 col-md-6 col-xl-3">
       <div class="container-fluid" >
         <div class="row" id="instrument-buttons-container">
-
         </div>
         <div class="row">
           <div class="form-check form-switch">
@@ -39,16 +38,6 @@
     </div>
     <div class="col-12 d-none d-md-block col-md-6 col-xl-3">
       <div class="control-container">
-  <label class="form-label">Quantisation</label>
-  <div class="quantisation-container">
-    <button type="button" data-id="quantisation-double-minus" class="btn btn-primary control">--</button>
-    <button type="button" data-id="quantisation-minus" class="btn btn-primary control">-</button>
-    <span class="display" id="quantisation" data-id="quantisation"></span>
-    <button data-id="quantisation-plus" type="button" class="btn btn-primary plus-button control">+</button>
-    <button data-id="quantisation-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
-  </div>
-</div>
-      <div class="control-container">
   <label class="form-label">Speed</label>
   <div>
     <button type="button" data-id="speed-double-minus" class="btn btn-primary control">--</button>
@@ -58,15 +47,35 @@
     <button data-id="speed-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
   </div>
 </div>
+      <div class="control-container">
+  <label class="form-label">Note</label>
+  <div class="quantisation-container">
+    <button type="button" data-id="quantisation-double-minus" class="btn btn-primary control">--</button>
+    <button type="button" data-id="quantisation-minus" class="btn btn-primary control">-</button>
+    <span class="display" id="quantisation" data-id="quantisation"></span>
+    <button data-id="quantisation-plus" type="button" class="btn btn-primary plus-button control">+</button>
+    <button data-id="quantisation-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
+  </div>
+</div>
     </div>
     <div class="col-12 d-none d-xl-block col-xl-3">
       <div class="control-container">
-  <label class="form-label">Metronome</label>
+  <label class="form-label">Metronome Instrument</label>
   <div class="metronome-instruments-container">
     <button type="button" data-id="metronome-instrument-minus" class="btn btn-primary control">-</button>
     <span class="display" id="metronome-instrument" data-id="metronome-instrument"></span>
     <button data-id="metronome-instrument-plus" type="button" class="btn btn-primary plus-button control">+
     </button>
+  </div>
+</div>
+      <div class="control-container">
+  <label class="form-label">Metronome Note</label>
+  <div class="metronome-quantisation-container">
+    <button type="button" data-id="metronome-quantisation-double-minus" class="btn btn-primary control">--</button>
+    <button type="button" data-id="metronome-quantisation-minus" class="btn btn-primary control">-</button>
+    <span class="display" id="metronome-quantisation" data-id="metronome-quantisation"></span>
+    <button data-id="metronome-quantisation-plus" type="button" class="btn btn-primary plus-button control">+</button>
+    <button data-id="metronome-quantisation-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
   </div>
 </div>
       <div class="control-container">
@@ -108,17 +117,56 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-sm-6 d-md-none col-md-6 col-xl-3">
+    <!-- middle size, two columns -->
+    <div class="col-12 col-md-6 d-none d-xl-none d-md-block">
       <div class="control-container">
-  <label class="form-label">Quantisation</label>
-  <div class="quantisation-container">
-    <button type="button" data-id="quantisation-double-minus" class="btn btn-primary control">--</button>
-    <button type="button" data-id="quantisation-minus" class="btn btn-primary control">-</button>
-    <span class="display" id="quantisation" data-id="quantisation"></span>
-    <button data-id="quantisation-plus" type="button" class="btn btn-primary plus-button control">+</button>
-    <button data-id="quantisation-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
+  <label class="form-label">Metronome Instrument</label>
+  <div class="metronome-instruments-container">
+    <button type="button" data-id="metronome-instrument-minus" class="btn btn-primary control">-</button>
+    <span class="display" id="metronome-instrument" data-id="metronome-instrument"></span>
+    <button data-id="metronome-instrument-plus" type="button" class="btn btn-primary plus-button control">+
+    </button>
   </div>
 </div>
+      <div class="control-container">
+  <label class="form-label">Metronome Note</label>
+  <div class="metronome-quantisation-container">
+    <button type="button" data-id="metronome-quantisation-double-minus" class="btn btn-primary control">--</button>
+    <button type="button" data-id="metronome-quantisation-minus" class="btn btn-primary control">-</button>
+    <span class="display" id="metronome-quantisation" data-id="metronome-quantisation"></span>
+    <button data-id="metronome-quantisation-plus" type="button" class="btn btn-primary plus-button control">+</button>
+    <button data-id="metronome-quantisation-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
+  </div>
+</div>
+      <div class="control-container">
+  <div class="form-check form-switch">
+    <input
+           id="metronome"
+           data-id="metronome"
+           class="form-check-input"
+           type="checkbox"
+           value="1"
+           checked>
+    <label class="form-check-label">Metronome on</label>
+  </div>
+</div>
+    </div>
+    <div class="col-12 col-md-6 d-none d-xl-none d-md-block">
+      <div class="control-container">
+  <div class="form-check form-switch">
+    <input
+        id="barmoves"
+        class="form-check-input control"
+        type="checkbox"
+        data-id="barmoves"
+        value="1">
+    <label class="form-label">Selected Bar moves on colision</label>
+  </div>
+</div>
+    </div>
+
+    <!-- small size, one column -->
+    <div class="col-12 d-md-none">
       <div class="control-container">
   <label class="form-label">Speed</label>
   <div>
@@ -129,15 +177,56 @@
     <button data-id="speed-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
   </div>
 </div>
-    </div>
-    <div class="col-12 d-none d-sm-block col-sm-6 d-xl-none col-xl-3">
       <div class="control-container">
-  <label class="form-label">Metronome</label>
+  <label class="form-label">Note</label>
+  <div class="quantisation-container">
+    <button type="button" data-id="quantisation-double-minus" class="btn btn-primary control">--</button>
+    <button type="button" data-id="quantisation-minus" class="btn btn-primary control">-</button>
+    <span class="display" id="quantisation" data-id="quantisation"></span>
+    <button data-id="quantisation-plus" type="button" class="btn btn-primary plus-button control">+</button>
+    <button data-id="quantisation-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
+  </div>
+</div>
+    </div>
+  </div>
+
+</div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+  <div class="row">
+    <div class="col-12">
+
+    </div>
+  </div>
+  <div class="row">
+    <!-- middle size, two columns -->
+    <div class="col-12 col-md-6 d-none d-xl-none d-md-block">
+
+    </div>
+    <div class="col-12 col-md-6 d-none d-xl-none d-md-block">
+
+    </div>
+
+    <!-- small size, one column -->
+    <div class="col-12 d-md-none">
+      <div class="control-container">
+  <label class="form-label">Metronome Instrument</label>
   <div class="metronome-instruments-container">
     <button type="button" data-id="metronome-instrument-minus" class="btn btn-primary control">-</button>
     <span class="display" id="metronome-instrument" data-id="metronome-instrument"></span>
     <button data-id="metronome-instrument-plus" type="button" class="btn btn-primary plus-button control">+
     </button>
+  </div>
+</div>
+      <div class="control-container">
+  <label class="form-label">Metronome Note</label>
+  <div class="metronome-quantisation-container">
+    <button type="button" data-id="metronome-quantisation-double-minus" class="btn btn-primary control">--</button>
+    <button type="button" data-id="metronome-quantisation-minus" class="btn btn-primary control">-</button>
+    <span class="display" id="metronome-quantisation" data-id="metronome-quantisation"></span>
+    <button data-id="metronome-quantisation-plus" type="button" class="btn btn-primary plus-button control">+</button>
+    <button data-id="metronome-quantisation-double-plus" type="button" class="btn btn-primary plus-button control">++</button>
   </div>
 </div>
       <div class="control-container">
@@ -154,8 +243,27 @@
 </div>
     </div>
   </div>
+
+</div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
   <div class="row">
-    <div class="col-12 d-none d-sm-block col-sm-6 d-xl-none col-xl-3">
+    <div class="col-12">
+
+    </div>
+  </div>
+  <div class="row">
+    <!-- middle size, two columns -->
+    <div class="col-12 col-md-6 d-none d-xl-none d-md-block">
+
+    </div>
+    <div class="col-12 col-md-6 d-none d-xl-none d-md-block">
+
+    </div>
+
+    <!-- small size, one column -->
+    <div class="col-12 d-md-none">
       <div class="control-container">
   <div class="form-check form-switch">
     <input
@@ -169,19 +277,22 @@
 </div>
     </div>
   </div>
+
 </div>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#settingsCarousel"
-                data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#settingsCarousel"
-                data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        <div class="d-xl-none">
+          <button class="carousel-control-prev" type="button" data-bs-target="#settingsCarousel"
+                  data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#settingsCarousel"
+                  data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

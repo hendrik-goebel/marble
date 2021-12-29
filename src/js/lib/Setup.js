@@ -37,9 +37,7 @@ export default {
       'bpmMin': 30,
       'bpmMax': 190,
       'quantisation': 16,
-    },
-    'video': {
-      'baseTickTime': 100,
+      'metronomeQuantisation': 4,
     },
   },
   'adjustDimensions': function () {

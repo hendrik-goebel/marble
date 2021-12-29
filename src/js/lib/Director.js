@@ -5,18 +5,21 @@
 
 export default class Director {
 
-  constructor(canvas, factory, collisionDetector, state) {
+  constructor(canvas, factory, collisionDetector, state, videoTimer) {
     this.canvas = canvas
     this.factory = factory
     this.collisionDetector = collisionDetector
     this.audio = null
     this.state = state
+    this.videoTimer = videoTimer
+    this.videoTimer.run()
+    this.initListeners()
   }
 
   init() {
-      this.canvas.prepare()
-      this.state.droppers.push(this.factory.createDropper(10, 10))
-      this.Observable.callObservers('onInit', this)
+    this.canvas.prepare()
+    this.state.droppers.push(this.factory.createDropper(10, 10))
+    this.Observable.callObservers('onInit', this)
   }
 
   reset() {
@@ -40,7 +43,7 @@ export default class Director {
       for (let ball of balls) {
         if (ball.isVisible) {
           this.collisionDetector.detectCanvasBorderCollision(ball, this.getCanvasDimensions())
-          if (ball.isColliding && ball.collision.object.type == this.CONST.TYPE.WALL && ball.collision.position=='bottom') {
+          if (ball.isColliding && ball.collision.object.type == this.CONST.TYPE.WALL && ball.collision.position == 'bottom') {
             ball.deactivate()
           }
 
@@ -69,6 +72,7 @@ export default class Director {
       this.canvas.addBar(bar)
     }
   }
+
   _doDroppersLoop() {
     for (let dropper of this.state.droppers) {
       if (dropper.isVisible) {
@@ -108,14 +112,15 @@ export default class Director {
     }
   }
 
-  onTick(timer) {
-    if (timer.label == 'video') {
-      this.tickVideo()
-    }
+  onTick() {
+    this.tickVideo()
   }
 
-  onBeat(timer) {
-    if (timer.label == 'metronome' && timer.count == 1) {
+  onBeat(property, value) {
+  }
+
+  onMetronomeBeat(property, value) {
+    if (value == 1) {
       for (let dropper of this.state.droppers) {
         dropper.dropBall()
       }
@@ -126,5 +131,19 @@ export default class Director {
     if (property == 'barmoves' && this.state.activeBar) {
       this.state.activeBar.fixed = !this.state.activeBar.fixed
     }
+  }
+
+  initListeners() {
+    this.Observable.addObserver((args) => {
+      this.onUpdateControl(args.property, args.value)
+    }, 'onControlsUpdate')
+
+    this.Observable.addObserver((args) => {
+      this.onTick(args.property, args.value)
+    }, 'onTick')
+
+    this.Observable.addObserver((args) => {
+      this.onMetronomeBeat(args.property, args.value)
+    }, 'onMetronomeBeat')
   }
 }

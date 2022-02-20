@@ -1,7 +1,7 @@
 const http = require('http')
 const fs = require('fs')
 const publicFolder = 'public'
-const PORT = 9000
+const PORT = 8080
 
 http
   .createServer((request, response) => {
@@ -30,6 +30,13 @@ http
       if (request.url.endsWith('.js')) {
         response.writeHeader(200, {
           'Content-Type': 'application/javascript'
+        })
+      }
+
+      if (request.url.endsWith('.ogg')) {
+        response.writeHeader(200, {
+          'accept-ranges': 'bytes',
+          'content-type': 'audio/ogg'
         })
       }
 

@@ -6,12 +6,13 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 body {
-  background-color: #303030;
-  color: #dad7cd;
+  background-color: $gray-800;
+  color: white;
 }
 
 #main-container {
   min-height: 100%;
+  min-width: 320px;
 }
 
 .container {
@@ -40,8 +41,7 @@ body {
 }
 
 #row1 {
-  min-height: 285px;
-  min-height: 320px;
+  min-height: 230px;
 }
 
 .form-switch .form-check-input {
@@ -59,21 +59,35 @@ body {
 
 .btn-primary {
   color: $body-color;
+  background-color: $primary;
+}
+
+.btn-checked {
+  box-shadow: none;
 }
 
 .footer {
   padding: 10px 0;
+  height: 40px;
+
+  .icon {
+    font-size: 24px;
+  }
 }
+
+.container-footer {
+  background-color: $gray-800;
+}
+
+
 
 .instrument-button {
   width: 2em;
   height: 2em;
-  margin-left: 0.5em;
+  margin-right: 0.5em;
   margin-bottom: 0.5em;
   transition: background-color .1s ease;
 }
-
-
 
 .button-playing, .metronome-playing {
   background-color: $green2 !important;
@@ -82,7 +96,7 @@ body {
 
 #instrument-buttons-container {
   padding: 0;
-  width: 95%;
+  width: 100%;
 }
 
 #instrument-buttons-container .row {
@@ -90,9 +104,22 @@ body {
 }
 
 #metronome-instrument {
-  width: 100px;
+  width: 75px;
 }
 
+.btn {
+  padding: 0.2rem 0.26rem;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-primary {
+  &:focus {
+    border-color: $gray-600;
+  }
+}
 .btn-selected {
   background-color: $gray-600;
 
@@ -102,7 +129,7 @@ body {
 }
 
 .settings-container {
-  height: 300px;
+  height: 225px;
 }
 
 .carousel-control-prev, .carousel-control-next {
@@ -112,9 +139,10 @@ body {
 }
 
 .display {
-  width: 30px;
+  width: 25px;
   display: inline-block;
   text-align: center;
+  background-color: $green-400;
 }
 
 .control-container {
@@ -138,7 +166,15 @@ body {
   display: block;
 }
 
+#active-instrument {
+  width: 120px;
+  margin-left: -32px;
+}
+
 @include media-breakpoint-up(sm) {
+  .btn {
+    padding: 0.2rem 0.4rem;
+  }
 }
 
 @include media-breakpoint-up(md) {
@@ -153,6 +189,9 @@ body {
 }
 
 @include media-breakpoint-up(lg) {
+  #instrument-buttons-container {
+    width: 95%;
+  }
 
 }
 
@@ -171,3 +210,4 @@ body {
     display: none;
   }
 }
+

@@ -43,7 +43,7 @@ $pink: #d63384 !default;
 $red: #dc3545 !default;
 $orange: #fd7e14 !default;
 $yellow: #ffc107 !default;
-$green: #198754 !default;
+$green: #3a5a40 !default;
 $green1: #a3b18a !default;
 $green2: #3a5a40 !default;
 $green3: #344e41 !default;
@@ -344,7 +344,7 @@ $container-max-widths: (
 // Set the number of columns and specify the width of the gutters.
 
 $grid-columns: 12 !default;
-$grid-gutter-width: 1.5rem !default;
+$grid-gutter-width: 0 !default;
 $grid-row-columns: 6 !default;
 
 $gutters: $spacers !default;
@@ -416,7 +416,7 @@ $font-family-code: var(--#{$variable-prefix}font-monospace) !default;
 // $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
 // $font-size-base effects the font size of the body text
 $font-size-root: null !default;
-$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-base: .8rem !default; // Assumes the browser default, typically `16px`
 $font-size-sm: $font-size-base * .875 !default;
 $font-size-lg: $font-size-base * 1.25 !default;
 

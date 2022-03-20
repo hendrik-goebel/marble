@@ -16,7 +16,7 @@
     "build-html": "node build.js",
     "watch:css": "sass --watch src/sass/style.scss public/css/style.css",
     "watch:js": "npm run build-js",
-    "build": " npm run build-scss && npm run build-js",
+    "build": " npm run build-scss && npm run build-js && npm run build-html",
     "test": "mocha",
     "serve": "node server.js",
     "compile": "npm run watch & npm run watch:css",

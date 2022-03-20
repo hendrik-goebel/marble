@@ -7,7 +7,7 @@ export default class Canvas {
     this.createjs = createjs
     this.prepare()
     this.stage = new this.createjs.Stage("canvas");
-    this.createjs.Touch.enable(this.stage );
+    this.createjs.Touch.enable(this.stage);
   }
 
   addBall(ball) {
@@ -54,7 +54,7 @@ export default class Canvas {
     let mainContainerHeight = document.getElementById('main-container').clientHeight
     let firstRowHeight = document.getElementById('row1').clientHeight
 
-    let canvasHeight = mainContainerHeight - firstRowHeight -20;
+    let canvasHeight = mainContainerHeight - firstRowHeight - 20;
 
     let width = $canvasContainer.clientWidth
 
@@ -78,11 +78,37 @@ export default class Canvas {
     let Observable = this.Observable
 
     window.onresize = function () {
-    let canvasDimensions = canvas.resize()
+      let canvasDimensions = canvas.resize()
+      let width = canvasDimensions.width
+
+      let out = ''
+      if (width >= 1400) {
+        out = 'XXL'
+      }
+      if(width >= 1200 && width < 1200) {
+        out = 'xl'
+      }
+      if (width >= 992 && width < 1200) {
+        out = 'lg'
+      }
+      if (width >= 768 && width < 992) {
+        out = 'md'
+      }
+      if (width >= 576 && width < 768) {
+        out = 'sm'
+      }
+      if (width >= 0 && width < 576) {
+        out = 'xs'
+      }
+      console.log(out)
+
+
       Observable.callObservers('onCanvasResize', {
         'width': canvasDimensions.width,
         'height': canvasDimensions.height
       })
     }
   }
+
+
 }

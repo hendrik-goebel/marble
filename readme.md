@@ -24,8 +24,7 @@ Its more exciting when you turn on audio.
 
 4. npm run start
 
-5. Open in browser http://localhost:9000
+5. Open in browser http://localhost:8080
 
 ### Samples
-Samples are not included in the repo. The ones used on the website come from [mugent](https://www.mugent.com/)
-
+Samples are not included in the repo. 

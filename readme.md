@@ -25,6 +25,3 @@ Its more exciting when you turn on audio.
 4. npm run start
 
 5. Open in browser http://localhost:8080
-
-### Samples
-Samples are not included in the repo. 

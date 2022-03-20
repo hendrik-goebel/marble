@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/b801657aca.js" crossorigin="anonymous"></script>
+  <script src="js/easeljs.min.js"></script>
+
+  <link href="css/style.css" rel="stylesheet"/>
+  <title>The Marbleous Beat Machine</title>
+</head>
+<body class="h-100">
+<div id="main-container" class="container">
+
+  <div class="row" id="row1">
+    <div class="col-12">
+      <div id="settingsCarousel" class="settings-container carousel slide" data-bs-interval="false">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+  <div class="row">
+    <div class="col-6 col-sm-4 col-md-3">
+      <div class="container-fluid" >
+        <div class="row">
+          <div class="col-12">
+            Sound
+          </div>
+        </div>
+        <div class="row" id="instrument-buttons-container">
+        </div>
+        <div class="row">
+          <div class="form-check form-switch">
+            <span class="display" id="active-instrument" data-id="active-instrument"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-4 d-sm-block col-md-3 col-lg-2">
+      <div class="control-container">
+  <label class="form-label">Speed</label>
+  <div>
+    <button type="button" data-id="speed-double-minus" class="btn btn-primary control button-double-minus"><i class="fa-solid fa-minus"></i></button>
+    <button type="button" data-id="speed-minus" class="btn btn-primary control"><i class="fa-solid fa-minus"></i></button>
+    <span class="display" id="speed" data-id="speed"></span>
+    <button data-id="speed-plus" type="button" class="btn btn-primary plus-button control"><i class="fa-solid fa-plus"></i></button>
+    <button data-id="speed-double-plus" type="button" class="btn btn-primary plus-button control button-double-plus"><i class="fa-solid fa-plus"></i></button>
+  </div>
+</div>
+      <div class="control-container">
+  <label class="form-label">Note</label>
+  <div class="quantisation-container">
+    <button type="button" data-id="quantisation-double-minus" class="btn btn-primary control double-minus"><i class="fa-solid fa-minus"></i></button>
+    <button type="button" data-id="quantisation-minus" class="btn btn-primary control"><i class="fa-solid fa-minus"></i></button>
+    <span class="display" id="quantisation" data-id="quantisation"></span>
+    <button data-id="quantisation-plus" type="button" class="btn btn-primary plus-button control"><i class="fa-solid fa-plus"></i></button>
+    <button data-id="quantisation-double-plus" type="button" class="btn btn-primary plus-button control double-plus"><i class="fa-solid fa-plus"></i></button>
+  </div>
+</div>
+    </div>
+    <div class="col-6 d-none col-sm-4 d-sm-block col-md-3 col-lg-2">
+      <div class="control-container">
+  <label class="form-label">Metronome Sound</label>
+  <div class="metronome-instruments-container">
+    <button type="button" data-id="metronome-instrument-minus" class="btn btn-primary control button-double-minus"><i class="fa-solid fa-minus"></i></button>
+    <span class="display" id="metronome-instrument" data-id="metronome-instrument"></span>
+    <button data-id="metronome-instrument-plus" type="button" class="btn btn-primary plus-button control button-double-plus"><i class="fa-solid fa-plus"></i></button>
+  </div>
+</div>
+      <div class="control-container">
+  <label class="form-label">Metronome Note</label>
+  <div class="metronome-quantisation-container">
+    <button type="button" data-id="metronome-quantisation-double-minus" class="btn btn-primary control button-double-minus"><i class="fa-solid fa-minus"></i></button>
+    <button type="button" data-id="metronome-quantisation-minus" class="btn btn-primary control"><i class="fa-solid fa-minus"></i></button>
+    <span class="display" id="metronome-quantisation" data-id="metronome-quantisation"></span>
+    <button data-id="metronome-quantisation-plus" type="button" class="btn btn-primary plus-button control"><i class="fa-solid fa-plus"></i></button>
+    <button data-id="metronome-quantisation-double-plus" type="button" class="btn btn-primary plus-button control button-double-plus"><i class="fa-solid fa-plus"></i></button>
+  </div>
+</div>
+      <div class="control-container">
+  <div class="form-check form-switch">
+    <input
+           id="metronome"
+           data-id="metronome"
+           class="form-check-input"
+           type="checkbox"
+           value="1"
+           checked>
+    <label class="form-check-label">Metronome on</label>
+  </div>
+</div>
+    </div>
+    <div class="col-6 d-none d-md-block col-md-3 col-lg-2">
+      Bar<br>
+      <div class="control-container">
+  <div class="form-check form-switch">
+    <input
+        id="barmoves"
+        class="form-check-input control"
+        type="checkbox"
+        data-id="barmoves"
+        value="1">
+    <label class="form-label">Move on colision</label>
+  </div>
+</div>
+    </div>
+  </div>
+
+</div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+  <div class="row">
+    <div class="col-12">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 d-sm-none">
+      <div class="control-container">
+  <label class="form-label">Metronome Sound</label>
+  <div class="metronome-instruments-container">
+    <button type="button" data-id="metronome-instrument-minus" class="btn btn-primary control button-double-minus"><i class="fa-solid fa-minus"></i></button>
+    <span class="display" id="metronome-instrument" data-id="metronome-instrument"></span>
+    <button data-id="metronome-instrument-plus" type="button" class="btn btn-primary plus-button control button-double-plus"><i class="fa-solid fa-plus"></i></button>
+  </div>
+</div>
+      <div class="control-container">
+  <label class="form-label">Metronome Note</label>
+  <div class="metronome-quantisation-container">
+    <button type="button" data-id="metronome-quantisation-double-minus" class="btn btn-primary control button-double-minus"><i class="fa-solid fa-minus"></i></button>
+    <button type="button" data-id="metronome-quantisation-minus" class="btn btn-primary control"><i class="fa-solid fa-minus"></i></button>
+    <span class="display" id="metronome-quantisation" data-id="metronome-quantisation"></span>
+    <button data-id="metronome-quantisation-plus" type="button" class="btn btn-primary plus-button control"><i class="fa-solid fa-plus"></i></button>
+    <button data-id="metronome-quantisation-double-plus" type="button" class="btn btn-primary plus-button control button-double-plus"><i class="fa-solid fa-plus"></i></button>
+  </div>
+</div>
+      <div class="control-container">
+  <div class="form-check form-switch">
+    <input
+           id="metronome"
+           data-id="metronome"
+           class="form-check-input"
+           type="checkbox"
+           value="1"
+           checked>
+    <label class="form-check-label">Metronome on</label>
+  </div>
+</div>
+    </div>
+    <div class="col-6 d-md-none">
+      Bar<br>
+      <div class="control-container">
+  <div class="form-check form-switch">
+    <input
+        id="barmoves"
+        class="form-check-input control"
+        type="checkbox"
+        data-id="barmoves"
+        value="1">
+    <label class="form-label">Move on colision</label>
+  </div>
+</div>
+    </div>
+  </div>
+
+</div>
+          </div>
+        </div>
+        <div class="d-xl-none">
+          <button class="carousel-control-prev" type="button" data-bs-target="#settingsCarousel"
+                  data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#settingsCarousel"
+                  data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" id="row2">
+    <div class="col-lg-12">
+
+      <div id="canvas-container" class="container-fluid ">
+        <canvas id="canvas" height="5" width="5"></canvas>
+      </div>
+    </div>
+    <!-- Canvas -->
+  </div>
+
+</div>
+
+
+<div class="container container-footer">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="footer">
+        <div class="icon"><a href="https://github.com/hg2000/marble"><i class="fa-brands fa-github"></i></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script src="js/main.js"></script>
+
+
+</body>
+</html>

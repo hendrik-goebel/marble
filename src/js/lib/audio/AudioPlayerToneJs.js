@@ -1,6 +1,6 @@
 import * as Tone from "tone";
 
-export default class AudioPlayerSoundJs {
+export default class AudioPlayerToneJs {
 
   constructor() {
     this.players

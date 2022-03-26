@@ -13,6 +13,7 @@ export default class Director {
     this.state = state
     this.videoTimer = videoTimer
     this.videoTimer.run()
+    this.isPlaying = false
     this.initListeners()
   }
 
@@ -116,9 +117,6 @@ export default class Director {
     this.tickVideo()
   }
 
-  onBeat(property, value) {
-  }
-
   onMetronomeBeat(property, value) {
     if (value == 1) {
       for (let dropper of this.state.droppers) {
@@ -145,5 +143,6 @@ export default class Director {
     this.Observable.addObserver((args) => {
       this.onMetronomeBeat(args.property, args.value)
     }, 'onMetronomeBeat')
+
   }
 }

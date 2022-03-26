@@ -5,14 +5,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://kit.fontawesome.com/b801657aca.js" crossorigin="anonymous"></script>
-  <script src="js/easeljs.min.js"></script>
+  <script src="js/easeljs-0.8.1.min.js"></script>
 
   <link href="css/style.css" rel="stylesheet"/>
   <title>The Marbleous Beat Machine</title>
 </head>
 <body class="h-100">
 <div id="main-container" class="container">
-
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked />
+    <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+  </div>
+  <button data-id="play"id="play" type="button" class="btn btn-primary plus-button control button-play">Play</button>
   <div class="row" id="row1">
     <div class="col-12">
       <div id="settingsCarousel" class="settings-container carousel slide" data-bs-interval="false">

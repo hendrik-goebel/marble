@@ -11,6 +11,7 @@ export default class VideoTimer {
     this._time = 0
     this.count = 0
     this.timeout = 0
+    this.isRunning = false
     this.initListeners()
   }
 
@@ -34,13 +35,16 @@ export default class VideoTimer {
   run() {
     this.timeInterval = this.calculateTimeInterval()
     this.timeout = setTimeout(
-      () => this.executeCallback()
-      ,
-      this.calculateTimeout()
+        () => this.executeCallback(),
+        this.calculateTimeout()
     )
   }
 
   executeCallback() {
+    if (!this.isRunning) {
+      this.run()
+      return
+    }
     this.count++
     if (this.count > this.state.note) {
       this.count = 1
@@ -50,8 +54,15 @@ export default class VideoTimer {
   }
 
   onControlsUpdate(property, value) {
+    console.log(property)
     if (property == 'speed') {
       this.state.bpm = value
+    }
+    if (property == 'play') {
+      if (value == true) {
+        this.run()
+      }
+      this.isRunning = value
     }
   }
 

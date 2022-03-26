@@ -1,6 +1,7 @@
 import setup from './lib/Setup.js'
 import Container from "./lib/Container.js"
-import { Carousel } from 'bootstrap';
+
+import * as Tone from "tone";
 
 function init(sounds) {
   let container = new Container()
@@ -12,6 +13,12 @@ function init(sounds) {
   container.stageUi.listen()
   container.canvas.listen()
   container.director.init()
+
+
+  document.getElementById('play').addEventListener('click', async () => {
+    await Tone.start()
+    console.log('audio is ready')
+  })
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -20,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // You need to load your own samples here.
     // Format: { name: url_to_mp3, name2: url_to_another_mp3, ...}
     let sounds = {
-      'stick' : "samples/0stick.ogg",
+      'stick' : "samples/sample3.aac",
       'kick' : "samples/bassdrum.ogg",
       'kick2' : "samples/kickdeep.ogg",
       'bell' : "samples/bell.ogg",

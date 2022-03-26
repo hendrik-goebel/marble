@@ -17,6 +17,7 @@ export default class Audiotimer {
     this._timeMetronome = 0
     this.countMetronome = 0
     this.count = 1
+    this.isRunning = false
   }
 
   calculateTimeout() {
@@ -50,6 +51,10 @@ export default class Audiotimer {
   }
 
   executeCallback() {
+    if (!this.isRunning) {
+      this.run()
+      return
+    }
     this.count++
     if (this.count > this.state.note) {
       this.count = 1
@@ -59,6 +64,10 @@ export default class Audiotimer {
   }
 
   executeCallbackMetronome() {
+    if (!this.isRunning) {
+      this.runMetronome()
+      return
+    }
     this.countMetronome++
     if (this.countMetronome > this.state.noteMetronome) {
       this.countMetronome = 1
@@ -68,8 +77,6 @@ export default class Audiotimer {
   }
 
   onControlsUpdate(property, value) {
-    console.log(property, value)
-
     if (property == 'speed') {
       this.state.bpm = value
     }
@@ -80,6 +87,13 @@ export default class Audiotimer {
     if (property == 'metronome-quantisation') {
       this.state.noteMetronome  = value
       this.init()
+    }
+
+    if (property == 'play') {
+      if (value == true) {
+        this.run()
+      }
+      this.isRunning = value
     }
   }
 

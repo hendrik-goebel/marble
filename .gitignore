@@ -1,6 +1,4 @@
 /node_modules
-/public/css
-/public/js
-/public/samples/*.mp3
+/public
 /.ddev
 /.idea

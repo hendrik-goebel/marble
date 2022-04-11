@@ -20,31 +20,40 @@ document.addEventListener("DOMContentLoaded", function (event) {
     // You need to load your own samples here.
     // Format: { name: url_to_mp3, name2: url_to_another_mp3, ...}
     let sounds = {
-      'stick' : "samples/0stick.ogg",
-      'kick' : "samples/bassdrum.ogg",
-      'kick2' : "samples/kickdeep.ogg",
-      'bell' : "samples/bell.ogg",
-      'hihat-close' : "samples/hihat-close.ogg",
-      'hihat2' : "samples/hihat2.ogg",
-      'hihat3' : "samples/hihat3.ogg",
-      'snare' : "samples/snare.ogg",
-      'snare2' : "samples/snare2.ogg",
-      'snare3' : "samples/snare3.ogg",
-      'roll' : "samples/roll.ogg",
-      'tom1' : "samples/tom1.ogg",
+      'stick' : "samples/0stick.mp3",
 
-      'tom3' : "samples/tom3.ogg",
-      'tom4' : "samples/tom4.ogg",
-      'tom5' : "samples/tom5.ogg",
-      'tom-bassdrum' : "samples/tom-bassdrum.ogg",
-      'sound1' : "samples/sound1.ogg",
-      'sound2' : "samples/sound2.ogg",
-      'sound3' : "samples/sound3.ogg",
-      'sound4' : "samples/sound4.ogg",
-      'sound5' : "samples/sound5.ogg",
-      'sound6' : "samples/sound6.ogg",
-      'sound7' : "samples/sound7.ogg",
-      'sound8' : "samples/sound8.ogg",
+
+      'hihat-close' : "samples/hihat-close.mp3",
+      'hihat-close2' : "samples/hihat-close2.mp3",
+      'hihat2' : "samples/hihat2.mp3",
+      'hihat3' : "samples/hihat3.mp3",
+      'hihat1' : "samples/hihat1.mp3",
+      'bell' : "samples/bell.mp3",
+      'kick1' : "samples/kick1.mp3",
+      'kick2' : "samples/kick2.mp3",
+
+      'kickdeep' : "samples/kickdeep.mp3",
+      'snare1' : "samples/snare1.mp3",
+      'snare2' : "samples/snare2.mp3",
+      'snare3' : "samples/snare3.mp3",
+      'tom1' : "samples/tom1.mp3",
+      'tom2' : "samples/tom2.mp3",
+      'tom3' : "samples/tom3.mp3",
+      'tom4' : "samples/tom4.mp3",
+      'tom-roll' : "samples/tom-roll.mp3",
+
+      'crash1' : "samples/crash1.mp3",
+      'crash2' : "samples/crash2.mp3",
+      'sound1' : "samples/sound1.mp3",
+      'sound2' : "samples/sound2.mp3",
+      'sound3' : "samples/sound3.mp3",
+      'sound4' : "samples/sound4.mp3",
+      'sound5' : "samples/sound5.mp3",
+      'eguitar1' : "samples/eguitar1.mp3",
+      'eguitar2' : "samples/eguitar2.mp3",
+      'eguitar3' : "samples/eguitar3.mp3",
+
+
       "silence": ""
 
     }

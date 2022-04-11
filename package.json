@@ -4,6 +4,29 @@
   "description": "Node.js on Docker",
   "author": "First Last <first.last@example.com>",
   "main": "server.js",
+  "watch": {
+    "build-js": {
+      "patterns": [
+        "src/js/**"
+      ],
+      "extensions": "js",
+      "quiet": false
+    },
+    "build-custom-scss": {
+      "patterns": [
+        "src/sass/**"
+      ],
+      "extensions": "scss",
+      "quiet": false
+    },
+    "build-html": {
+      "patterns": [
+        "src/html/**"
+      ],
+      "extensions": "html",
+      "quiet": false
+    }
+  },
   "scripts": {
     "webpack": "webpack",
     "watch": "npm-watch",
@@ -11,22 +34,19 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "onchange \"src/**/*.js\" -- npm run lint --silent",
     "build-custom-scss": "sass src/sass/style.scss public/css/style.css",
-    "build-scss": "npm run build-custom-scss",
+    "build-scss": "npm run build-scss",
     "build-js": "webpack",
     "build-html": "node build.js",
-    "watch:css": "sass --watch src/sass/style.scss public/css/style.css",
-    "watch:js": "npm run build-js",
     "build": " npm run build-scss && npm run build-js && npm run build-html",
-    "test": "mocha",
     "serve": "node server.js",
-    "compile": "npm run watch & npm run watch:css",
     "start": "node server.js"
   },
   "dependencies": {
-    "bootstrap": "^5.0.2",
     "@popperjs/core": "^2.9.2",
-    "tone": "^14.7.77",
+    "bootstrap": "^5.0.2",
+    "createjs": "^1.0.1",
     "sass": "^1.35.1",
+    "tone": "^14.7.77",
     "webpack": "^5.42.0",
     "webpack-cli": "^4.7.2"
   },

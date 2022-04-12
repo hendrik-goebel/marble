@@ -46,12 +46,16 @@ export default class Director {
           if (ball.isColliding && ball.collision.object.type == this.CONST.TYPE.WALL && ball.collision.position == 'bottom') {
             ball.deactivate()
           }
-
           for (let bar of this.state.bars) {
             if (bar.isVisible) {
               this.collisionDetector.detectObjectCollision(ball, bar)
-              if (ball.isColliding) {
+              if (ball.isColliding && ball.collision.object.id == bar.id) {
+                bar.increaseCollisionCounter();
+
                 this.Observable.callObservers('onCollision', ball)
+                if (bar.isNoisyCollision) {
+                  this.Observable.callObservers('onNoisyCollision', ball)
+                }
               }
             }
           }
@@ -130,6 +134,9 @@ export default class Director {
   onUpdateControl(property, value) {
     if (property == 'barmoves' && this.state.activeBar) {
       this.state.activeBar.fixed = !this.state.activeBar.fixed
+    }
+    if (property == 'noisy-collision' && this.state.activeBar) {
+      this.state.activeBar.noisyCollisionValue = value
     }
   }
 

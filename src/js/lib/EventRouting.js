@@ -4,7 +4,6 @@
 export default class EventRouter {
 
   route() {
-    this.directorEvents()
     this.canvasEvents()
   }
 
@@ -36,21 +35,5 @@ export default class EventRouter {
     this.container.director.Observable.addObserver((args) => {
       this.container.directorUI.onKeyUp(args.key)
     }, 'onKeyUp')
-  }
-
-  directorEvents() {
-    this.container.director.Observable.addObserver((args) => {
-      this.container.directorAudio.onCollision(args)
-    }, 'onCollision')
-
-    if (this.setup.mode.test) {
-      this.container.director.Observable.addObserver((args) => {
-        this.container.collisionTest.next(this.container.director)
-      }, 'onInit')
-
-      this.container.director.Observable.addObserver((args) => {
-        this.container.collisionTest.next(this.container.director)
-      }, 'onCollision')
-    }
   }
 }

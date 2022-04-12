@@ -25,7 +25,8 @@ export default {
     'minHeight': 10,
     'color': "#a3b18a",
     'colorSelected': "#dad7cd",
-    'collisionSpeed': 1
+    'collisionSpeed': 1,
+    'maxCollisionCount': 10,
   },
   'mode': {
     'test': false,

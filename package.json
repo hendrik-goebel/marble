@@ -37,7 +37,7 @@
     "build-scss": "npm run build-scss",
     "build-js": "webpack",
     "build-html": "node build.js",
-    "build": " npm run build-scss && npm run build-js && npm run build-html",
+    "build": " npm run build-custom-scss && npm run build-js && npm run build-html",
     "serve": "node server.js",
     "start": "node server.js"
   },

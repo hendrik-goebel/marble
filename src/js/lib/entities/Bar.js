@@ -20,6 +20,18 @@ export default class Bar extends AbstractEntity {
     }
     this.fixed = true
     this.sound = null
+
+    /**
+     * Increases by 1 on every collision
+     */
+    this.collisionCounter = 1
+    /**
+     * The collision value on which a sound should be played
+     * 2 = play sound on every second collision
+     * 3 = play sound on every third collision
+     * ...
+     */
+    this.noisyCollisionValue = 1
   }
 
   get isSelected() {
@@ -72,5 +84,23 @@ export default class Bar extends AbstractEntity {
   setOffset(x, y) {
     this.offset.x = x - this.x
     this.offset.y = y - this.y
+  }
+
+  get isNoisyCollision()
+  {
+    let value =  this.collisionCounter % this.noisyCollisionValue== 0
+    return value
+  }
+
+  increaseCollisionCounter() {
+    this.collisionCounter++
+
+    if (this.collisionCounter > this._setup.maxCollisionCount) {
+      this.collisionCounter = 1
+    }
+  }
+
+  collide(object, position, depth, subPosition) {
+    super.collide(object, position, depth, subPosition)
   }
 }

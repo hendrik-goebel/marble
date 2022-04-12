@@ -79,7 +79,7 @@ export default class DirectorAudio {
     this.playMetronome()
   }
 
-  onCollision(value) {
+  onNoisyCollision(value) {
     this.playCollisionSound(value)
   }
 
@@ -117,5 +117,9 @@ export default class DirectorAudio {
     this.Observable.addObserver((args) => {
       this.onMetronomeBeat(args.property, args.value)
     }, 'onMetronomeBeat')
+
+    this.Observable.addObserver((args) => {
+      this.onNoisyCollision(args)
+    }, 'onNoisyCollision')
   }
 }

@@ -1,8 +1,6 @@
 @import "../../node_modules/bootstrap/scss/functions";
 @import "10_bootstrap_variables";
 @import "../../node_modules/bootstrap/scss/mixins";
-
-// Optional
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 body {
@@ -78,8 +76,6 @@ body {
 .container-footer {
   background-color: $gray-800;
 }
-
-
 
 .instrument-button {
   width: 2em;
@@ -171,6 +167,12 @@ body {
   margin-left: -32px;
 }
 
+/* This fixes broken switches in Safari */
+.form-check-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 @include media-breakpoint-up(sm) {
   .btn {
     padding: 0.2rem 0.4rem;
@@ -200,8 +202,6 @@ body {
 }
 
 @include media-breakpoint-up(xxl) {
-
-
   .l {
     display: block;
   }
@@ -210,4 +210,5 @@ body {
     display: none;
   }
 }
+
 

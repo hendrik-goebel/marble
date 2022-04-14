@@ -1,9 +1,7 @@
 const fs = require('fs');
 
-// directory path
 const dir = './public/samples';
 
-// list all files in the directory
 fs.readdir(dir, (err, files) => {
   if (err) {
     throw err;

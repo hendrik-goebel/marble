@@ -16,8 +16,6 @@ export default class DirectorAudio {
     this.metronomeTimer = metronomeTimer
     this._lastBeatTime
     this.initListeners()
-    this.audioTimer.run()
-    this.audioTimer.runMetronome()
   }
 
   get defaultInstrument() {

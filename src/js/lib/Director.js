@@ -1,6 +1,6 @@
 /**
  * Takes care of state changes which are not caused by user interactions
- * State changes which are caused by user interactions are handeled by DirectorUserInteraction
+ * State changes which are caused by user interactions are handled by DirectorUserInteraction
  */
 
 export default class Director {
@@ -12,7 +12,6 @@ export default class Director {
     this.audio = null
     this.state = state
     this.videoTimer = videoTimer
-    this.videoTimer.run()
     this.initListeners()
   }
 

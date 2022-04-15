@@ -10,7 +10,7 @@ import Canvas from './Canvas.js'
 import Factory from './Factory.js'
 import StageUserInterface from './interaction/StageUserInterface.js'
 import CollisionDetector from "./CollisionDetector"
-import AudioPlayerSoundJs from "./audio/AudioPlayerSoundJs"
+import AudioPlayerToneJs from "./audio/AudioPlayerToneJs"
 import DirectorAudio from "./audio/DirectorAudio.js"
 import State from "./State.js"
 import VideoTimer from "./VideoTimer.js"
@@ -26,6 +26,8 @@ import SpeedControl from './interaction/controlComponents/SpeedControl'
 import BaseComponent  from './interaction/controlComponents/components/BaseComponent'
 import InstrumentButtonControl from "./interaction/controlComponents/instrumentButtonControl";
 import ActiveInstrumentDisplay from "./interaction/controlComponents/ActiveInstrumentDisplay";
+import Launcher from "./interaction/Launcher";
+import MetronomeTimer from "./audio/MetronomeTimer";
 
 /**
  * Manages initialization of objects and corresponding dependencies
@@ -47,7 +49,7 @@ export default class Container {
     Object.assign(EventRouter.prototype, this.getDefaultPrototypeProperties())
     Object.assign(Factory.prototype, this.getDefaultPrototypeProperties())
     Object.assign(CollisionDetector.prototype, this.getDefaultPrototypeProperties())
-    Object.assign(AudioPlayerSoundJs.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(AudioPlayerToneJs.prototype, this.getDefaultPrototypeProperties())
     Object.assign(PlusMinusControl.prototype, this.getDefaultPrototypeProperties())
     Object.assign(SpeedControl.prototype, this.getDefaultPrototypeProperties())
     Object.assign(MetronomeControl.prototype, this.getDefaultPrototypeProperties())
@@ -56,14 +58,17 @@ export default class Container {
     Object.assign(ActiveInstrumentDisplay.prototype, this.getDefaultPrototypeProperties())
     Object.assign(InstrumentButtonControl.prototype, this.getDefaultPrototypeProperties())
     Object.assign(NoisyCollisionControl.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(Launcher.prototype, this.getDefaultPrototypeProperties())
+    Object.assign(MetronomeTimer.prototype, this.getDefaultPrototypeProperties())
 
     this.eventRouting = new EventRouter()
     this.canvas = new Canvas(createjs)
     this.factory = new Factory()
     this.collisionDetector = new CollisionDetector()
-    this.audioplayer = new AudioPlayerSoundJs()
-    this.videoTimer = new VideoTimer(101, 'video')
+    this.audioplayer = new AudioPlayerToneJs()
+    this.videoTimer = new VideoTimer()
     this.audioTimer = new AudioTimer()
+    this.metronomeTimer = new MetronomeTimer()
     this.director = new Director(this.canvas, this.factory, this.collisionDetector, this.state, this.videoTimer)
     this.directorAudio = new DirectorAudio(this.audioplayer, this.sounds, this.audioTimer, this.metronomeTimer)
     this.speedControl = new SpeedControl()
@@ -77,6 +82,8 @@ export default class Container {
     this.barmovesControl = new BarMovesControl()
     this.metronomeInstrumentControl = new InstrumentButtonControl(this.sounds)
     this.noisyCollisionControl = new NoisyCollisionControl(this.setup.bar.maxCollisionCount)
+    this.launcher = new Launcher()
+    this.metronomeTimer = new MetronomeTimer()
   }
 
   getDefaultPrototypeProperties() {

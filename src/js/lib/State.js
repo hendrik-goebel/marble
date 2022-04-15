@@ -11,7 +11,9 @@ export default class State {
     this.note = 16
     this.noteMetronome = 4
     this.measure = 4
-  }W
+    this.isPlaying = false
+    this.hasStarted = false
+  }
 
   addBar(bar) {
     this.unselectActiveBar()

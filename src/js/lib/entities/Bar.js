@@ -11,7 +11,6 @@ export default class Bar extends AbstractEntity {
     this.height = setup.minHeight
     this.minWidth = setup.minWidth;
     this.minHeight = setup.minHeight;
-    this.color = setup.color
     this.activate()
     this._isSelected = true
     this.offset = {
@@ -21,31 +20,54 @@ export default class Bar extends AbstractEntity {
     this.fixed = true
     this.sound = null
 
+    this.colorUnselected = setup.color
+    this.colorSelected = setup.colorSelected
+    this.startColorUnselected = this.colorUnselected
+    this.startColorSelected =  this.colorSelected
+    this.color = this.colorUnselected
+
     /**
      * Increases by 1 on every collision
      */
-    this.collisionCounter = 1
+    this.collisionCounter = 0
     /**
      * The collision value on which a sound should be played
      * 2 = play sound on every second collision
      * 3 = play sound on every third collision
      * ...
      */
-    this.noisyCollisionValue = 1
+    this._noisyCollisionValue = 1
   }
 
   get isSelected() {
     return this._isSelected
   }
 
-  set isSelected(value) {
+  set noisyCollisionValue(value) {
+    if (this.isSelected) {
+      this.color = this.startColorSelected
+    } else {
+      this.color = this.startColorUnselected
+    }
 
+    this._noisyCollisionValue = value
+  }
+
+  getColorReducedByIndex(color, index) {
+    return this.luminance(color, -1 * (((this.noisyCollisionValue+1 - index) * 5) / 100))
+  }
+
+  get noisyCollisionValue() {
+    return this._noisyCollisionValue
+  }
+
+  set isSelected(value) {
     if (value) {
       this._isSelected = true
-      this.color = this._setup.colorSelected
+      this.color = this.colorSelected
     } else {
       this._isSelected = false
-      this.color = this._setup.color
+      this.color = this.colorUnselected
     }
   }
 
@@ -86,21 +108,54 @@ export default class Bar extends AbstractEntity {
     this.offset.y = y - this.y
   }
 
-  get isNoisyCollision()
-  {
-    let value =  this.collisionCounter % this.noisyCollisionValue== 0
+  get isNoisyCollision() {
+    let value = this.collisionCounter == this._noisyCollisionValue
     return value
   }
 
   increaseCollisionCounter() {
     this.collisionCounter++
-
-    if (this.collisionCounter > this._setup.maxCollisionCount) {
+    if (this.collisionCounter > this.setup.maxCollisionCount || this.collisionCounter > this.noisyCollisionValue) {
       this.collisionCounter = 1
+    }
+
+    console.log(this.collisionCounter)
+
+    if (this.isNoisyCollision) {
+      this.colorSelected = this.startColorSelected
+      this.colorUnselected = this.startColorUnselected
+      console.log("is noisy collision")
+    } else {
+      this.colorSelected = this.getColorReducedByIndex(this.startColorSelected, this.collisionCounter)
+      this.colorUnselected = this.getColorReducedByIndex(this.startColorUnselected, this.collisionCounter)
+    }
+
+    if (this.isSelected) {
+      this.color = this.colorSelected
+    } else {
+      this.color = this.colorUnselected
     }
   }
 
   collide(object, position, depth, subPosition) {
     super.collide(object, position, depth, subPosition)
+  }
+
+  luminance(hex, lum) {
+    // validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    lum = lum || 0;
+
+    // convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+      c = parseInt(hex.substr(i * 2, 2), 16);
+      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      rgb += ("00" + c).substr(c.length);
+    }
+    return rgb;
   }
 }

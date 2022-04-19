@@ -83,7 +83,6 @@ export default class Container {
     this.metronomeInstrumentControl = new InstrumentButtonControl(this.sounds)
     this.noisyCollisionControl = new NoisyCollisionControl(this.setup.bar.maxCollisionCount)
     this.launcher = new Launcher()
-    this.metronomeTimer = new MetronomeTimer()
   }
 
   getDefaultPrototypeProperties() {

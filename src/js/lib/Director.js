@@ -40,17 +40,30 @@ export default class Director {
     for (let dropper of this.state.droppers) {
       let balls = dropper.balls
       for (let ball of balls) {
+        let lastBarCollisionId = null
         if (ball.isVisible) {
-          this.collisionDetector.detectCanvasBorderCollision(ball, this.getCanvasDimensions())
-          if (ball.isColliding && ball.collision.object.type == this.CONST.TYPE.WALL && ball.collision.position == 'bottom') {
-            ball.deactivate()
+          if (ball.collision.object !== null) {
+            lastBarCollisionId = ball.collision.object.id
           }
+          this.collisionDetector.detectCanvasBorderCollision(ball, this.getCanvasDimensions())
+
+          // Collision with below wall makes the ball disappear
+          if (ball.isColliding && ball.collision.object.type == this.CONST.TYPE.WALL && ball.collision.position == 'bottom') {
+            let index = balls.indexOf(ball)
+            balls.splice(index, 1)
+            ball = null
+            continue
+          }
+          ball.move()
           for (let bar of this.state.bars) {
             if (bar.isVisible) {
               this.collisionDetector.detectObjectCollision(ball, bar)
               if (ball.isColliding && ball.collision.object.id == bar.id) {
+                if (lastBarCollisionId === ball.collision.object.id) {
+                  continue
+                }
+                lastBarCollisionId = ball.collision.object.id
                 bar.increaseCollisionCounter();
-
                 this.Observable.callObservers('onCollision', ball)
                 if (bar.isNoisyCollision) {
                   this.Observable.callObservers('onNoisyCollision', ball)
@@ -58,8 +71,6 @@ export default class Director {
               }
             }
           }
-          ball.move()
-          ball.uncollide()
           this.canvas.addBall(ball)
         }
       }
@@ -84,21 +95,7 @@ export default class Director {
     }
   }
 
-  changeObjectProperty(type, property, value) {
-    if (type == this.const.TYPE.BALL) {
-      if (this.setup.ball.hasOwnProperty(property)) {
-        this.setup.ball[property] = value
 
-        for (let dropper of this.state.droppers) {
-          let balls = dropper.balls
-          for (let ball of balls) {
-            ball[property] = value
-          }
-        }
-        this.factory.setup = this.setup
-      }
-    }
-  }
 
   onUpdateCanvasSize(width, height) {
     this.setup.world.width = width

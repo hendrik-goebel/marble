@@ -8,7 +8,7 @@ export default class MetronomeTimer extends Timer {
   }
 
   init() {
-    this.count = 1
+    this.count = 0
   }
 
   countStep() {
@@ -19,7 +19,7 @@ export default class MetronomeTimer extends Timer {
   }
 
   tick() {
-    this.Observable.callObservers('onMetronomeBeat', {property: 'beat', value: this.count})
+      this.Observable.callObservers('onMetronomeBeat', {property: 'beat', value: this.count})
   }
 
   onControlsUpdate(property, value) {

@@ -19,6 +19,6 @@ export default class Audiotimer extends Timer {
   }
 
   tick() {
-    this.Observable.callObservers('onBeat', {property: 'beat', value: this.count})
+      this.Observable.callObservers('onBeat', {property: 'beat', value: this.count})
   }
 }

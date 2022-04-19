@@ -4,7 +4,6 @@ import Bar from './entities/Bar.js'
 import Queue from './helper/Queue.js'
 
 export default class Factory {
-
   createBall(x = null, y = null) {
     let ball = new Ball(this.setup.ball)
     if (x) {
@@ -25,11 +24,6 @@ export default class Factory {
     if (y) {
       dropper.y = y
     }
-
-    for (let i = 0; i < this.setup.dropper.maxBalls; i++) {
-      balls.enqueue(this.createBall(dropper.x, dropper.y))
-    }
-    dropper.balls = balls
     return dropper
   }
 

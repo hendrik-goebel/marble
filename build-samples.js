@@ -10,9 +10,11 @@ fs.readdir(dir, (err, files) => {
  let sounds = {}
   files.forEach(file => {
     if (file.endsWith('.mp3')) {
-      sounds[file.replace(/\.mp3$/, '', file)] = 'samples/' + file;
+      sounds[file.replace(/\.mp3$/, '', file)] = 'samples/' + file
     }
   });
+
+  sounds['silence'] = ''
 
   fs.writeFile('public/js/sounds.json', JSON.stringify(sounds), function (err) {
     if (err) return console.log(err);

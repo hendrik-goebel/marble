@@ -40,19 +40,7 @@ export default class Timer {
     setTimeout(this.step.bind(this), Math.max(0, this.interval - delta)); // take into account drift
   }
 
-  onControlsUpdate(property, value) {
-    if (property == 'play') {
-      if (value == true) {
-        this.run()
-      } else {
-        this.isPlaying = false
-      }
-    }
-  }
-
   initListeners() {
-    this.Observable.addObserver((args) => {
-      this.onControlsUpdate(args.property, args.value)
-    }, 'onControlsUpdate')
+
   }
 }

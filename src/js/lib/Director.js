@@ -12,6 +12,8 @@ export default class Director {
     this.audio = null
     this.state = state
     this.videoTimer = videoTimer
+    this.videoTimer.run()
+    this.isPLaying = false
     this.initListeners()
   }
 
@@ -54,7 +56,9 @@ export default class Director {
             ball = null
             continue
           }
-          ball.move()
+          if (this.isPLaying) {
+            ball.move()
+          }
           for (let bar of this.state.bars) {
             if (bar.isVisible) {
               this.collisionDetector.detectObjectCollision(ball, bar)
@@ -133,6 +137,9 @@ export default class Director {
     }
     if (property == 'noisy-collision' && this.state.activeBar) {
       this.state.activeBar.noisyCollisionValue = value
+    }
+    if (property == 'play') {
+      this.isPLaying = value
     }
   }
 

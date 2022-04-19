@@ -69,6 +69,11 @@ export default class StageUserInterface {
           'key': event.key,
         })
       }
+      if (event.key == " ") {
+        Observable.callObservers('onKeyUp', {
+          'key': event.key,
+        })
+      }
     }
   }
 }

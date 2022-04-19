@@ -23,7 +23,14 @@ export default class MetronomeTimer extends Timer {
   }
 
   onControlsUpdate(property, value) {
-    super.onControlsUpdate(property, value)
+
+    if (property == 'play') {
+      if (value == true) {
+        this.run()
+      } else {
+        this.isPlaying = false
+      }
+    }
 
     if (property == 'speed') {
       this.state.bpm = value
@@ -32,5 +39,11 @@ export default class MetronomeTimer extends Timer {
     if (property == 'metronome-quantisation') {
       this.state.noteMetronome = value
     }
+  }
+
+  initListeners() {
+    this.Observable.addObserver((args) => {
+      this.onControlsUpdate(args.property, args.value)
+    }, 'onControlsUpdate')
   }
 }

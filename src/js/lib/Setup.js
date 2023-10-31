@@ -34,9 +34,9 @@ export default {
   },
   'system': {
     'audio': {
-      'bpm': 80,
-      'bpmMin': 60,
-      'bpmMax': 150,
+      'bpm': 90,
+      'bpmMin': 30,
+      'bpmMax': 190,
       'quantisation': 16,
       'metronomeQuantisation': 1,
     },

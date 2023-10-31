@@ -9,8 +9,8 @@ fs.readdir(dir, (err, files) => {
 
  let sounds = {}
   files.forEach(file => {
-    if (file.endsWith('.mp3')) {
-      sounds[file.replace(/\.mp3$/, '', file)] = 'samples/' + file
+    if (file.endsWith('.ogg')) {
+      sounds[file.replace(/\.ogg$/, '', file)] = 'samples/' + file
     }
   });
 

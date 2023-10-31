@@ -1,8 +1,6 @@
 {
   "name": "marbleous-build",
-  "version": "1.0.0",
-  "description": "Node.js on Docker",
-  "author": "First Last <first.last@example.com>",
+  "version": "1.0.1",
   "main": "server.js",
   "watch": {
     "build-js": {
@@ -58,7 +56,6 @@
     "type": "git",
     "url": "git+https://github.com/hg2000/marble.git"
   },
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/hg2000/marble/issues"
   },

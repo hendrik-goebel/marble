@@ -34,11 +34,11 @@ export default {
   },
   'system': {
     'audio': {
-      'bpm': 120,
-      'bpmMin': 30,
-      'bpmMax': 190,
+      'bpm': 80,
+      'bpmMin': 60,
+      'bpmMax': 150,
       'quantisation': 16,
-      'metronomeQuantisation': 4,
+      'metronomeQuantisation': 1,
     },
   },
   'adjustDimensions': function () {

@@ -6,10 +6,10 @@ export default class State {
     this.editMode = ''
     this.instrument = 'first'
     this.metronomeInstrument = 'first'
-    this.speed = 120
-    this.bpm = 120
+    this.speed = 400
+    this.bpm = 80
     this.note = 16
-    this.noteMetronome = 4
+    this.noteMetronome = 1
     this.measure = 4
     this.isPlaying = false
     this.hasStarted = false

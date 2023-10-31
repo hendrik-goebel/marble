@@ -1,18 +1,8 @@
-## The Marbleous Beat Machine
+## Murmelonium
 
-A web app for creating marbleous beats.
+A web app for creating marbelous music.
 
-[The Marbleous Beat Machine](https://marble.hendrikgoebel.de)
-
-### How to use it
-
-Create beats by drawing blocks on the canves and let marble fall on them.
-You can assign different sounds to different blocks.
-
-Doubleclick removes a block.
-
-Its more exciting when you turn on audio.
-
+[Murmelonium](https://marble.hendrikgoebel.de)
 
 ### How to install
 
@@ -25,3 +15,6 @@ Its more exciting when you turn on audio.
 4. npm run start
 
 5. Open in browser http://localhost:8080
+
+### Known error
+seems not to work on safari and ios.

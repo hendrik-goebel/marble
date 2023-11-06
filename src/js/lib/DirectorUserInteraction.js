@@ -12,6 +12,7 @@ export default class DirectorUserInteraction {
   startDrawBar(x, y) {
     let bar = this.factory.createBar(x, y)
     bar.sound = this.state.instrument
+    bar.noisyCollisionValue = this.state.noisyCollisionValue
     this.state.addBar(bar)
     this.Observable.callObservers('onStartDrawBar', {'property': 'startDrawBar', 'value': bar})
   }

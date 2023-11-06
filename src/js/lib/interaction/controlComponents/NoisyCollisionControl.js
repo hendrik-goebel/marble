@@ -13,6 +13,7 @@ export default class NoisyCollisionControl extends PlusMinusControl {
     if (this.value > this.maxCollisionCount ) {
       this.value = 1
     }
+    this.state.noisyCollisionValue = this.value
     return this.value
   }
 
@@ -21,6 +22,7 @@ export default class NoisyCollisionControl extends PlusMinusControl {
     if (this.value <= 1) {
       this.value = this.maxCollisionCount
     }
+    this.state.noisyCollisionValue = this.value
     return this.value
   }
 

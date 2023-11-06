@@ -7,7 +7,7 @@ export default class AudioPlayerToneJs {
   }
 
   registerSounds(sounds, path = "") {
-    this.players = new Tone.Players(sounds).toDestination();
+    this.players = new Tone.Players(sounds, {fadeIn: 0.01, fadeOut: 0.01}).toDestination();
     Tone.loaded().then(() => {
       this.Observable.callObservers('onSoundsLoaded')
     })

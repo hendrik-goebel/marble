@@ -79,7 +79,6 @@ export default class Ball extends AbstractEntity {
 
       this.uncollide()
     }
-console.log(this.distance)
     this.y += this.distance * this.directionY
     this.x += this.distance * this.directionX
     return this

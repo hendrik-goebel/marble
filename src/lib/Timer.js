@@ -1,8 +1,34 @@
 export default class Timer {
 
+  constructor(intervalDuration) {
+    this.intervalDuration = intervalDuration
+  }
+
   start() {
     let lastTimestamp = 0;
-    const animate = (timestamp) => {
+    let startTime;
+
+    /**
+     * Tick is used for animation and for audio.
+     * For animation an event is fired on everyframe containing the delta between the last frame and the current frame.
+     * This is used to calculate the distance the ball should move.
+     *
+     * For audio an event is fired an every beat, the intervalduration for a beat is passed in the constructor.
+     */
+    const tick = (timestamp) => {
+
+      if (!startTime) {
+        startTime = timestamp;
+        lastTimestamp = timestamp;
+      }
+
+      const elapsed = timestamp - startTime;
+
+      if (elapsed >= this.intervalDuration) {
+        startTime = timestamp;
+        console.log('beat')
+      }
+
       // Time elapsed since last frame in seconds
       const deltaTime = (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
@@ -11,11 +37,12 @@ export default class Timer {
         'tick', {
           detail: {
             deltaTime: deltaTime,
+
           },
         })
       document.dispatchEvent(tickEvent);
-      requestAnimationFrame(animate)
+      requestAnimationFrame(tick)
     }
-    requestAnimationFrame(animate);
+    requestAnimationFrame(tick);
   }
 }

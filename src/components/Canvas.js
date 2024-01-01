@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Director from '../lib/Director.js'
 
-const Canvas = ({speed}) => {
+const Canvas = ({bpm, isPlaying}) => {
   const canvasRef = useRef(null)
   const directorRef = useRef(null)
 
@@ -14,15 +14,19 @@ const Canvas = ({speed}) => {
       directorRef.current.init();
     }
 
-    directorRef.current.speed = speed;
-
+    directorRef.current.bpm = bpm;
     const width = document.getElementById('canvasContainer').offsetWidth;
     const height = 300
     canvas.width = width;
     canvas.height = height;
     directorRef.current.canvasWidth = width;
     directorRef.current.canvasHeight = height;
-  }, [speed]);
+    if (isPlaying) {
+      directorRef.current.start();
+    }
+  }, [bpm,isPlaying]);
+
+
 
   return (
     <div id="canvasContainer">

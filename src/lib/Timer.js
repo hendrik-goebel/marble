@@ -26,21 +26,27 @@ export default class Timer {
 
       if (elapsed >= this.intervalDuration) {
         startTime = timestamp;
-        console.log('beat')
+
+        const beatEvent = new CustomEvent(
+          'beat', {
+            detail: {
+              value: 1,
+            },
+          })
+        document.dispatchEvent(beatEvent);
       }
 
       // Time elapsed since last frame in seconds
       const deltaTime = (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
 
-      const tickEvent = new CustomEvent(
-        'tick', {
+      const animationTickEvent = new CustomEvent(
+        'animationTick', {
           detail: {
             deltaTime: deltaTime,
-
           },
         })
-      document.dispatchEvent(tickEvent);
+      document.dispatchEvent(animationTickEvent);
       requestAnimationFrame(tick)
     }
     requestAnimationFrame(tick);

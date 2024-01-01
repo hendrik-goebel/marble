@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import Director from '../lib/Director.js'
 
-const Canvas = ({speed}) => {
+const Canvas = ({bpm}) => {
   const canvasRef = useRef(null)
   const directorRef = useRef(null)
 
@@ -14,7 +14,7 @@ const Canvas = ({speed}) => {
       directorRef.current.init();
     }
 
-    directorRef.current.speed = speed;
+    directorRef.current.bpm = bpm;
 
     const width = document.getElementById('canvasContainer').offsetWidth;
     const height = 300
@@ -22,7 +22,7 @@ const Canvas = ({speed}) => {
     canvas.height = height;
     directorRef.current.canvasWidth = width;
     directorRef.current.canvasHeight = height;
-  }, [speed]);
+  }, [bpm]);
 
   return (
     <div id="canvasContainer">

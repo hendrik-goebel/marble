@@ -3,19 +3,20 @@ import setup from "./Setup";
 import CanvasView from '../lib/CanvasView.js'
 import Timer from './Timer.js'
 import state from './State.js'
+import * as Tone from 'tone'
+import * as Calculator from './Calculator.js'
+
 
 export default class Director {
   constructor(context) {
     this.canvas = new CanvasView(context);
-    this.animationTimer = new Timer(setup.system.audio.bpm);
-    this.animationTimer.velocityMultiplier = 0.5
+    this.timer = new Timer(setup.system.audio.bpm);
   }
 
   init() {
     document.addEventListener('tick', (event) => {
       let deltaTime = event.detail.deltaTime;
-      const distance = this._speed * (deltaTime * 1.5)
-      this.ball.distance = distance
+      this.ball.distance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
       this.ball.move()
 
       if (this.ball.y > state.canvas.height) {
@@ -23,11 +24,18 @@ export default class Director {
       }
       this.canvas.draw(this.ball)
     });
+
+    document.addEventListener('beat', (event) => {
+      const synth = new Tone.Synth().toDestination();
+      synth.triggerAttackRelease("C3", "32n");
+    });
     this.ball = new Ball(setup.ball)
-    this.animationTimer.start()
+    this.timer.start()
   }
-  set speed(speed) {
-    this._speed = speed
+
+  set bpm(bpm) {
+    this._bpm = bpm
+    this.timer.bpm = bpm
   }
 
   set canvasWidth(width) {

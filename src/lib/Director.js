@@ -3,8 +3,8 @@ import setup from "./Setup";
 import CanvasView from '../lib/CanvasView.js'
 import Timer from './Timer.js'
 import state from './State.js'
-import {calculateInterval} from './Calculator.js'
 import * as Tone from 'tone'
+import * as Calculator from './Calculator.js'
 
 
 export default class Director {
@@ -12,16 +12,11 @@ export default class Director {
     this.canvas = new CanvasView(context);
     this.timer = new Timer(setup.system.audio.bpm);
   }
+
   init() {
-    const synth = new Tone.Synth().toDestination();
-
-    document.addEventListener('animationTick', (event) => {
+    document.addEventListener('tick', (event) => {
       let deltaTime = event.detail.deltaTime;
-
-
-      const distance = this._bpm * (deltaTime * 1.5)
-      console.log("distance", distance)
-      this.ball.distance = distance
+      this.ball.distance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
       this.ball.move()
 
       if (this.ball.y > state.canvas.height) {
@@ -31,19 +26,16 @@ export default class Director {
     });
 
     document.addEventListener('beat', (event) => {
-      console.log("BEAT");
-      if (synth.state === "started") {
-     //   synth.triggerRelease();
-      }
-    //  synth.triggerAttackRelease("C3", "16n");
+      const synth = new Tone.Synth().toDestination();
+      synth.triggerAttackRelease("C3", "32n");
     });
-
     this.ball = new Ball(setup.ball)
+    this.timer.start()
   }
+
   set bpm(bpm) {
     this._bpm = bpm
-    const intervalDuration = calculateInterval(bpm, 4)
-    this.timer.intervalDuration = intervalDuration
+    this.timer.bpm = bpm
   }
 
   set canvasWidth(width) {
@@ -54,9 +46,5 @@ export default class Director {
   set canvasHeight(height) {
     state.canvas.height = height
     this.canvas.height = height
-  }
-
-  start() {
-    this.timer.start()
   }
 }

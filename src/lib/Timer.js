@@ -3,9 +3,13 @@ import {calculateInterval} from "./Calculator";
 export default class Timer {
   constructor(bpm) {
     this._bpm = bpm
+    this.isRunning = false;
+    this.beatsPerMeasure = 4;
+    this.noteValue = 4;
+    this.currentBeat = 1;
   }
 
-  start() {
+  init() {
     let lastTimestamp = 0;
     let startTime;
 
@@ -22,28 +26,48 @@ export default class Timer {
       const deltaTime = (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
 
+
       const tickEvent = new CustomEvent(
         'tick', {
           detail: {
             deltaTime: deltaTime,
+            beat: this.currentBeat
           },
         })
-      document.dispatchEvent(tickEvent);
+
+      if (this.isRunning) {
+        document.dispatchEvent(tickEvent);
+      }
 
       if (elapsed >= this.intervalDuration) {
         startTime = timestamp;
         const beatEvent = new CustomEvent(
           'beat', {
             detail: {
-              value: 1,
+              beat: this.currentBeat,
               timestamp: timestamp,
             },
           })
-        document.dispatchEvent(beatEvent);
+
+        if (this.isRunning) {
+          document.dispatchEvent(beatEvent);
+          this.currentBeat++;
+          if (this.currentBeat > this.beatsPerMeasure) {
+            this.currentBeat = 1;
+          }
+        }
       }
       requestAnimationFrame(tick)
     }
     requestAnimationFrame(tick);
+  }
+
+  start() {
+    this.isRunning = true
+  }
+
+  stop() {
+    this.isRunning = false
   }
 
   set bpm(bpm) {

@@ -21,10 +21,10 @@ const Canvas = () => {
     canvas.width = width;
     canvas.height = height;
 
-    directorRef.current.canvasWidth = width;
-    directorRef.current.canvasHeight = height;
     directorRef.current.bpm = control.bpm;
     directorRef.current.isPlaying = control.isPlaying
+    directorRef.current.canvasWidth = width;
+    directorRef.current.canvasHeight = height;
   }, [control]);
 
   return (

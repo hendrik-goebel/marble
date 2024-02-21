@@ -18,21 +18,44 @@ export default class Director {
     document.addEventListener('tick', (event) => {
       let deltaTime = event.detail.deltaTime;
       this.ball.distance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
-      this.ball.move()
+      let beatValue = event.detail.beat;
+
+      console.log('beat', beatValue);
+
+      if (this.ball.isVisible === false && beatValue === 1) {
+        this.ball.isVisible = true
+      }
+
+      if (this.ball.isVisible) {
+        this.ball.move();
+      }
 
       if (this.ball.y > this.canvas.height) {
         this.ball.reset()
+        this.ball.isVisible = false
       }
-      this.canvas.draw(this.ball)
+
+      if (this.ball.isVisible) {
+        this.canvas.draw(this.ball)
+      }
     });
 
     document.addEventListener('beat', (event) => {
+
       const synth = new Tone.Synth().toDestination();
       synth.triggerAttackRelease("C3", "32n");
     });
 
     this.ball = new Ball(setup.ball)
-    this.timer.start()
+    this.timer.init()
+  }
+
+  set isPlaying(isPlaying) {
+    if (isPlaying) {
+      this.timer.start()
+    } else {
+      this.timer.stop();
+    }
   }
 
   set bpm(bpm) {

@@ -14,12 +14,20 @@ export default class CanvasView {
       this.drawBall(object)
     }
   }
-
   drawBall(ball) {
     if (ball.xb === ball.x || ball.yb === ball.y) {
       return
     }
 
+    this.clearBall(ball);
+
+    this.context.beginPath();
+    this.context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    this.context.fillStyle = ball.color;
+    this.context.fill();
+    this.context.closePath();
+  }
+  clearBall(ball) {
     if (ball.xb && ball.yb) {
       this.context.clearRect(
         ball.xb - ball.radius,
@@ -27,11 +35,5 @@ export default class CanvasView {
         ball.radius * 2,
         ball.radius * 2);
     }
-
-    this.context.beginPath();
-    this.context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-    this.context.fillStyle = ball.color;
-    this.context.fill();
-    this.context.closePath();
   }
 }

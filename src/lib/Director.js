@@ -37,11 +37,12 @@ export default class Director {
 
       if (this.ball.isVisible) {
         this.canvas.draw(this.ball)
+      } else {
+        this.canvas.clearBall(this.ball);
       }
     });
 
     document.addEventListener('beat', (event) => {
-
       const synth = new Tone.Synth().toDestination();
       synth.triggerAttackRelease("C3", "32n");
     });

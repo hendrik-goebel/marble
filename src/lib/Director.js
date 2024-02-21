@@ -2,7 +2,6 @@ import Ball from "./Ball";
 import setup from "./Setup";
 import CanvasView from '../lib/CanvasView.js'
 import Timer from './Timer.js'
-import state from './State.js'
 import * as Tone from 'tone'
 import * as Calculator from './Calculator.js'
 
@@ -11,6 +10,8 @@ export default class Director {
   constructor(context) {
     this.canvas = new CanvasView(context);
     this.timer = new Timer(setup.system.audio.bpm);
+    this._bpm = null;
+    this.isPlaying = null;
   }
 
   init() {
@@ -19,7 +20,7 @@ export default class Director {
       this.ball.distance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
       this.ball.move()
 
-      if (this.ball.y > state.canvas.height) {
+      if (this.ball.y > this.canvas.height) {
         this.ball.reset()
       }
       this.canvas.draw(this.ball)
@@ -29,6 +30,7 @@ export default class Director {
       const synth = new Tone.Synth().toDestination();
       synth.triggerAttackRelease("C3", "32n");
     });
+
     this.ball = new Ball(setup.ball)
     this.timer.start()
   }
@@ -39,12 +41,10 @@ export default class Director {
   }
 
   set canvasWidth(width) {
-    state.canvas.width = width
     this.canvas.width = width
   }
 
   set canvasHeight(height) {
-    state.canvas.height = height
     this.canvas.height = height
   }
 }

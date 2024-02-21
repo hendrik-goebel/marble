@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import Director from '../lib/Director.js'
+import { useSelector} from "react-redux";
 
-const Canvas = ({bpm}) => {
+const Canvas = () => {
   const canvasRef = useRef(null)
   const directorRef = useRef(null)
+  const control = useSelector((state) => state.control)
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,15 +16,16 @@ const Canvas = ({bpm}) => {
       directorRef.current.init();
     }
 
-    directorRef.current.bpm = bpm;
-
     const width = document.getElementById('canvasContainer').offsetWidth;
     const height = 300
     canvas.width = width;
     canvas.height = height;
+
     directorRef.current.canvasWidth = width;
     directorRef.current.canvasHeight = height;
-  }, [bpm]);
+    directorRef.current.bpm = control.bpm;
+    directorRef.current.isPlaying = control.isPlaying
+  }, [control]);
 
   return (
     <div id="canvasContainer">

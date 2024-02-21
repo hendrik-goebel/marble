@@ -12,6 +12,7 @@ export default class Director {
     this.timer = new Timer(setup.system.audio.bpm);
     this._bpm = null;
     this.isPlaying = null;
+    this.isPulseEnabled = null;
   }
 
   init() {
@@ -43,8 +44,10 @@ export default class Director {
     });
 
     document.addEventListener('beat', (event) => {
-      const synth = new Tone.Synth().toDestination();
-      synth.triggerAttackRelease("C3", "32n");
+      if (this.isPulseEnabled) {
+        const synth = new Tone.Synth().toDestination();
+        synth.triggerAttackRelease("C3", "32n");
+      }
     });
 
     this.ball = new Ball(setup.ball)

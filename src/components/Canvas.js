@@ -23,6 +23,7 @@ const Canvas = () => {
 
     directorRef.current.bpm = control.bpm;
     directorRef.current.isPlaying = control.isPlaying
+    directorRef.current.isPulseEnabled = control.isPulseEnabled
     directorRef.current.canvasWidth = width;
     directorRef.current.canvasHeight = height;
   }, [control]);

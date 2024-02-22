@@ -21,6 +21,15 @@ const Canvas = () => {
     canvas.width = width;
     canvas.height = height;
 
+    canvas.addEventListener('mousedown', (e) => {
+      const mouseDownEvent = new CustomEvent('onCanvasMouseDown', {
+        detail: {
+          x: e.clientX,
+          y: e.clientY }
+      });
+      document.dispatchEvent(mouseDownEvent);
+    });
+
     directorRef.current.bpm = control.bpm;
     directorRef.current.isPlaying = control.isPlaying
     directorRef.current.isPulseEnabled = control.isPulseEnabled

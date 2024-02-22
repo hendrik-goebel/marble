@@ -16,42 +16,73 @@ export default class Director {
   }
 
   init() {
+    this.initBalls();
+    this.initEventListeners()
+    this.timer.init()
+  }
+
+  initEventListeners() {
     document.addEventListener('tick', (event) => {
-      let deltaTime = event.detail.deltaTime;
-      this.ball.distance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
-      let beatValue = event.detail.beat;
-
-      console.log('beat', beatValue);
-
-      if (this.ball.isVisible === false && beatValue === 1) {
-        this.ball.isVisible = true
-      }
-
-      if (this.ball.isVisible) {
-        this.ball.move();
-      }
-
-      if (this.ball.y > this.canvas.height) {
-        this.ball.reset()
-        this.ball.isVisible = false
-      }
-
-      if (this.ball.isVisible) {
-        this.canvas.draw(this.ball)
-      } else {
-        this.canvas.clearBall(this.ball);
-      }
+      const deltaTime = event.detail.deltaTime;
+      const currentBeatValue = event.detail.beat;
+      this.loop(deltaTime, currentBeatValue);
     });
 
     document.addEventListener('beat', (event) => {
+      let beatValue = event.detail.beat;
+
+      console.log(beatValue);
+      if (beatValue === 1) {
+        this.spawnBall()
+      }
+
       if (this.isPulseEnabled) {
         const synth = new Tone.Synth().toDestination();
         synth.triggerAttackRelease("C3", "32n");
       }
     });
 
-    this.ball = new Ball(setup.ball)
-    this.timer.init()
+    document.addEventListener('onCanvasMouseDown', (event) => {
+      debugger
+    });
+  }
+
+  initBalls() {
+    this.balls = []
+    for (let i = 0; i < setup.dropper.maxBalls; i++) {
+      this.balls.push(new Ball(setup.ball))
+    }
+    this.balls[this.balls.length - 1].isVisible = true;
+  }
+
+  loop(deltaTime, currentBeatValue) {
+    const ballDistance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
+
+    this.balls.forEach((ball) => {
+      if (ball.isVisible) {
+        ball.distance = ballDistance;
+        ball.move()
+        this.canvas.draw(ball)
+      }
+
+      if (ball.yb > this.canvas.height) {
+        this.canvas.clearBall(ball);
+        ball.reset()
+      }
+
+      if (ball.isVisible) {
+        this.canvas.draw(ball)
+      }
+    })
+  }
+
+  spawnBall() {
+    this.balls.forEach((ball) => {
+      if (!ball.isVisible) {
+        ball.isVisible = true
+        return
+      }
+    })
   }
 
   set isPlaying(isPlaying) {

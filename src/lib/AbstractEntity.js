@@ -12,8 +12,6 @@ export default class AbstractEntity {
     this._minHeight = null
     this._x = null
     this._y = null
-    this._xb = null
-    this._yb = null
     this._isVisible = true
 
     this.collision = {

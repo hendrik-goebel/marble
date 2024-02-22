@@ -40,11 +40,6 @@ const setup = {
       'quantisation': 16,
       'metronomeQuantisation': 1,
     },
-  },
-  'adjustDimensions': function () {
-    let $canvas = document.getElementById('canvas')
-    this.world.width = $canvas.offsetWidth
-    this.world.height = $canvas.offsetHeight
   }
 }
 

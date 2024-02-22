@@ -26,7 +26,6 @@ export default class Timer {
       const deltaTime = (timestamp - lastTimestamp) / 1000;
       lastTimestamp = timestamp;
 
-
       const tickEvent = new CustomEvent(
         'tick', {
           detail: {

@@ -85,6 +85,7 @@ export default class Ball extends AbstractEntity {
   }
 
   reset() {
+    this.isVisible = false
     this.y = this.setup.x
     this.x = this.setup.y
     this.directionX = 1

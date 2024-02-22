@@ -5,7 +5,6 @@ import Timer from './Timer.js'
 import * as Tone from 'tone'
 import * as Calculator from './Calculator.js'
 
-
 export default class Director {
   constructor(context) {
     this.canvas = new CanvasView(context);
@@ -42,8 +41,8 @@ export default class Director {
       }
     });
 
-    document.addEventListener('onCanvasMouseDown', (event) => {
-      debugger
+    document.addEventListener('onCanvasDraw', (event) => {
+      console.log("Drawing")
     });
   }
 

@@ -1,13 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import Director from '../lib/Director.js'
 import { useSelector} from "react-redux";
+import constants from '../lib/Constants.js'
 
 const Canvas = () => {
   const canvasRef = useRef(null)
   const directorRef = useRef(null)
   const control = useSelector((state) => state.control)
 
+
   useEffect(() => {
+    let editMode = constants.MODE.NONE;
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
@@ -22,20 +25,35 @@ const Canvas = () => {
     canvas.height = height;
 
     canvas.addEventListener('mousedown', (e) => {
-      const mouseDownEvent = new CustomEvent('onCanvasMouseDown', {
-        detail: {
-          x: e.clientX,
-          y: e.clientY }
-      });
-      document.dispatchEvent(mouseDownEvent);
+      if (editMode === constants.MODE.NONE){
+        editMode = constants.MODE.DRAWING;
+      }
     });
+
+    canvas.addEventListener('mouseup', (e) => {
+      if (editMode === constants.MODE.DRAWING) {
+        editMode = constants.MODE.NONE;
+      }
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (editMode === constants.MODE.DRAWING) {
+        const drawEvent = new CustomEvent('onCanvasDraw', {
+          detail: {
+            x: e.clientX,
+            y: e.clientY
+          }
+        });
+        document.dispatchEvent(drawEvent);
+      }
+    })
 
     directorRef.current.bpm = control.bpm;
     directorRef.current.isPlaying = control.isPlaying
     directorRef.current.isPulseEnabled = control.isPulseEnabled
     directorRef.current.canvasWidth = width;
     directorRef.current.canvasHeight = height;
-  }, [control]);
+  }, [control, constants]);
 
   return (
     <div id="canvasContainer">

@@ -47,7 +47,6 @@ export default class Director {
     this.canvasController.moveBalls(ballDistance);
   }
 
-
   set isPlaying(isPlaying) {
     if (isPlaying) {
       this.timer.start()

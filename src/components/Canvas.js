@@ -28,8 +28,12 @@ const Canvas = () => {
 
     const width = document.getElementById('canvasContainer').offsetWidth;
     const height = 300
-    canvas.width = width;
-    canvas.height = height;
+    if (canvas.width != width)  {
+      canvas.width = width;
+    }
+    if (canvas.height != height) {
+      canvas.height = height;
+    }
 
     const rect = canvas.getBoundingClientRect();
 
@@ -74,7 +78,7 @@ const Canvas = () => {
 
   return (
     <div id="canvasContainer">
-      <canvas ref={canvasRef}  style={{ border: '1px solid black' }}>
+      <canvas ref={canvasRef}  style={{ border: '1px solid black' }} >
         Your browser does not support the canvas element.
       </canvas>
     </div>

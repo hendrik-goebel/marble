@@ -1,12 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 import Director from '../lib/Director.js'
+import CanvasController from "../lib/CanvasController";
 import { useSelector} from "react-redux";
 import constants from '../lib/Constants.js'
 
+
 const Canvas = () => {
-  const canvasRef = useRef(null)
-  const directorRef = useRef(null)
-  const control = useSelector((state) => state.control)
+  const canvasRef = useRef(null);
+  const directorRef = useRef(null);
+  const canvasControllerRef = useRef(null);
+  const control = useSelector((state) => state.control);
 
 
   useEffect(() => {
@@ -14,8 +17,12 @@ const Canvas = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
+    if (!canvasControllerRef.current) {
+      canvasControllerRef.current = new CanvasController(context);
+    }
+
     if (!directorRef.current) {
-      directorRef.current = new Director(context);
+      directorRef.current = new Director(canvasControllerRef.current);
       directorRef.current.init();
     }
 
@@ -24,27 +31,28 @@ const Canvas = () => {
     canvas.width = width;
     canvas.height = height;
 
+    const rect = canvas.getBoundingClientRect();
+
     canvas.addEventListener('mousedown', (e) => {
       if (editMode === constants.MODE.NONE){
-        editMode = constants.MODE.DRAWING;
+        let bar = canvasControllerRef.current.getCollidingBar(e.clientX - rect.left, e.clientY - rect.top);
+        if (bar) {
+          editMode = constants.MODE.MOVING;
+        } else {
+          editMode = constants.MODE.DRAWING;
+          bar = canvasControllerRef.current.spawnBar(e.clientX - rect.left, e.clientY - rect.top);
+        }
+        canvasControllerRef.current.selectBar(bar);
       }
     });
 
     canvas.addEventListener('mouseup', (e) => {
-      if (editMode === constants.MODE.DRAWING) {
         editMode = constants.MODE.NONE;
-      }
     });
 
     canvas.addEventListener('mousemove', (e) => {
       if (editMode === constants.MODE.DRAWING) {
-        const drawEvent = new CustomEvent('onCanvasDraw', {
-          detail: {
-            x: e.clientX,
-            y: e.clientY
-          }
-        });
-        document.dispatchEvent(drawEvent);
+        canvasControllerRef.current.extendSelectedBar(e.clientX - rect.left, e.clientY - rect.top);
       }
     })
 

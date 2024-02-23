@@ -1,13 +1,14 @@
-import Ball from "./Ball";
 import setup from "./Setup";
-import CanvasView from '../lib/CanvasView.js'
 import Timer from './Timer.js'
 import * as Tone from 'tone'
 import * as Calculator from './Calculator.js'
 
+/**
+ * Coordinates the game loop so that audio and visual elements are in sync
+ */
 export default class Director {
-  constructor(context) {
-    this.canvas = new CanvasView(context);
+  constructor(canvasController) {
+    this.canvasController = canvasController;
     this.timer = new Timer(setup.system.audio.bpm);
     this._bpm = null;
     this.isPlaying = null;
@@ -15,7 +16,7 @@ export default class Director {
   }
 
   init() {
-    this.initBalls();
+    this.canvasController.initBalls();
     this.initEventListeners()
     this.timer.init()
   }
@@ -29,10 +30,9 @@ export default class Director {
 
     document.addEventListener('beat', (event) => {
       let beatValue = event.detail.beat;
-
       console.log(beatValue);
       if (beatValue === 1) {
-        this.spawnBall()
+        this.canvasController.spawnBall()
       }
 
       if (this.isPulseEnabled) {
@@ -40,49 +40,13 @@ export default class Director {
         synth.triggerAttackRelease("C3", "32n");
       }
     });
-
-    document.addEventListener('onCanvasDraw', (event) => {
-      console.log("Drawing")
-    });
-  }
-
-  initBalls() {
-    this.balls = []
-    for (let i = 0; i < setup.dropper.maxBalls; i++) {
-      this.balls.push(new Ball(setup.ball))
-    }
-    this.balls[this.balls.length - 1].isVisible = true;
   }
 
   loop(deltaTime, currentBeatValue) {
     const ballDistance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
-
-    this.balls.forEach((ball) => {
-      if (ball.isVisible) {
-        ball.distance = ballDistance;
-        ball.move()
-        this.canvas.draw(ball)
-      }
-
-      if (ball.yb > this.canvas.height) {
-        this.canvas.clearBall(ball);
-        ball.reset()
-      }
-
-      if (ball.isVisible) {
-        this.canvas.draw(ball)
-      }
-    })
+    this.canvasController.moveBalls(ballDistance);
   }
 
-  spawnBall() {
-    this.balls.forEach((ball) => {
-      if (!ball.isVisible) {
-        ball.isVisible = true
-        return
-      }
-    })
-  }
 
   set isPlaying(isPlaying) {
     if (isPlaying) {
@@ -98,10 +62,10 @@ export default class Director {
   }
 
   set canvasWidth(width) {
-    this.canvas.width = width
+    this.canvasController.width = width
   }
 
   set canvasHeight(height) {
-    this.canvas.height = height
+    this.canvasController.height = height
   }
 }

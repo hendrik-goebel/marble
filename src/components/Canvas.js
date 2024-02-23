@@ -33,7 +33,7 @@ const Canvas = () => {
 
     const rect = canvas.getBoundingClientRect();
 
-    canvas.addEventListener('mousedown', (e) => {
+    const handleMouseDown = (e) => {
       if (editMode === constants.MODE.NONE){
         let bar = canvasControllerRef.current.getCollidingBar(e.clientX - rect.left, e.clientY - rect.top);
         if (bar) {
@@ -44,23 +44,32 @@ const Canvas = () => {
         }
         canvasControllerRef.current.selectBar(bar);
       }
-    });
+    }
+    canvas.addEventListener('mousedown', handleMouseDown);
 
-    canvas.addEventListener('mouseup', (e) => {
-        editMode = constants.MODE.NONE;
-    });
+    const handleMouseUp = (e) => {
+      editMode = constants.MODE.NONE;
+    }
+    canvas.addEventListener('mouseup', handleMouseUp);
 
-    canvas.addEventListener('mousemove', (e) => {
+    const handleMouseMove = (e) => {
       if (editMode === constants.MODE.DRAWING) {
         canvasControllerRef.current.extendSelectedBar(e.clientX - rect.left, e.clientY - rect.top);
       }
-    })
+    }
+    canvas.addEventListener('mousemove', handleMouseMove);
 
     directorRef.current.bpm = control.bpm;
     directorRef.current.isPlaying = control.isPlaying
     directorRef.current.isPulseEnabled = control.isPulseEnabled
     directorRef.current.canvasWidth = width;
     directorRef.current.canvasHeight = height;
+
+    return () => {
+      canvas.removeEventListener('mousedown', handleMouseDown);
+      canvas.removeEventListener('mouseup', handleMouseUp);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+    };
   }, [control, constants]);
 
   return (

@@ -24,7 +24,6 @@ export default class Ball extends AbstractEntity {
   }
 
   move() {
-
     this.xb = this.x
     this.yb = this.y
 

@@ -62,7 +62,6 @@ export default class CanvasController {
     return bar;
   }
 
-
   drawBar(bar) {
     this.context.beginPath();
     this.context.rect(bar.x, bar.y, bar.width, bar.height);
@@ -70,11 +69,11 @@ export default class CanvasController {
     this.context.fill();
     this.context.closePath();
   }
+
   drawBall(ball) {
     if (ball.xb === ball.x || ball.yb === ball.y) {
       return
     }
-
     this.clearBall(ball);
     this.context.beginPath();
     this.context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
@@ -82,6 +81,7 @@ export default class CanvasController {
     this.context.fill();
     this.context.closePath();
   }
+
   clearBall(ball) {
     if (ball.xb && ball.yb) {
       this.context.clearRect(
@@ -92,9 +92,13 @@ export default class CanvasController {
     }
   }
 
+  clearBar(bar) {
+    this.context.clearRect(bar.x, bar.y, bar.width, bar.height);
+  }
+
   getCollidingBar(x, y) {
     for (let bar of this.bars) {
-      if (this.collisionDetector.detectObjectCollision({ x, y }, bar)) {
+      if (this.collisionDetector.detectClickCollision({x, y}, bar)) {
         return bar;
       }
     }
@@ -106,12 +110,24 @@ export default class CanvasController {
       console.error('No bar selected');
       return;
     }
+    this.clearBar(this.selectedBar);
     this.selectedBar.width = x - this.selectedBar.x;
     this.selectedBar.height = y - this.selectedBar.y;
     this.drawBar(this.selectedBar);
   }
 
-  selectBar(bar) {
-   this.selectedBar = bar;
+  moveSelectedBar(x, y) {
+    if (this.selectedBar === null) {
+      console.error('No bar selected');
+      return;
+    }
+    this.clearBar(this.selectedBar);
+    this.selectedBar.move(x, y);
+    this.drawBar(this.selectedBar);
+  }
+
+  selectBar(bar, x, y) {
+    this.selectedBar = bar;
+    this.selectedBar.setOffset(x, y);
   }
 }

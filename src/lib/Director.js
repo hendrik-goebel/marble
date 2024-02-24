@@ -45,6 +45,7 @@ export default class Director {
   loop(deltaTime, currentBeatValue) {
     const ballDistance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
     this.canvasController.moveBalls(ballDistance);
+    this.canvasController.redrawAll();
   }
 
   set isPlaying(isPlaying) {

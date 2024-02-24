@@ -30,16 +30,10 @@ export default class CanvasController {
       if (ball.isVisible) {
         ball.distance = distance;
         ball.move();
-        this.drawBall(ball);
-      }
 
-      if (ball.yb > this.height) {
-        this.clearBall(ball);
-        ball.reset();
-      }
-
-      if (ball.isVisible) {
-        this.drawBall(ball);
+        if (ball.y > this.height) {
+          ball.reset();
+        }
       }
     })
   }
@@ -47,8 +41,8 @@ export default class CanvasController {
   spawnBall() {
     this.balls.forEach((ball) => {
       if (!ball.isVisible) {
-        ball.isVisible = true
-        return
+        ball.isVisible = true;
+        return ball;
       }
     })
   }
@@ -58,7 +52,6 @@ export default class CanvasController {
     bar.x = x;
     bar.y = y;
     this.bars.push(bar);
-    this.drawBar(bar);
     return bar;
   }
 
@@ -71,29 +64,11 @@ export default class CanvasController {
   }
 
   drawBall(ball) {
-    if (ball.xb === ball.x || ball.yb === ball.y) {
-      return
-    }
-    this.clearBall(ball);
     this.context.beginPath();
     this.context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     this.context.fillStyle = ball.color;
     this.context.fill();
     this.context.closePath();
-  }
-
-  clearBall(ball) {
-    if (ball.xb && ball.yb) {
-      this.context.clearRect(
-        ball.xb - ball.radius,
-        ball.yb - ball.radius,
-        ball.radius * 2,
-        ball.radius * 2);
-    }
-  }
-
-  clearBar(bar) {
-    this.context.clearRect(bar.x, bar.y, bar.width, bar.height);
   }
 
   getCollidingBar(x, y) {
@@ -110,10 +85,8 @@ export default class CanvasController {
       console.error('No bar selected');
       return;
     }
-    this.clearBar(this.selectedBar);
     this.selectedBar.width = x - this.selectedBar.x;
     this.selectedBar.height = y - this.selectedBar.y;
-    this.drawBar(this.selectedBar);
   }
 
   moveSelectedBar(x, y) {
@@ -121,13 +94,30 @@ export default class CanvasController {
       console.error('No bar selected');
       return;
     }
-    this.clearBar(this.selectedBar);
     this.selectedBar.move(x, y);
-    this.drawBar(this.selectedBar);
   }
 
   selectBar(bar, x, y) {
     this.selectedBar = bar;
     this.selectedBar.setOffset(x, y);
+  }
+
+  clearAll() {
+    this.context.clearRect(0, 0, this.width, this.height);
+  }
+
+  redrawAll() {
+    this.clearAll();
+    this.bars.forEach((bar) => {
+      if (bar.isVisible) {
+        this.drawBar(bar);
+      }
+    })
+    this.balls.forEach((ball) => {
+      if (ball.isVisible) {
+        this.drawBall(ball);
+      }
+    })
+
   }
 }

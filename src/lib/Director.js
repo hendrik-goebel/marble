@@ -64,6 +64,10 @@ export default class Director {
     this.timer.bpm = bpm
   }
 
+  set quantisation(quantisation) {
+    this.timer.quantisation = quantisation
+  }
+
   set canvasWidth(width) {
     this.canvasController.width = width
   }

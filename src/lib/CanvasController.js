@@ -57,7 +57,6 @@ export default class CanvasController {
         return ball;
       }
   }
-
   spawnBar(x, y) {
     let bar = new Bar(setup.bar);
     bar.x = x;

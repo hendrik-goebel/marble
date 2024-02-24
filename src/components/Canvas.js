@@ -93,6 +93,7 @@ const Canvas = () => {
     canvas.addEventListener('mousemove', handleMouseMove);
 
     directorRef.current.bpm = control.bpm;
+    directorRef.current.quantisation = control.quantisation;
     directorRef.current.isPlaying = control.isPlaying
     directorRef.current.isPulseEnabled = control.isPulseEnabled
     directorRef.current.canvasWidth = width;

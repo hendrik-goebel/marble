@@ -34,7 +34,6 @@ export default class Timer {
             beat: this.currentBeat
           },
         })
-
       document.dispatchEvent(tickEvent);
 
       if (elapsed >= this.intervalDuration) {
@@ -58,6 +57,7 @@ export default class Timer {
             if (this.currentBeat > this.beatsPerMeasure) {
               this.currentBeat = 1;
             }
+
             const beatEvent = new CustomEvent(
               'beat', {
                 detail: {
@@ -65,10 +65,10 @@ export default class Timer {
                 },
               })
 
-        //    console.log("quant: ", this.quant, "beat: ", this.currentBeat)
             document.dispatchEvent(beatEvent);
           }
         }
+        console.log("quant: ", this.quant, "beat: ", this.currentBeat)
       }
       requestAnimationFrame(tick)
     }
@@ -79,5 +79,19 @@ export default class Timer {
     this._bpm = bpm
     const intervalDuration = calculateInterval(this._bpm, this.beatsPerMeasure, this.quantisation);
     this.intervalDuration = intervalDuration
+  }
+
+  get bpm() {
+    return this._bpm
+  }
+
+  set quantisation(quantisation) {
+    this._quantisation = quantisation
+    const intervalDuration = calculateInterval(this._bpm, this.beatsPerMeasure, this.quantisation);
+    this.intervalDuration = intervalDuration
+  }
+
+  get quantisation() {
+    return this._quantisation
   }
 }

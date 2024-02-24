@@ -4,7 +4,8 @@ export const controlSlice = createSlice({
   initialState: {
     bpm: 120,
     isPulseEnabled: true,
-    isPlaying: false
+    isPlaying: false,
+    quantisation: 16
   },
 
   reducers: {
@@ -16,10 +17,13 @@ export const controlSlice = createSlice({
     },
     setPlaying: (state, action) => {
       state.isPlaying = action.payload;
+    },
+    setQuantisation: (state, action) => {
+      state.quantisation = action.payload;
     }
   }
 });
 
-export const { setBpm, setPulseEnabled, setPlaying } = controlSlice.actions;
+export const { setBpm, setPulseEnabled, setPlaying, setQuantisation } = controlSlice.actions;
 
 export default controlSlice.reducer;

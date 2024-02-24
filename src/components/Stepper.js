@@ -1,26 +1,23 @@
-function Stepper({title, value, set, plusplus, minusminus}) {
+function Stepper({title, value, set, plus, minus, plusplus, minusminus}) {
 
-  if (!plusplus) {
-     plusplus = (value) => value * 2;
+  if (plusplus && minusminus) {
+    return (
+      <div>
+        <label>{title}</label>
+        <button onClick={() => set(plusplus(value))}>&nbsp;++&nbsp;</button>
+        <button onClick={() => set(plus(value))}>&nbsp;+&nbsp;</button>
+        <span>{value}</span>
+        <button onClick={() => set(minus(value))}>&nbsp;-&nbsp;</button>
+        <button onClick={() => set(minusminus(value))}>&nbsp;--&nbsp;</button>
+      </div>
+    );
   }
-
-  if (!minusminus) {
-    minusminus = (value) => Math.floor(value / 2);
-  }
-
-  let biginc = () => set(plusplus(value));
-  let inc = () => set(value + 1);
-  let dec = () => value > 0 ? set(value - 1) : null;
-  let bigdec = () => set(minusminus(value));
-
   return (
     <div>
       <label>{title}</label>
-      <button onClick={biginc}>++</button>
-      <button onClick={inc}>+</button>
+      <button onClick={() => set(plus(value))}>&nbsp;+&nbsp;</button>
       <span>{value}</span>
-      <button onClick={dec}>-</button>
-      <button onClick={bigdec}>--</button>
+      <button onClick={() => set(minus(value))}>&nbsp;-&nbsp;</button>
     </div>
   );
 }

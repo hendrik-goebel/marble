@@ -3,10 +3,10 @@ import {calculateInterval} from "./Calculator";
 export default class Timer {
   constructor(bpm) {
     this._bpm = bpm
-    this.isRunning = false;
     this.beatsPerMeasure = 4;
     this.noteValue = 4;
     this.currentBeat = 1;
+    this.isPlaying = false;
   }
 
   init() {
@@ -34,21 +34,19 @@ export default class Timer {
           },
         })
 
-      if (this.isRunning) {
-        document.dispatchEvent(tickEvent);
-      }
+      document.dispatchEvent(tickEvent);
 
       if (elapsed >= this.intervalDuration) {
         startTime = timestamp;
-        const beatEvent = new CustomEvent(
-          'beat', {
-            detail: {
-              beat: this.currentBeat,
-              timestamp: timestamp,
-            },
-          })
+        if (this.isPlaying) {
+          const beatEvent = new CustomEvent(
+            'beat', {
+              detail: {
+                beat: this.currentBeat,
+                timestamp: timestamp,
+              },
+            })
 
-        if (this.isRunning) {
           document.dispatchEvent(beatEvent);
           this.currentBeat++;
           if (this.currentBeat > this.beatsPerMeasure) {
@@ -59,14 +57,6 @@ export default class Timer {
       requestAnimationFrame(tick)
     }
     requestAnimationFrame(tick);
-  }
-
-  start() {
-    this.isRunning = true
-  }
-
-  stop() {
-    this.isRunning = false
   }
 
   set bpm(bpm) {

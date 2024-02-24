@@ -11,7 +11,7 @@ export default class Director {
     this.canvasController = canvasController;
     this.timer = new Timer(setup.system.audio.bpm);
     this._bpm = null;
-    this.isPlaying = null;
+    this.isPlaying = false;
     this.isPulseEnabled = null;
   }
 
@@ -31,11 +31,11 @@ export default class Director {
     document.addEventListener('beat', (event) => {
       let beatValue = event.detail.beat;
       console.log(beatValue);
-      if (beatValue === 1) {
+      if (beatValue === 1 && this.isPlaying) {
         this.canvasController.spawnBall()
       }
 
-      if (this.isPulseEnabled) {
+      if (this.isPulseEnabled && this.isPlaying) {
         const synth = new Tone.Synth().toDestination();
         synth.triggerAttackRelease("C3", "32n");
       }
@@ -49,18 +49,14 @@ export default class Director {
 
     });
   }
+
   loop(deltaTime, currentBeatValue) {
     const ballDistance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
-    this.canvasController.moveBalls(ballDistance);
-    this.canvasController.redrawAll();
-  }
 
-  set isPlaying(isPlaying) {
-    if (isPlaying) {
-      this.timer.start()
-    } else {
-      this.timer.stop();
+    if (this.isPlaying) {
+      this.canvasController.moveBalls(ballDistance);
     }
+    this.canvasController.redrawAll();
   }
 
   set bpm(bpm) {
@@ -70,6 +66,15 @@ export default class Director {
 
   set canvasWidth(width) {
     this.canvasController.width = width
+  }
+
+  set isPlaying(value) {
+    this.timer.isPlaying = value
+    this._isPlaying = value
+  }
+
+  get isPlaying() {
+    return this._isPlaying
   }
 
   set canvasHeight(height) {

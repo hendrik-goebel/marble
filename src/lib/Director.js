@@ -1,7 +1,7 @@
 import setup from "./Setup";
 import Timer from './Timer.js'
-import * as Tone from 'tone'
 import * as Calculator from './Calculator.js'
+import AudioPlayer from "./AudioPlayer";
 
 /**
  * Coordinates the game loop so that audio and visual elements are in sync
@@ -13,6 +13,7 @@ export default class Director {
     this._bpm = null;
     this.isPlaying = false;
     this.isPulseEnabled = null;
+    this.audioPlayer = new AudioPlayer();
   }
 
   init() {
@@ -36,18 +37,13 @@ export default class Director {
       }
 
       if (this.isPulseEnabled && this.isPlaying) {
-        const note = beatValue === 1 ? "C4" : "C3";
-        const synth = new Tone.Synth().toDestination();
-        synth.triggerAttackRelease(note, "32n");
+        this.audioPlayer.playSound('pulse');
       }
+      this.audioPlayer.playBufferedSounds();
     });
 
     document.addEventListener('collision', (event) => {
-      const ball = event.detail.ball;
-      const bar = event.detail.bar;
-      const synth = new Tone.Synth().toDestination();
-      synth.triggerAttackRelease("A2", "32n");
-
+      this.audioPlayer.bufferSound('bar')
     });
   }
 

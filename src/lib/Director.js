@@ -40,8 +40,15 @@ export default class Director {
         synth.triggerAttackRelease("C3", "32n");
       }
     });
-  }
 
+    document.addEventListener('collision', (event) => {
+      const ball = event.detail.ball;
+      const bar = event.detail.bar;
+      const synth = new Tone.Synth().toDestination();
+      synth.triggerAttackRelease("E3", "32n");
+
+    });
+  }
   loop(deltaTime, currentBeatValue) {
     const ballDistance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
     this.canvasController.moveBalls(ballDistance);

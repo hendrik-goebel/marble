@@ -31,6 +31,21 @@ export default class CanvasController {
         ball.distance = distance;
         ball.move();
 
+        this.bars.forEach((bar) => {
+          this.collisionDetector.detectObjectCollision(ball, bar);
+        });
+
+        if (ball.isColliding) {
+          const collisionEvent = new CustomEvent('collision', {
+            detail: {
+              ball: ball,
+              bar: ball.collision.object
+            }
+          });
+          document.dispatchEvent(collisionEvent);
+        }
+
+
         if (ball.y > this.height) {
           ball.reset();
         }

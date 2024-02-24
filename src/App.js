@@ -21,20 +21,24 @@ function App() {
   const setIsPulseEnabled = (state) => dispatch(setPulseEnabled(state));
   const setQuantisation = (state) => dispatch(dispatchSetQuantisation(state));
 
-  const inc10 = (value) => value + 10;
-  const dec10 = (value) => value - 10;
-  const doubleMax32 = (value) => (value * 2 <= 32) ? value * 2 : value;
+
+  const maxBpm = 180;
+  const minBpm = 60;
+
+  const plusplusBpm = (value) => value + 10 > maxBpm ? maxBpm : value + 10;
+  const minusminusBpm = (value) => value - 10 < minBpm ? minBpm : value - 10;
+  const doubleMax128 = (value) => (value * 2 <= 128) ? value * 2 : value;
   const halfMin4 = (value) => (value / 2) < 4 ? value : value / 2;
-  const plus = (value) => value + 1;
-  const minus = (value) => value - 1;
+  const plusBpm = (value) => value + 1 > maxBpm ? maxBpm : value + 1;
+  const minusBpm = (value) => value - 1 < minBpm ? minBpm : value - 1;
 
   return (
     <div className="App">
       <div className="container mx-auto">
         <div className="grid grid-cols-5 gap-4 bg-slate-400">
           <div>01</div>
-          <div><SpeedStepper title="BPM" value={bpm} set={setBpm} plus={plus} minus={minus} plusplus={inc10} minusminus={dec10} /></div>
-          <div><QuantisationStepper title="Quantisation" value={quantisation} set={setQuantisation} plus={doubleMax32} minus={halfMin4}  /></div>
+          <div><SpeedStepper title="BPM" value={bpm} set={setBpm} plus={plusBpm} minus={minusBpm} plusplus={plusplusBpm} minusminus={minusminusBpm} /></div>
+          <div><QuantisationStepper title="Quantisation" value={quantisation} set={setQuantisation} plus={doubleMax128} minus={halfMin4}  /></div>
           <div><PulseCheckbox title="Pulse" value={isPulseEnabled} set={setIsPulseEnabled}/></div>
           <div><PlayButton title="PLAY" value={isPlaying} set={setIsPlaying}/></div>
           <div className="col-span-5 bg-slate-400">

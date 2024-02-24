@@ -102,25 +102,29 @@ export default class CollisionDetector {
 
 
   /**
-   * Detects the colision of circle inside a box
+   * Detects the collision of circle inside a box
 
    * @param object a circle with params x,y,radius
    * @param object rectangle with params x,y,width,height
    * @returns {undefined} */
   detectCircleInsideRectangle(a, b) {
 
-    let colisionOffset = a.radius
+    let colisionOffset = a.radius;
 
     if (a.y < b.y + colisionOffset) {
+      a.y = b.y + colisionOffset;
       return 'top'
     }
     if (a.x < b.x + colisionOffset) {
+      a.x = b.x + colisionOffset;
       return 'left'
     }
     if (a.y > b.y + b.height - colisionOffset) {
+      a.y = b.y + b.height - colisionOffset;
       return 'bottom'
     }
     if (a.x > b.x + b.width - colisionOffset * 2) {
+      a.x = b.x + b.width - colisionOffset * 2;
       return 'right'
     }
     return null

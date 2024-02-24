@@ -22,7 +22,6 @@ export default class CanvasController {
     for (let i = 0; i < setup.dropper.maxBalls; i++) {
       this.balls.push(new Ball(setup.ball))
     }
-    this.balls[this.balls.length - 1].isVisible = true;
   }
 
   moveBalls(distance) {
@@ -45,21 +44,23 @@ export default class CanvasController {
           document.dispatchEvent(collisionEvent);
         }
 
-
-        if (ball.y > this.height) {
-          ball.reset();
+        this.collisionDetector.detectCanvasBorderCollision(ball, {x: 0, y: 0, width: this.width, height: this.height});
+        if (ball.isColliding) {
+          if (ball.collision.position === 'bottom')
+          {
+            ball.reset();
+          }
         }
       }
     })
   }
 
   spawnBall() {
-    this.balls.forEach((ball) => {
+    for (let ball of this.balls)
       if (!ball.isVisible) {
         ball.isVisible = true;
         return ball;
       }
-    })
   }
 
   spawnBar(x, y) {
@@ -123,16 +124,15 @@ export default class CanvasController {
 
   redrawAll() {
     this.clearAll();
-    this.bars.forEach((bar) => {
+    for (let bar of this.bars) {
       if (bar.isVisible) {
         this.drawBar(bar);
       }
-    })
-    this.balls.forEach((ball) => {
+    }
+    for (let ball of this.balls) {
       if (ball.isVisible) {
         this.drawBall(ball);
       }
-    })
-
+    }
   }
 }

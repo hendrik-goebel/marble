@@ -29,9 +29,14 @@ export default class Director {
       this.loop(deltaTime, currentBeatValue);
     });
 
+    document.addEventListener('quant', (event) => {
+      if (this.isPlaying) {
+        this.audioPlayer.playBufferedSounds();
+      }
+    });
+
     document.addEventListener('beat', (event) => {
       let beatValue = event.detail.beat;
-      console.log(beatValue);
       if (beatValue === 1 && this.isPlaying) {
         this.canvasController.spawnBall()
       }
@@ -39,7 +44,6 @@ export default class Director {
       if (this.isPulseEnabled && this.isPlaying) {
         this.audioPlayer.playSound('pulse');
       }
-      this.audioPlayer.playBufferedSounds();
     });
 
     document.addEventListener('collision', (event) => {

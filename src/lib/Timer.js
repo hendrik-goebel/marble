@@ -4,9 +4,10 @@ export default class Timer {
   constructor(bpm) {
     this._bpm = bpm
     this.beatsPerMeasure = 4;
-    this.noteValue = 4;
-    this.currentBeat = 1;
+    this.currentBeat = 0;
     this.isPlaying = false;
+    this.quantisation = 16;
+    this.quant = 0;
   }
 
   init() {
@@ -37,20 +38,35 @@ export default class Timer {
       document.dispatchEvent(tickEvent);
 
       if (elapsed >= this.intervalDuration) {
-        startTime = timestamp;
         if (this.isPlaying) {
-          const beatEvent = new CustomEvent(
-            'beat', {
-              detail: {
-                beat: this.currentBeat,
-                timestamp: timestamp,
-              },
-            })
+          startTime = timestamp;
+          this.quant++;
+          if (this.quant > this.quantisation) {
+            this.quant = 1;
+          }
 
-          document.dispatchEvent(beatEvent);
-          this.currentBeat++;
-          if (this.currentBeat > this.beatsPerMeasure) {
-            this.currentBeat = 1;
+          const quantEvent = new CustomEvent(
+            'quant', {
+              detail: {
+                value: this.quant
+              },
+            });
+          document.dispatchEvent(quantEvent);
+
+          if ((this.quant % (this.quantisation / this.beatsPerMeasure) === 0)) {
+            this.currentBeat++;
+            if (this.currentBeat > this.beatsPerMeasure) {
+              this.currentBeat = 1;
+            }
+            const beatEvent = new CustomEvent(
+              'beat', {
+                detail: {
+                  beat: this.currentBeat,
+                },
+              })
+
+        //    console.log("quant: ", this.quant, "beat: ", this.currentBeat)
+            document.dispatchEvent(beatEvent);
           }
         }
       }
@@ -61,7 +77,7 @@ export default class Timer {
 
   set bpm(bpm) {
     this._bpm = bpm
-    const intervalDuration = calculateInterval(this._bpm, 4)
+    const intervalDuration = calculateInterval(this._bpm, this.beatsPerMeasure, this.quantisation);
     this.intervalDuration = intervalDuration
   }
 }

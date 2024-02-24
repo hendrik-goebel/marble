@@ -1,7 +1,7 @@
 
 
-export function calculateInterval(bpm, noteValue) {
-  const noteDuration = noteValue / 4;
+export function calculateInterval(bpm, noteValue, quantisation) {
+  const noteDuration = quantisation / noteValue;
   const noteValueInMilliseconds = 60000 / bpm / noteDuration
   return noteValueInMilliseconds
 }

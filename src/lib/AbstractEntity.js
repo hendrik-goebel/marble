@@ -45,22 +45,6 @@ export default class AbstractEntity {
     this.collision.subPosition = subPosition
   }
 
-  activate() {
-    this.isVisible = true
-    for (let observer of this.observers) {
-      observer(this, 'activated')
-    }
-    return this
-  }
-
-  deactivate() {
-    this.isVisible = false
-    for (let observer of this.observers) {
-      observer(this, 'deactivated')
-    }
-    return this
-  }
-
   get width() {
     return this._width;
   }

@@ -11,7 +11,6 @@ export default class Bar extends AbstractEntity {
     this.height = setup.minHeight
     this.minWidth = setup.minWidth;
     this.minHeight = setup.minHeight;
-    this.activate()
     this._isSelected = true
     this.offset = {
       'x': 0,

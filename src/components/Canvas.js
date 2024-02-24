@@ -27,7 +27,7 @@ const Canvas = () => {
     }
 
     const width = document.getElementById('canvasContainer').offsetWidth;
-    const height = 300
+    const height = 500
     if (canvas.width != width)  {
       canvas.width = width;
     }

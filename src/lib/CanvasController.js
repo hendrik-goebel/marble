@@ -44,13 +44,7 @@ export default class CanvasController {
           document.dispatchEvent(collisionEvent);
         }
 
-        this.collisionDetector.detectCanvasBorderCollision(ball, {x: 0, y: 0, width: this.width, height: this.height});
-        if (ball.isColliding) {
-          if (ball.collision.position === 'bottom')
-          {
-            ball.reset();
-          }
-        }
+        this.collisionDetector.detectCanvasBorderCollision(ball, {x: 0, y: 0, width: this.width, height: this.height, type: 'wall'});
       }
     })
   }
@@ -59,6 +53,7 @@ export default class CanvasController {
     for (let ball of this.balls)
       if (!ball.isVisible) {
         ball.isVisible = true;
+        this.drawBall(ball);
         return ball;
       }
   }

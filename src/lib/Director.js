@@ -36,8 +36,9 @@ export default class Director {
       }
 
       if (this.isPulseEnabled && this.isPlaying) {
+        const note = beatValue === 1 ? "C4" : "C3";
         const synth = new Tone.Synth().toDestination();
-        synth.triggerAttackRelease("C3", "32n");
+        synth.triggerAttackRelease(note, "32n");
       }
     });
 
@@ -45,14 +46,13 @@ export default class Director {
       const ball = event.detail.ball;
       const bar = event.detail.bar;
       const synth = new Tone.Synth().toDestination();
-      synth.triggerAttackRelease("E3", "32n");
+      synth.triggerAttackRelease("A2", "32n");
 
     });
   }
 
   loop(deltaTime, currentBeatValue) {
     const ballDistance = Calculator.calculateDistanceByBpm(this._bpm, deltaTime)
-
     if (this.isPlaying) {
       this.canvasController.moveBalls(ballDistance);
     }

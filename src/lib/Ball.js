@@ -65,7 +65,7 @@ export default class Ball extends AbstractEntity {
       }
       if (direction == 'bottom') {
         if (this.collision.object.type == this.CONST.TYPE.WALL) {
-          this.deactivate()
+          this.reset()
         }
         this.directionY *= -1
         if (this.collision.depth < 0 && this.collision.object.type == this.CONST.TYPE.BAR) {

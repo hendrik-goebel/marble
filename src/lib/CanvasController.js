@@ -74,6 +74,10 @@ export default class CanvasController {
     this.context.closePath();
   }
 
+  deleteBar(bar) {
+    this.bars = this.bars.filter((b) => b !== bar);
+  }
+
   drawBall(ball) {
     this.context.beginPath();
     this.context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);

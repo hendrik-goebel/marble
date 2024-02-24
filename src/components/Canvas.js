@@ -10,7 +10,7 @@ const Canvas = () => {
   const directorRef = useRef(null);
   const canvasControllerRef = useRef(null);
   const control = useSelector((state) => state.control);
-
+  const clickCounter = useRef(0);
 
   useEffect(() => {
     let editMode = constants.MODE.NONE;
@@ -41,16 +41,37 @@ const Canvas = () => {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      if (editMode === constants.MODE.NONE){
+      const singleClickTimer = setTimeout(function () {
+        if (clickCounter.current == 1) {
+          singleClick()
+        }
+        if (clickCounter.current > 1) {
+          doubleClick()
+        }
+        clickCounter.current = 0
+      }, 200);
+
+      clickCounter.current++
+
+      const singleClick = () => {
+        if (editMode === constants.MODE.NONE){
+          let bar = canvasControllerRef.current.getCollidingBar(x, y);
+          if (bar) {
+            editMode = constants.MODE.MOVING;
+          } else {
+            editMode = constants.MODE.DRAWING;
+            bar = canvasControllerRef.current.spawnBar(x, y);
+          }
+          canvasControllerRef.current.selectBar(bar,x, y);
+        }
+      };
+
+      const doubleClick = () => {
         let bar = canvasControllerRef.current.getCollidingBar(x, y);
         if (bar) {
-          editMode = constants.MODE.MOVING;
-        } else {
-          editMode = constants.MODE.DRAWING;
-          bar = canvasControllerRef.current.spawnBar(x, y);
+          canvasControllerRef.current.deleteBar(bar);
         }
-        canvasControllerRef.current.selectBar(bar,x, y);
-      }
+      };
     }
     canvas.addEventListener('mousedown', handleMouseDown);
 

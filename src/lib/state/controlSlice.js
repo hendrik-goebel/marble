@@ -5,7 +5,8 @@ export const controlSlice = createSlice({
     bpm: 120,
     isPulseEnabled: true,
     isPlaying: false,
-    quantisation: 16
+    quantisation: 16,
+    currentSoundId: 1
   },
 
   reducers: {
@@ -20,10 +21,13 @@ export const controlSlice = createSlice({
     },
     setQuantisation: (state, action) => {
       state.quantisation = action.payload;
+    },
+    setCurrentSoundId: (state, action) => {
+      state.currentSoundId = action.payload;
     }
   }
 });
 
-export const { setBpm, setPulseEnabled, setPlaying, setQuantisation } = controlSlice.actions;
+export const { setBpm, setPulseEnabled, setPlaying, setQuantisation, setCurrentSoundId } = controlSlice.actions;
 
 export default controlSlice.reducer;

@@ -36,13 +36,15 @@ export default class Director {
     });
 
     document.addEventListener('beat', (event) => {
-      let beatValue = event.detail.beat;
-      if (beatValue === 1 && this.isPlaying) {
-        this.canvasController.spawnBall()
-      }
+      if (this.isPlaying) {
+        let beatValue = event.detail.beat;
+        if (beatValue === 1) {
+          this.canvasController.spawnBall()
+        }
 
-      if (this.isPulseEnabled && this.isPlaying) {
-        this.audioPlayer.playSound('pulse');
+        if (this.isPulseEnabled) {
+          this.audioPlayer.playSound('pulse');
+        }
       }
     });
 

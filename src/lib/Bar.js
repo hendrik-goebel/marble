@@ -1,7 +1,6 @@
 import AbstractEntity from './AbstractEntity.js'
 
 export default class Bar extends AbstractEntity {
-
   constructor(setup) {
     super(setup)
     this._setup = setup;

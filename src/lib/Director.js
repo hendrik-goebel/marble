@@ -15,7 +15,8 @@ export default class Director {
     this.isPulseEnabled = null;
     this.audioPlayer = new AudioPlayer();
     this.sounds = {};
-    this.currentSoundId = null;
+    this._currentSoundId = null;
+    this.selectedBar = null;
   }
 
   init() {
@@ -57,6 +58,10 @@ export default class Director {
     document.addEventListener('barSpawned', (event) => {
       event.detail.bar.soundId = this.currentSoundId;
     });
+
+    document.addEventListener('barSelected', (event) => {
+      this.selectedBar = event.detail.bar;
+    });
   }
 
   loop(deltaTime, currentBeatValue) {
@@ -95,5 +100,15 @@ export default class Director {
 
   set sounds(sounds) {
     this.audioPlayer.sounds = sounds;
+  }
+  set currentSoundId(id) {
+    this._currentSoundId = id;
+    if (id && this.selectedBar) {
+      this.selectedBar.soundId = id;
+    }
+  }
+
+  get currentSoundId() {
+    return this._currentSoundId;
   }
 }

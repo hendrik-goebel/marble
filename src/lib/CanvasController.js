@@ -121,6 +121,12 @@ export default class CanvasController {
   selectBar(bar, x, y) {
     this.selectedBar = bar;
     this.selectedBar.setOffset(x, y);
+    const selectBarEvent = new CustomEvent('barSelected', {
+      detail: {
+        bar: bar
+      }
+    });
+    document.dispatchEvent(selectBarEvent);
   }
 
   clearAll() {

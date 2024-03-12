@@ -68,7 +68,7 @@ export default class Timer {
             document.dispatchEvent(beatEvent);
           }
         }
-        console.log("quant: ", this.quant, "beat: ", this.currentBeat)
+
       }
       requestAnimationFrame(tick)
     }

@@ -17,6 +17,7 @@ export default class Director {
     this.sounds = {};
     this._currentSoundId = null;
     this.selectedBar = null;
+    this._sounds = {};
   }
 
   init() {
@@ -46,7 +47,7 @@ export default class Director {
         }
 
         if (this.isPulseEnabled) {
-          this.audioPlayer.playSound('pulse');
+          this.audioPlayer.playSound(this.sounds[1]);
         }
       }
     });
@@ -99,7 +100,12 @@ export default class Director {
   }
 
   set sounds(sounds) {
+    this._sounds = sounds;
     this.audioPlayer.sounds = sounds;
+  }
+
+  get sounds() {
+    return this._sounds;
   }
   set currentSoundId(id) {
     this._currentSoundId = id;

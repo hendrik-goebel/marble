@@ -98,6 +98,8 @@ const Canvas = () => {
     directorRef.current.isPulseEnabled = control.isPulseEnabled
     directorRef.current.canvasWidth = width;
     directorRef.current.canvasHeight = height;
+    directorRef.current.sounds = control.sounds;
+    directorRef.current.currentSoundId = control.currentSoundId;
 
     return () => {
       canvas.removeEventListener('mousedown', handleMouseDown);

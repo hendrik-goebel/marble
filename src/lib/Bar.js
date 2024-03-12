@@ -17,7 +17,7 @@ export default class Bar extends AbstractEntity {
       'y': 0
     }
     this.fixed = true
-    this.sound = null
+    this.soundId = null
 
     this.colorUnselected = setup.color
     this.colorSelected = setup.colorSelected

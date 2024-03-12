@@ -62,6 +62,13 @@ export default class CanvasController {
     bar.x = x;
     bar.y = y;
     this.bars.push(bar);
+
+    const barSpawnEvent = new CustomEvent('barSpawned', {
+      detail: {
+        bar: bar
+      }
+    });
+    document.dispatchEvent(barSpawnEvent);
     return bar;
   }
 

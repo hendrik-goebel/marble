@@ -6,9 +6,13 @@ export const controlSlice = createSlice({
     isPulseEnabled: true,
     isPlaying: false,
     quantisation: 16,
-    currentSoundId: 1
+    currentSoundId: "1",
+    sounds: {
+      1: {name: 'A', value: 'C3'},
+      2: {name: 'B', value: 'E3'},
+      3: {name: 'C', value: 'F3'}
+    }
   },
-
   reducers: {
     setBpm: (state, action) => {
       state.bpm = action.payload;

@@ -14,6 +14,8 @@ export default class Director {
     this.isPlaying = false;
     this.isPulseEnabled = null;
     this.audioPlayer = new AudioPlayer();
+    this.sounds = {};
+    this.currentSoundId = null;
   }
 
   init() {
@@ -49,7 +51,11 @@ export default class Director {
     });
 
     document.addEventListener('collision', (event) => {
-      this.audioPlayer.bufferSound('bar')
+      this.audioPlayer.bufferSound(event.detail.bar.soundId);
+    });
+
+    document.addEventListener('barSpawned', (event) => {
+      event.detail.bar.soundId = this.currentSoundId;
     });
   }
 
@@ -85,5 +91,9 @@ export default class Director {
 
   set canvasHeight(height) {
     this.canvasController.height = height
+  }
+
+  set sounds(sounds) {
+    this.audioPlayer.sounds = sounds;
   }
 }

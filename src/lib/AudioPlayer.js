@@ -3,16 +3,15 @@ import * as Tone from 'tone'
 class AudioPlayer {
 
   constructor() {
-    this.sounds = {
-      'bar': 'A2',
-      'pulse': 'C4'
-    }
 
+    this.sounds = {};
     this.soundsToPlay = [];
   }
 
-  bufferSound(name) {
-    this.soundsToPlay.push(name);
+  bufferSound(soundId) {
+    if (this.sounds.hasOwnProperty(soundId)) {
+      this.soundsToPlay.push(this.sounds[soundId]);
+    }
   }
 
   playBufferedSounds() {
@@ -21,9 +20,9 @@ class AudioPlayer {
       this.playSound(sound);
     }
   }
-  playSound(name) {
-    const synth = new Tone.Synth().toDestination();
-    synth.triggerAttackRelease(this.sounds[name], "32n");
+  playSound(sound) {
+      const synth = new Tone.Synth().toDestination();
+      synth.triggerAttackRelease(sound.value, "32n");
   }
 }
 

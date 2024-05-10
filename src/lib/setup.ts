@@ -5,7 +5,7 @@ export const setup: Setup = {
     x: 50,
     y: 50,
     color: 'blue',
-    radius: 20,
+    radius: 5,
   },
 
   bar: {
@@ -27,7 +27,7 @@ export const setup: Setup = {
       width: 600,
       height: 400
     },
-    bpm: 120
+    bpm: 60
   }
 };
 

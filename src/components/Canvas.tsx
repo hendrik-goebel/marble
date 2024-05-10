@@ -2,20 +2,26 @@ import React, { useEffect, useRef } from 'react';
 import * as Loop from '../lib/loop';
 import {useAppDispatch} from "../lib/store/hooks";
 import setup from '../lib/setup';
+import {init as initTimer } from "../lib/Timer";
+
 
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const timer = initTimer();
     const context = canvasRef.current?.getContext('2d');
+
     if (!context || !canvasRef.current) {
       return;
     }
+
     canvasRef.current.width = setup.app.canvas.width;
     canvasRef.current.height = setup.app.canvas.height;
 
     Loop.default(context);
-  });
+  }, []);
 
   const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
 

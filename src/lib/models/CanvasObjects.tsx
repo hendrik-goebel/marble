@@ -8,16 +8,14 @@ interface CanvasObjects {
 }
 export interface Ball extends CanvasObjects {
   radius: number;
+  directionX: number,
+  directionY: number;
 }
 
 export interface Bar extends CanvasObjects{
   width: number;
   height: number;
   sound: Sound;
-}
-
-export interface Balls {
-  balls: Ball[];
 }
 
 

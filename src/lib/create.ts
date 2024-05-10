@@ -13,7 +13,9 @@ export function ball(x?: number, y?:number): Ball {
     x: xCoordinate,
     y: yCoordinate,
     color: setup.ball.color,
-    radius: setup.ball.radius
+    radius: setup.ball.radius,
+    directionX: 1,
+    directionY: 1
   }
   return ball;
 }

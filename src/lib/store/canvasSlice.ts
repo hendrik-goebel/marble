@@ -21,17 +21,20 @@ export const canvasSlice = createSlice({
     addBall: (state, action: PayloadAction<Ball>) => {
       state.balls.push(action.payload);
     },
+    setBalls: (state, action: PayloadAction<Ball[]>) => {
+      state.balls = action.payload;
+    },
     addBar: (state, action: PayloadAction<Bar>) => {
       state.bars.push(action.payload);
     },
     setCurrentBar: (state, action: PayloadAction<Bar | null>) => {
       state.currentBar = action.payload;
-    }
+    },
   },
 })
 
-export const { addBall, addBar,setCurrentBar } = canvasSlice.actions
-export const selectBalls = (state: RootState) => state.canvas.balls
+export const { addBall, setBalls, addBar,setCurrentBar } = canvasSlice.actions
+export let selectBalls = (state: RootState) => state.canvas.balls
 export const selectBars = (state: RootState) => state.canvas.bars
 export const selectCurrentBar = (state: RootState) => state.canvas.currentBar
 export default canvasSlice.reducer

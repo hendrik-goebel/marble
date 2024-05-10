@@ -18,8 +18,8 @@ export const setup: Setup = {
   },
 
   sounds: [
-    {'id': '1', 'name': 'Sound1'},
-    {'id': '2', 'name': 'Sound2'},
+    {'id': '1', 'name': 'A'},
+    {'id': '2', 'name': 'B'},
   ],
 
   app: {

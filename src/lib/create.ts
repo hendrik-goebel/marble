@@ -10,8 +10,8 @@ export function ball(x?: number, y?:number): Ball {
 
   let ball: Ball = {
     id: ballId++,
-    x: setup.ball.x,
-    y: setup.ball.y,
+    x: xCoordinate,
+    y: yCoordinate,
     color: setup.ball.color,
     radius: setup.ball.radius
   }
@@ -22,6 +22,16 @@ export function bar(sound: Sound, x?: number, y?:number): Bar {
 
   let xCoordinate:number = x || setup.bar.x;
   let yCoordinate:number = y || setup.bar.y;
+  const width = setup.bar.width;
+  const height = setup.bar.height;
+
+  xCoordinate = xCoordinate - (width / 2);
+  xCoordinate = xCoordinate < 0 ? 0 : xCoordinate;
+  xCoordinate = xCoordinate + width > setup.app.canvas.width ? setup.app.canvas.width - width : xCoordinate;
+  yCoordinate = yCoordinate - (height / 2);
+  yCoordinate = yCoordinate < 0 ? 0 : yCoordinate;
+  yCoordinate = yCoordinate + height > setup.app.canvas.height ? setup.app.canvas.height - height : yCoordinate;
+
 
   let bar: Bar = {
     id: barId++,
@@ -29,8 +39,8 @@ export function bar(sound: Sound, x?: number, y?:number): Bar {
     y: yCoordinate,
     sound: sound,
     color: setup.bar.color,
-    width: setup.bar.width,
-    height: setup.bar.height
+    width: width,
+    height: height
   }
   return bar;
 }

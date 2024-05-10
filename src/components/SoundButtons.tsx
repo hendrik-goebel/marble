@@ -1,6 +1,6 @@
 import React from "react";
 import {default as SoundButton} from './controls/SoundButton'
-import {useAppDispatch, useAppSelector} from "../lib/store/hooks";
+import {useAppSelector} from "../lib/store/hooks";
 import {
   selectSounds,
   selectCurrentSound,

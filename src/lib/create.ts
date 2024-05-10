@@ -1,5 +1,6 @@
 import {Ball, Bar} from "./models/CanvasObjects";
 import setup from './setup';
+import {Sound} from './types';
 
 let ballId = 0;
 let barId = 0;
@@ -17,7 +18,7 @@ export function ball(x?: number, y?:number): Ball {
   return ball;
 }
 
-export function bar(x?: number, y?:number): Bar {
+export function bar(sound: Sound, x?: number, y?:number): Bar {
 
   let xCoordinate:number = x || setup.bar.x;
   let yCoordinate:number = y || setup.bar.y;
@@ -26,6 +27,7 @@ export function bar(x?: number, y?:number): Bar {
     id: barId++,
     x: xCoordinate,
     y: yCoordinate,
+    sound: sound,
     color: setup.bar.color,
     width: setup.bar.width,
     height: setup.bar.height

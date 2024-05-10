@@ -1,3 +1,5 @@
+import {Sound} from '../types';
+
 interface CanvasObjects {
   id: number,
   x: number,
@@ -11,6 +13,7 @@ export interface Ball extends CanvasObjects {
 export interface Bar extends CanvasObjects{
   width: number;
   height: number;
+  sound: Sound;
 }
 
 export interface Balls {

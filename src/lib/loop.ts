@@ -1,5 +1,6 @@
 import {Ball, Bar} from './models/CanvasObjects';
 import {addBall, addBar, selectBars, setCurrentBar, selectCurrentBar} from './store/canvasSlice'
+import {selectCurrentSound} from "./store/controlsSlice";
 import * as draw from './draw';
 import * as create from './create';
 import {store} from './store/store';
@@ -18,16 +19,14 @@ export function handleMouseDown(context: CanvasRenderingContext2D, x: number, y:
     if (collision.isPositionInsideBar(x, y, bar)) {
       isCollision = true;
       let currentBar = selectCurrentBar(store.getState());
-
-
       store.dispatch(setCurrentBar(bar))
-
       break;
     }
   }
 
   if (isCollision === false) {
-    let bar: Bar = create.bar(x, y);
+    const currentSound = selectCurrentSound(store.getState());
+    let bar: Bar = create.bar(currentSound, x, y);
     draw.bar(context, bar);
     store.dispatch(addBar(bar));
     store.dispatch(setCurrentBar(bar));

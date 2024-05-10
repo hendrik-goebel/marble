@@ -1,10 +1,11 @@
-export const setup = {
+import {Setup} from './types'
+
+export const setup: Setup = {
   ball: {
     x: 50,
     y: 50,
     color: 'blue',
     radius: 20,
-
   },
 
   bar: {
@@ -16,6 +17,11 @@ export const setup = {
     height: 20,
   },
 
+  sounds: [
+    {'id': '1', 'name': 'Sound1'},
+    {'id': '2', 'name': 'Sound2'},
+  ],
+
   app: {
     canvas: {
       width: 600,
@@ -24,5 +30,6 @@ export const setup = {
     bpm: 120
   }
 };
+
 
 export default setup;

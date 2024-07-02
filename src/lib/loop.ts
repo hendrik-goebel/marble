@@ -4,6 +4,7 @@ import {selectCurrentSound} from "./store/controlsSlice";
 import * as draw from './draw';
 import * as create from './create';
 import * as move from './move';
+import * as reset from './reset';
 import {store} from './store/store';
 import * as collision from './collision';
 
@@ -35,8 +36,13 @@ function tick(context: CanvasRenderingContext2D, deltaTime: number, bpm: number)
 
 function moveBalls(distance: number) {
   let balls = selectBalls(store.getState()).map(ball => ({...ball}))
+  const canvas = store.getState().canvas.canvas;
   for (let ball of balls) {
     move.ball(ball, distance);
+    if (collision.ballWithCanvas(ball, canvas) === 'bottom')
+    {
+      reset.ball(ball);
+    }
   }
   store.dispatch(setBalls(balls));
 }

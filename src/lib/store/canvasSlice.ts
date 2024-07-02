@@ -1,14 +1,19 @@
 import { Ball, Bar } from '../models/CanvasObjects';
+import { Canvas } from '../types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { setup } from '../setup'
 import type { RootState } from './store'
 
 interface CanvasState {
+  canvas: Canvas;
   currentBar: Bar | null;
   balls: Ball[];
   bars: Bar[];
 }
 
 const initialState: CanvasState = {
+
+  canvas: setup.app.canvas,
   currentBar: null,
   balls: [],
   bars: []
@@ -33,8 +38,12 @@ export const canvasSlice = createSlice({
   },
 })
 
-export const { addBall, setBalls, addBar,setCurrentBar } = canvasSlice.actions
-export let selectBalls = (state: RootState) => state.canvas.balls
-export const selectBars = (state: RootState) => state.canvas.bars
-export const selectCurrentBar = (state: RootState) => state.canvas.currentBar
+export const { addBall, setBalls, addBar,setCurrentBar } = canvasSlice.actions;
+export let selectBalls = (state: RootState) => state.canvas.balls;
+export const selectBars = (state: RootState) => state.canvas.bars;
+export const selectCanvas = (state: RootState) => state.canvas.canvas;
+export const selectCurrentBar = (state: RootState) => state.canvas.currentBar;
+
+
+
 export default canvasSlice.reducer

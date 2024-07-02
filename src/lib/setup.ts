@@ -1,5 +1,6 @@
 import {Setup} from './types'
 
+
 export const setup: Setup = {
   ball: {
     x: 50,

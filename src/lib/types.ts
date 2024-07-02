@@ -2,6 +2,12 @@ export interface Sound {
   id: string;
   name: string;
 }
+
+export interface Canvas {
+  width: number;
+  height: number;
+
+}
 export interface Setup {
   ball: {
     x: number,
@@ -22,10 +28,7 @@ export interface Setup {
   sounds: Sound[],
 
   app: {
-    canvas: {
-      width: number,
-      height: number
-    },
+    canvas: Canvas,
     bpm: number
   }
 }

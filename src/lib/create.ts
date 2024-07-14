@@ -12,7 +12,7 @@ export function ball(x?: number, y?:number): Ball {
     id: ballId++,
     x: xCoordinate,
     y: yCoordinate,
-    color: setup.ball.color,
+    color: setup.ball.style.normal,
     radius: setup.ball.radius,
     directionX: 1,
     directionY: 1
@@ -40,7 +40,7 @@ export function bar(sound: Sound, x?: number, y?:number): Bar {
     x: xCoordinate,
     y: yCoordinate,
     sound: sound,
-    color: setup.bar.color,
+    color: setup.bar.style.highlight,
     width: width,
     height: height
   }

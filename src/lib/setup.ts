@@ -5,15 +5,20 @@ export const setup: Setup = {
   ball: {
     x: 50,
     y: 50,
-    color: 'blue',
+    style: {
+      normal: 'green',
+      highlight: 'red',
+    },
     radius: 5,
   },
 
   bar: {
     x: 50,
     y: 50,
-    color: 'blue',
-    colorActive: 'red',
+    style: {
+      normal: 'blue',
+      highlight: 'red',
+    },
     width: 40,
     height: 20,
   },

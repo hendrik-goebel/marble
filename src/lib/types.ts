@@ -1,3 +1,13 @@
+export enum ObjectStyle {
+  normal = 'normal',
+  highlight = 'highlight',
+}
+
+export enum EditMode {
+  draw = 'draw',
+  none = 'none',
+}
+
 export interface Sound {
   id: string;
   name: string;
@@ -6,21 +16,25 @@ export interface Sound {
 export interface Canvas {
   width: number;
   height: number;
-
 }
 export interface Setup {
   ball: {
     x: number,
     y: number,
-    color: string,
+    style: {
+      normal: string,
+      highlight: string,
+    },
     radius: number,
   },
 
   bar: {
     x: number,
     y: number,
-    color: string,
-    colorActive: string,
+    style: {
+      normal: string,
+      highlight: string,
+    },
     width: number,
     height: number,
   },

@@ -23,8 +23,7 @@ const Canvas = () => {
     Loop.default(context);
   }, []);
 
-  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-
+  const handleEvent = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;
     if (canvas !== null) {
       const rect = canvas.getBoundingClientRect();
@@ -33,15 +32,22 @@ const Canvas = () => {
 
       const context = canvas.getContext('2d');
       if (context) {
-        Loop.handleMouseDown(context, x, y);
+        switch (event.type) {
+          case 'mousedown':
+            Loop.handleMouseDown(context, x, y);
+            break;
+          case 'mouseup':
+            Loop.handleMouseUp(context, x, y);
+            break;
+        }
       }
-
     }
-  };
+  }
+
 
   return (
     <div id="canvasContainer">
-      <canvas ref={canvasRef} onMouseDown={handleMouseDown} style={{border: '1px solid black'}}>
+      <canvas ref={canvasRef} onMouseDown={handleEvent} onMouseUp={handleEvent} style={{border: '1px solid black'}}>
         Your browser does not support the canvas element.
       </canvas>
     </div>

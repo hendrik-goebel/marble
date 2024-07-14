@@ -1,6 +1,6 @@
 import {Ball, Bar} from './models/CanvasObjects';
 import {addBall, setBalls, addBar, selectBars, setCurrentBar, selectCurrentBar, selectBalls} from './store/canvasSlice'
-import {selectCurrentSound} from "./store/controlsSlice";
+import {selectCurrentSound, selectBpm} from "./store/controlsSlice";
 import * as draw from './draw';
 import * as create from './create';
 import * as move from './move';
@@ -10,7 +10,6 @@ import * as collision from './collision';
 
 
 export default function init(context: CanvasRenderingContext2D) {
-  const bpm = 120;
   let ball = create.ball();
   store.dispatch(addBall(ball));
 
@@ -19,9 +18,10 @@ export default function init(context: CanvasRenderingContext2D) {
   })
 
   document.addEventListener('tick', (event) => {
+
     const detail = (event as CustomEvent).detail;
     const deltaTime = detail.deltaTime;
-    tick(context, deltaTime, bpm);
+    tick(context, deltaTime, selectBpm(store.getState()));
   });
 }
 

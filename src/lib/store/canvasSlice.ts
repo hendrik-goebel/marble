@@ -33,6 +33,10 @@ export const canvasSlice = createSlice({
     addBar: (state, action: PayloadAction<Bar>) => {
       state.bars.push(action.payload);
     },
+    updateBar: (state, action: PayloadAction<Bar>) => {
+      state.bars = state.bars.map((bar: Bar) => { if (bar.id == action.payload.id) return action.payload; else return bar;});
+
+    },
     updateBars: (state, action: PayloadAction<Bar[]>) => {
       state.bars = action.payload;
     },
@@ -51,11 +55,14 @@ export const {
   addBar,
   setCurrentBar,
   updateBars,
-  setEditMode
+  setEditMode,
+  updateBar
 } = canvasSlice.actions;
 export let selectBalls = (state: RootState) => state.canvas.balls;
 export const selectBars = (state: RootState) => state.canvas.bars;
 export const selectCanvas = (state: RootState) => state.canvas.canvas;
 export const selectCurrentBar = (state: RootState) => state.canvas.currentBar;
+
+export const selectEditMode = (state: RootState) => state.canvas.editMode;
 
 export default canvasSlice.reducer

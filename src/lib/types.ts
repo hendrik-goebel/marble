@@ -5,6 +5,7 @@ export enum ObjectStyle {
 
 export enum EditMode {
   draw = 'draw',
+  move = 'move',
   none = 'none',
 }
 

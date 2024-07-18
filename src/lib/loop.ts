@@ -51,7 +51,11 @@ function calculateDistanceByBpm(bpm: number, deltaTime: number): number {
 }
 
 export function handleMouseDown(context: CanvasRenderingContext2D, x: number, y: number) {
-  handle.checkAndHandleClickOnBar(x, y);
+  handle.mouseDown(x, y);
+}
+
+export function handleMouseMove(context: CanvasRenderingContext2D, x: number, y: number) {
+  handle.mouseMove(x, y);
 }
 
 export function handleMouseUp(context: CanvasRenderingContext2D, x: number, y: number) {

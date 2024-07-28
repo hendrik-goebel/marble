@@ -10,7 +10,7 @@ import {store} from './store/store';
 import * as collision from './collision';
 
 
-export default function init(context: CanvasRenderingContext2D) {
+export function init(context: CanvasRenderingContext2D) {
   let ball = create.ball();
   store.dispatch(addBall(ball));
 
@@ -48,18 +48,6 @@ function moveBalls(distance: number) {
 
 function calculateDistanceByBpm(bpm: number, deltaTime: number): number {
   return bpm * (deltaTime * 1.5)
-}
-
-export function handleMouseDown(context: CanvasRenderingContext2D, x: number, y: number) {
-  handle.mouseDown(x, y);
-}
-
-export function handleMouseMove(context: CanvasRenderingContext2D, x: number, y: number) {
-  handle.mouseMove(x, y);
-}
-
-export function handleMouseUp(context: CanvasRenderingContext2D, x: number, y: number) {
-  handle.mouseUp(x, y);
 }
 
 

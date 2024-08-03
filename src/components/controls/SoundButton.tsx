@@ -1,6 +1,6 @@
-import {Sound} from '../../lib/types'
-import {setCurrentSoundById} from '../../lib/store/controlsSlice'
-import {useAppDispatch, useAppSelector} from "../../lib/store/hooks";
+import {Sound} from '../../lib/types';
+import {setCurrentSoundById} from '../../lib/store/controlsSlice';
+import {useAppDispatch} from "../../lib/store/hooks";
 
 interface SoundButtonProps {
   value: string;

@@ -7,12 +7,12 @@ import {
   setEditMode,
   updateBars
 } from "./store/canvasSlice";
+import {selectCurrentSound} from "./store/controlsSlice";
 import {store} from "./store/store";
 import {Bar} from "./models/CanvasObjects";
 import * as change from "./change";
 import {EditMode, ObjectStyle} from "./types";
 import * as collision from "./collision";
-import {selectCurrentSound} from "./store/controlsSlice";
 import * as create from "./create";
 import {setup} from "./setup"
 
@@ -26,7 +26,7 @@ export function mouseDown(x: number, y: number) {
   if (barsClicked.length > 0) {
     let barClicked = barsClicked[barsClicked.length-1];
     bars = bars.filter(bar => bar.id !== barClicked.id);
-    let barActivated = mouseDownOnBar(barClicked, x, y);
+    let barActivated = activateBar(barClicked, x, y);
     bars.push(barActivated);
   } else {
     const newBar = mouseDownOnFreeSpace(x, y);
@@ -43,7 +43,7 @@ function mouseDownOnFreeSpace(x: number, y: number): Bar {
   return newBar;
 }
 
-function mouseDownOnBar(bar: Bar, x: number, y: number): Bar {
+function activateBar(bar: Bar, x: number, y: number): Bar {
   barOffsetX = x - bar.x;
   barOffsetY = y - bar.y;
   const collisionBarUpdated = change.barStyle(bar, ObjectStyle.highlight);
@@ -96,6 +96,5 @@ export function doubleClick(x: number, y: number)
   }
 
   store.dispatch(updateBars(barsUpdated));
-
   store.dispatch(setEditMode(EditMode.none))
 }

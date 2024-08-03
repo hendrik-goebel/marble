@@ -30,6 +30,9 @@ const Canvas = () => {
       const context = canvas.getContext('2d');
       if (context) {
         switch (event.type) {
+          case 'dblclick':
+            handle.doubleClick(x, y);
+            break;
           case 'mousedown':
             handle.mouseDown(x, y);
             break;
@@ -45,7 +48,13 @@ const Canvas = () => {
   }
   return (
     <div id="canvasContainer">
-      <canvas ref={canvasRef} onMouseDown={handleEvent} onMouseUp={handleEvent} onMouseMove={handleEvent} style={{border: '1px solid black'}}>
+      <canvas ref={canvasRef}
+              onMouseDown={handleEvent}
+              onMouseUp={handleEvent}
+              onMouseMove={handleEvent}
+              onDoubleClick={handleEvent}
+
+              style={{border: '1px solid black'}}>
         Your browser does not support the canvas element.
       </canvas>
     </div>

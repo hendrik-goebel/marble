@@ -20,26 +20,19 @@ let barOffsetX = 0;
 let barOffsetY = 0;
 
 export function mouseDown(x: number, y: number) {
-  const bars: Bar[] = selectBars(store.getState());
-  let barsUpdated: Bar[] = [];
-  let isCollision: boolean = false;
-
-  for (const bar of bars) {
-    barsUpdated.push(change.barStyle(bar, ObjectStyle.normal));
-
-    if (collision.isPositionInsideBar(x, y, bar)) {
-      const barUpdated = mouseDownOnBar(bar, x, y);
-      barsUpdated.push(barUpdated);
-      isCollision = true;
-    }
-  }
-
-  if (!isCollision) {
+  let bars: Bar[] = selectBars(store.getState());
+  bars = bars.map(bar => change.barStyle(bar, ObjectStyle.normal));
+  let barsClicked = bars.filter(bar => collision.isPositionInsideBar(x, y, bar));
+  if (barsClicked.length > 0) {
+    let barClicked = barsClicked[barsClicked.length-1];
+    bars = bars.filter(bar => bar.id !== barClicked.id);
+    let barActivated = mouseDownOnBar(barClicked, x, y);
+    bars.push(barActivated);
+  } else {
     const newBar = mouseDownOnFreeSpace(x, y);
-    barsUpdated.push(newBar);
+    bars.push(newBar);
   }
-
-  store.dispatch(updateBars(barsUpdated));
+  store.dispatch(updateBars(bars));
 }
 
 function mouseDownOnFreeSpace(x: number, y: number): Bar {
@@ -89,4 +82,20 @@ export function mouseMove(x: number, y: number) {
   }
   store.dispatch(updateBar(currentBar));
   store.dispatch(setCurrentBar(currentBar));
+}
+
+export function doubleClick(x: number, y: number)
+{
+  const bars: Bar[] = selectBars(store.getState());
+  let barsUpdated: Bar[] = [];
+  for (const bar of bars) {
+    if (!collision.isPositionInsideBar(x, y, bar)) {
+      barsUpdated.push(change.barStyle(bar, ObjectStyle.normal));
+      barsUpdated.push(bar);
+    }
+  }
+
+  store.dispatch(updateBars(barsUpdated));
+
+  store.dispatch(setEditMode(EditMode.none))
 }

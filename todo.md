@@ -1,3 +1,3 @@
 next:
 
-draw bars in handle.ts
+fix ball behavior when bar is dragged over a ball

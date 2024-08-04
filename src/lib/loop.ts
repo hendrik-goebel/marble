@@ -7,7 +7,6 @@ import * as reset from './reset';
 import {store} from './store/store';
 import * as collision from './collision';
 
-
 export function init(context: CanvasRenderingContext2D) {
   let ball = create.ball();
   store.dispatch(canvasSlice.addBall(ball));
@@ -30,15 +29,13 @@ function tick(context: CanvasRenderingContext2D, deltaTime: number, bpm: number)
   updateCanvas(context);
 }
 
-function updateCanvas(context: CanvasRenderingContext2D)
-{
+function updateCanvas(context: CanvasRenderingContext2D) {
   draw.clear(context);
   draw.balls(context, canvasSlice.selectBalls(store.getState()));
   draw.bars(context, canvasSlice.selectBars(store.getState()));
 }
 
-function syncCurrentBarWithCurrentSound()
-{
+function syncCurrentBarWithCurrentSound() {
   const currentSound = controlsSlice.selectCurrentSound(store.getState());
   const currentBar = canvasSlice.selectCurrentBar(store.getState());
   if (currentBar && currentBar.sound !== currentSound) {
@@ -52,11 +49,39 @@ function syncCurrentBarWithCurrentSound()
 
 function moveBalls(distance: number) {
   let balls = canvasSlice.selectBalls(store.getState()).map(ball => ({...ball}))
+  const bars = canvasSlice.selectBars((store.getState()));
   const canvas = store.getState().canvas.canvas;
   for (let ball of balls) {
     move.ball(ball, distance);
-    if (collision.ballWithCanvas(ball, canvas) === 'bottom') {
-      reset.ball(ball);
+    const collisionBallWithCanvas = collision.ballWithCanvas(ball, canvas);
+    if(collisionBallWithCanvas) {
+      switch (collisionBallWithCanvas) {
+        case 'bottom':
+          reset.ball(ball);
+          break;
+        case 'top':
+          ball.directionY *= -1;
+          break;
+        case 'left':
+        case 'right':
+          ball.directionX *= -1;
+          break;
+      }
+    }
+
+    let collisionBallWithBar = collision.ballWithBar(ball, bars);
+    if (collisionBallWithBar) {
+      switch (collisionBallWithBar.position) {
+        case 'bottom':
+        case 'top':
+          ball.directionY *= -1;
+          break;
+        case 'left':
+        case 'right':
+          ball.directionX *= -1;
+          break;
+
+      }
     }
   }
   store.dispatch(canvasSlice.setBalls(balls));

@@ -4,7 +4,6 @@ import setup from '../lib/setup';
 import {init as initTimer } from "../lib/Timer";
 import * as handle from '../lib/handle';
 
-
 const Canvas = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
